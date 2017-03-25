@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ConstantCharge</string>
+    <string name="bottom_navigation_bar_txt1">首页</string>
+    <string name="bottom_navigation_bar_txt2">发现</string>
+    <string name="bottom_navigation_bar_txt3">扫码</string>
+    <string name="bottom_navigation_bar_txt4">设置</string>
+    <string name="bottom_navigation_bar_txt5">我的</string>
+</resources>

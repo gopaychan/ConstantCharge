@@ -1,0 +1,21 @@
+ext {
+    //Android
+    androidBuildToolsVersion = "25.0.0"
+    androidMinSdkVersion = 15
+    androidTargetSdkVersion = 25
+    androidCompileSdkVersion = 25
+
+    //Libraries
+    supportVersion = "25.0.3"
+    junitVersion = "4.12"
+    bottomNavigationVersion = "1.4.1"
+    butterknifeVersion = "8.5.1"
+
+    projectDependencies = [
+        bottomNavigation : "com.ashokvarma.android:bottom-navigation-bar:${bottomNavigationVersion}",
+        junit : "junit:junit:${junitVersion}",
+        appcompatV7 : "com.android.support:appcompat-v7:${supportVersion}",
+        butterknife : "com.jakewharton:butterknife:${butterknifeVersion}",
+        butterknifeCompiler : "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+    ]
+}
