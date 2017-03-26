@@ -1,8 +1,14 @@
 <resources>
-    <string name="app_name">ConstantCharge</string>
+    <string name="app_name">恒充电</string>
     <string name="bottom_navigation_bar_txt1">首页</string>
     <string name="bottom_navigation_bar_txt2">发现</string>
     <string name="bottom_navigation_bar_txt3">扫码</string>
     <string name="bottom_navigation_bar_txt4">设置</string>
     <string name="bottom_navigation_bar_txt5">我的</string>
+    <string name="home_search_view_hint">输入目的地/电站名</string>
+    <string name="home_charge_detail_txt">充电实况</string>
+    <string name="home_charge_collection_txt">充地收藏</string>
+    <string name="home_charge_reserve_txt">预约充电</string>
+    <string name="home_charge_map_txt">充电地图</string>
+    <string name="home_online_recharge_txt">在线充值</string>
 </resources>

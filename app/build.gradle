@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -31,6 +32,13 @@ dependencies {
     testCompile projectDependencies.junit
     compile projectDependencies.appcompatV7
     compile projectDependencies.bottomNavigation
+    //butterknife dependencies
     compile projectDependencies.butterknife
-    annotationProcessor projectDependencies.butterknifeCompiler
+    // Dagger dependencies
+    apt projectDependencies.daggerCompiler
+    provided projectDependencies.javaxAnnotation
+    compile projectDependencies.dagger
+    compile projectDependencies.supportDesign
+    compile projectDependencies.cardView
+    compile 'com.github.arimorty:floatingsearchview:2.0.3'
 }
