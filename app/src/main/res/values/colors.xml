@@ -6,4 +6,13 @@
     <color name="colorTheme">#577fa6</color>
     <color name="searchHintGray">#cccccc</color>
     <color name="homeDivideColor">#b6b3b3</color>
+    
+    <color name="chargeDetailBg">#212437</color>
+    <color name="chargeDetailRingProgressBg">#2f344d</color>
+    <color name="chargeDetailTextColor">@android:color/white</color>
+    <color name="chargeDetailEndNormal">#dfdede</color>
+    <color name="chargeDetailEndPress">#1adfdede</color>
+    <color name="chargeDetailBg2">@color/chargeDetailRingProgressBg</color>
+    <color name="chargeDetailItemText2">#a9a8a8</color>
+    <color name="chargeDetailDivider">#ffffff</color>
 </resources>

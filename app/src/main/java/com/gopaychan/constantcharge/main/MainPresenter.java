@@ -11,10 +11,10 @@ import javax.inject.Inject;
 @PerActivity
 public class MainPresenter implements IMainContract.IPresenter {
 
-    private IMainContract.IView mMainView;
+    private IMainContract.MainView mMainView;
 
     @Inject
-    public MainPresenter(IMainContract.IView view){
+    public MainPresenter(IMainContract.MainView view){
         mMainView = view;
     }
 

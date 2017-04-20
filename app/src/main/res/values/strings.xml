@@ -11,4 +11,14 @@
     <string name="home_charge_reserve_txt">预约充电</string>
     <string name="home_charge_map_txt">充电地图</string>
     <string name="home_online_recharge_txt">在线充值</string>
+
+    <string name="charge_detail_always_complete">已完成</string>
+    <string name="charge_detail_end_charge">结束充电</string>
+    <string name="charge_detail_battery_temperature">电池温度</string>
+    <string name="charge_detail_current_voltage">电流/电压</string>
+    <string name="charge_detail_max_temperature">最高位温度</string>
+    <string name="charge_detail_max_voltage">最高电压</string>
+    <string name="charge_detail_time">充电时长</string>
+    <string name="charge_detail_money">充电金额</string>
+    <string name="charge_detail_count">总耗电量</string>
 </resources>

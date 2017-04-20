@@ -2,6 +2,8 @@ package com.gopaychan.constantcharge;
 
 import android.content.Context;
 
+import com.gopaychan.constantcharge.executor.ThreadExecutor;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -13,4 +15,5 @@ import dagger.Component;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
     Context context();
+    ThreadExecutor threadExecutor();
 }

@@ -5,6 +5,10 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.gopaychan.constantcharge.ActivityModule;
+import com.gopaychan.constantcharge.ApplicationComponent;
+import com.gopaychan.constantcharge.ChargeApplication;
+
 import butterknife.ButterKnife;
 
 /**
@@ -13,8 +17,12 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initView();
+
     protected abstract void initData();
+
     protected abstract void inject();
+
+    protected boolean isBindAuto = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,7 +34,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
+        if (isBindAuto)
+            ButterKnife.bind(this);
         initView();
+    }
+
+    protected ApplicationComponent getApplicationComponent() {
+        return ChargeApplication.getApplicationComponent();
+    }
+
+    protected ActivityModule getActivityModule() {
+        return new ActivityModule(this);
     }
 }

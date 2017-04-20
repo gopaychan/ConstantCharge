@@ -7,12 +7,11 @@ import android.support.v4.view.ViewPager;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.gopaychan.constantcharge.DaggerActivityComponent;
 import com.gopaychan.constantcharge.R;
 import com.gopaychan.constantcharge.base.BaseActivity;
 import com.gopaychan.constantcharge.base.BaseFragment;
 import com.gopaychan.constantcharge.home.HomeFragment;
-import com.gopaychan.constantcharge.home.HomePresenter;
-import com.gopaychan.constantcharge.home.HomePresenterModule;
 
 import java.util.ArrayList;
 
@@ -20,11 +19,11 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
-public class MainActivity extends BaseActivity implements IMainContract.IView {
+public class MainActivity extends BaseActivity{
     @Inject
     public MainPresenter mPresenter;
-    @Inject
-    public HomePresenter mHomePresenter;
+//    @Inject
+//    public HomePresenter mHomePresenter;
 
     @Bind(R.id.mainBottomNavigationBarId)
     BottomNavigationBar mBottomNavigationBar;
@@ -99,8 +98,8 @@ public class MainActivity extends BaseActivity implements IMainContract.IView {
 
     @Override
     protected void inject() {
-        DaggerMainComponent.builder().mainPresenterModule(new MainPresenterModule(this))
-                .homePresenterModule(new HomePresenterModule((HomeFragment) mFragments.get(0)))
+        DaggerActivityComponent.builder().applicationComponent(getApplicationComponent()).activityModule(getActivityModule())
+//                .homePresenterModule(new HomePresenterModule((HomeFragment) mFragments.get(0)))
                 .build()
                 .inject(this);
 
@@ -115,13 +114,5 @@ public class MainActivity extends BaseActivity implements IMainContract.IView {
         mFragments.add(new BaseFragment());
     }
 
-    @Override
-    public void showFragment(int position) {
-        mViewPager.setCurrentItem(position);
-    }
 
-    @Override
-    public void setPresenter(IMainContract.IPresenter presenter) {
-
-    }
 }

@@ -3,6 +3,9 @@ package com.gopaychan.constantcharge;
 import android.app.Application;
 import android.content.Context;
 
+import com.gopaychan.constantcharge.executor.JobExecutor;
+import com.gopaychan.constantcharge.executor.ThreadExecutor;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -22,5 +25,10 @@ public class ApplicationModule {
 
     @Provides @Singleton Context provideApplicationContext(){
         return application;
+    }
+
+    @Provides @Singleton
+    ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
+        return jobExecutor;
     }
 }

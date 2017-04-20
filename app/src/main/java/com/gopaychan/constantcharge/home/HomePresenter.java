@@ -6,12 +6,12 @@ import javax.inject.Inject;
  * Created by gopaychan on 2017/3/26.
  */
 
-public class HomePresenter implements HomeContract.IPresenter {
+public class HomePresenter implements IHomeContract.IPresenter {
 
-    private HomeContract.IView mView;
+    private IHomeContract.IView mView;
 
     @Inject
-    public HomePresenter(HomeContract.IView view) {
+    public HomePresenter(IHomeContract.IView view) {
         mView = view;
     }
 

@@ -1,0 +1,155 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_span"
+                android:text="@string/charge_detail_always_complete"
+                android:textColor="@color/chargeDetailTextColor"
+                android:textSize="@dimen/charge_detail_common_text_size" />
+
+            <TextView
+                android:id="@+id/chargeDetailPercentTvId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_span"
+                android:text="55%"
+                android:textColor="@color/chargeDetailTextColor"
+                android:textSize="@dimen/charge_detail_percent_text_size" />
+
+            <TextView
+                android:id="@+id/chargeDetailTimeTvId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="预计5小时后充电完成"
+                android:textColor="@color/chargeDetailTextColor"
+                android:textSize="@dimen/charge_detail_common_text_size" />
+        </LinearLayout>
+
+        <com.gopaychan.constantcharge.view.RingProgress
+            android:id="@+id/electricityRingProgressId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/charge_detail_progress_margin_lr"
+            android:layout_marginRight="@dimen/charge_detail_progress_margin_lr"
+            android:paddingBottom="@dimen/charge_detail_progress_padding_tb"
+            android:paddingTop="@dimen/charge_detail_progress_padding_tb"
+            app:ring_background="@color/chargeDetailRingProgressBg"
+            app:ring_stroke_width="@dimen/charge_detail_progress_stroke_width" />
+
+    </FrameLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/common_span"
+        android:layout_marginRight="@dimen/common_span"
+        android:layout_weight="1"
+        app:cardBackgroundColor="@color/chargeDetailBg2"
+        app:cardCornerRadius="@dimen/charge_detail_cardview_radius">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:dividerPadding="@dimen/common_span"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/chargeDetailTimeId"
+                    layout="@layout/include_charge_detail_item" />
+
+                <!--<Space-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="0.05"/>-->
+
+                <include
+                    android:id="@+id/chargeDetailCountId"
+                    layout="@layout/include_charge_detail_item" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/chargeDetailMoneyId"
+                    layout="@layout/include_charge_detail_item" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.25" />
+
+                <Button
+                    android:id="@+id/chargeDetailEndId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.6"
+                    android:background="@drawable/charge_detail_end_btn_selector"
+                    android:text="@string/charge_detail_end_charge" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/common_span"
+        android:layout_weight="2"
+        app:cardBackgroundColor="@color/chargeDetailBg2"
+        app:cardCornerRadius="@dimen/charge_detail_cardview_radius">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/chargeDetailTabLyId"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/charge_detail_navigationbar_height"
+                android:layout_alignParentBottom="true" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/chargeDetailVpId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/chargeDetailTabLyId" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

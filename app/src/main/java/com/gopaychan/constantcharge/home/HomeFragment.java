@@ -23,11 +23,11 @@ import butterknife.OnClick;
  * Created by gopaychan on 2017/3/26.
  */
 
-public class HomeFragment extends BaseFragment implements HomeContract.IView{
+public class HomeFragment extends BaseFragment implements IHomeContract.IView{
 
     @Bind(R.id.homeCardViewId)
     CardView mCardView;
-    private HomeContract.IPresenter mPresenter;
+    private IHomeContract.IPresenter mPresenter;
 
     public static HomeFragment getInstance() {
         Bundle args = new Bundle();
@@ -51,7 +51,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.IView{
     }
 
     @Override
-    public void setPresenter(HomeContract.IPresenter presenter) {
+    public void setPresenter(IHomeContract.IPresenter presenter) {
         mPresenter = presenter;
     }
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RingProgress">
+        <attr name="ring_color" format="color" />
+        <attr name="ring_background" format="color" />
+        <attr name="ring_stroke_width" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ScoreTrend">
+        <attr name="max_score" format="string"/>
+        <attr name="min_score" format="string"/>
+        <attr name="broken_line_color" format="color"/>
+    </declare-styleable>
+</resources>

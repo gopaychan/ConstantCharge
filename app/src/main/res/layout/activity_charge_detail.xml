@@ -2,12 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/chargeDetailBg"
     android:orientation="vertical">
 
-    <include layout="@layout/common_action_bar"/>
+    <include layout="@layout/include_common_action_bar" />
 
-    <ImageView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/chargeDetailSwipeRefreshLyId"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/charge_detail_img" />
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ViewStub
+                android:id="@+id/chargeDetailViewStubId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout="@layout/include_charge_detail" />
+        </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </LinearLayout>
