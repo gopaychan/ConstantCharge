@@ -114,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="0.6"
-                    android:background="@drawable/charge_detail_end_btn_selector"
+                    android:background="@drawable/common_btn_selector"
                     android:text="@string/charge_detail_end_charge" />
 
                 <Space

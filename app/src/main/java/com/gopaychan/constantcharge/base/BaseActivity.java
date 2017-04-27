@@ -28,7 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
-        inject();
+//        inject();
     }
 
     @Override
@@ -36,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.setContentView(layoutResID);
         if (isBindAuto)
             ButterKnife.bind(this);
+        inject();
         initView();
     }
 

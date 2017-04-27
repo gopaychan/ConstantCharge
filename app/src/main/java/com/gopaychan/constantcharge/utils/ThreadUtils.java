@@ -8,6 +8,9 @@ import android.os.Looper;
  */
 
 public class ThreadUtils {
+    private ThreadUtils() {
+
+    }
 
     public static void runOnMainThread(Runnable runnable) {
         if (Looper.getMainLooper() == Looper.myLooper()) {

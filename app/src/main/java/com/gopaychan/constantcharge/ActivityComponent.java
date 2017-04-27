@@ -3,7 +3,7 @@ package com.gopaychan.constantcharge;
 import com.gopaychan.constantcharge.base.BaseActivity;
 import com.gopaychan.constantcharge.base.PerActivity;
 import com.gopaychan.constantcharge.charge.ChargeDetailActivity;
-import com.gopaychan.constantcharge.main.MainActivity;
+import com.gopaychan.constantcharge.home.map.ChargeMapFragment;
 
 import dagger.Component;
 
@@ -14,9 +14,13 @@ import dagger.Component;
 @Component(dependencies = {ApplicationComponent.class}, modules = ActivityModule.class)
 public interface ActivityComponent {
 
-    void inject(MainActivity activity);
+//    void inject(MainActivity activity);
 
     void inject(ChargeDetailActivity activity);
+
+//    void inject(ChargeMapActivity activity);
+
+    void inject(ChargeMapFragment fragment);
 
     BaseActivity activity();
 

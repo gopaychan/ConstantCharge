@@ -1,16 +1,21 @@
 <resources>
     <string name="app_name">恒充电</string>
+    <string name="minute">分钟</string>
     <string name="bottom_navigation_bar_txt1">首页</string>
     <string name="bottom_navigation_bar_txt2">发现</string>
     <string name="bottom_navigation_bar_txt3">扫码</string>
     <string name="bottom_navigation_bar_txt4">设置</string>
     <string name="bottom_navigation_bar_txt5">我的</string>
+
     <string name="home_search_view_hint">输入目的地/电站名</string>
     <string name="home_charge_detail_txt">充电实况</string>
     <string name="home_charge_collection_txt">充地收藏</string>
     <string name="home_charge_reserve_txt">预约充电</string>
     <string name="home_charge_map_txt">充电地图</string>
     <string name="home_online_recharge_txt">在线充值</string>
+    <string name="home_location_unknown">未知</string>
+    <string name="home_mode_list">列表</string>
+    <string name="home_mode_map">地图</string>
 
     <string name="charge_detail_always_complete">已完成</string>
     <string name="charge_detail_end_charge">结束充电</string>
@@ -21,4 +26,18 @@
     <string name="charge_detail_time">充电时长</string>
     <string name="charge_detail_money">充电金额</string>
     <string name="charge_detail_count">总耗电量</string>
+
+    <string name="charge_map_distance">搜索范围</string>
+    <string name="charge_map_money">剩余金额</string>
+    <string name="charge_map_popup_detail">查看</string>
+    <string name="charge_map_popup_navigation">导航</string>
+    <string name="charge_map_popup_total_pile">总桩数:{}</string>
+    <string name="charge_map_popup_free_pile">空桩数:{}</string>
+    <string name="charge_map_popup_predict_free_pile">预计{}后有空桩</string>
+    <string name="charge_map_popup_predict_reach_time">预计到达时间:{}</string>
+    <string name="charge_map_TTS_APP_ID">9441461</string>
+
+    <string name="charge_list_item_navigation">导航</string>
+    
+    <string name="scanning_description">扫描充电桩上的二维码即可启动充电</string>
 </resources>

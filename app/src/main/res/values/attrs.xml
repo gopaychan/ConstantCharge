@@ -11,4 +11,62 @@
         <attr name="min_score" format="string"/>
         <attr name="broken_line_color" format="color"/>
     </declare-styleable>
+
+    <string-array name="LatLngNearby">
+        <item>23.050412</item>
+        <item>113.394161</item>
+        <item>康陵路</item><!--address-->
+        <item>6</item><!--totalPile-->
+        <item>3</item><!--freePile-->
+        <item>0</item><!--predictFreePileTime-->
+
+        <item>23.160402</item>
+        <item>113.304161</item>
+        <item>广园东路</item>
+        <item>6</item>
+        <item>0</item>
+        <item>30分钟</item>
+
+        <item>23.065402</item>
+        <item>113.434161</item>
+        <item>农场大街</item>
+        <item>5</item>
+        <item>3</item>
+        <item>0</item>
+
+        <item>23.070402</item>
+        <item>113.594161</item>
+        <item>沿江西一路</item>
+        <item>4</item>
+        <item>2</item>
+        <item>0</item>
+
+        <item>23.080402</item>
+        <item>113.394161</item>
+        <item>环岛北路</item>
+        <item>8</item>
+        <item>3</item>
+        <item>0</item>
+
+        <item>23.160402</item>
+        <item>113.394261</item>
+        <item>沐陂西路</item>
+        <item>5</item>
+        <item>0</item>
+        <item>24分钟</item>
+
+        <item>23.065402</item>
+        <item>113.594161</item>
+        <item>麻涌大道</item>
+        <item>3</item>
+        <item>3</item>
+        <item>0</item>
+
+        <item>23.060421</item>
+        <item>113.494131</item>
+        <item>金枫大道南</item>
+        <item>7</item>
+        <item>4</item>
+        <item>0</item>
+    </string-array>
 </resources>

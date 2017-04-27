@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<include layout="@layout/include_common_action_bar" />-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/charge_map_top_bar_height"-->
+    <!--android:background="@color/chargeMapBg">-->
+
+    <!--<include-->
+    <!--android:id="@+id/chargeMapDistanceId"-->
+    <!--layout="@layout/include_charge_map_item" />-->
+
+    <!--<include-->
+    <!--android:id="@+id/chargeMapMoneyId"-->
+    <!--layout="@layout/include_charge_map_item" />-->
+    <!--</LinearLayout>-->
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/chargeMapViewId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

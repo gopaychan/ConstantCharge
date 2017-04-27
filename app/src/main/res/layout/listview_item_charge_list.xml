@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/common_margin_lr"
+    android:paddingRight="@dimen/common_margin_lr"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/listItemChargeListNaviTvId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/charge_list_item_navi"
+            android:gravity="center_vertical"
+            android:text="@string/charge_list_item_navigation"
+            android:textColor="@color/colorTheme" />
+
+        <TextView
+            android:id="@+id/listItemChargeListAddressTvId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/listItemChargeListNaviTvId"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingTop="@dimen/common_span"
+            android:text="大学城"
+            android:textColor="@color/black"
+            android:textSize="@dimen/charge_list_item_address_text_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/listItemChargeListTotalTvId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/common_span"
+            android:paddingTop="@dimen/common_span"
+            android:text="总桩数：6" />
+
+        <TextView
+            android:id="@+id/listItemChargeListFreeTvId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/listItemChargeListTotalTvId"
+            android:paddingBottom="@dimen/common_span"
+            android:paddingTop="@dimen/common_span"
+            android:text="空桩数：6"
+            android:layout_marginLeft="@dimen/common_span"/>
+
+        <TextView
+            android:id="@+id/listItemChargeListDistanceTvId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="100m" />
+    </RelativeLayout>
+
+</LinearLayout>

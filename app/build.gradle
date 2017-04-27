@@ -40,5 +40,9 @@ dependencies {
     compile projectDependencies.dagger
     compile projectDependencies.supportDesign
     compile projectDependencies.cardView
+    debugCompile projectDependencies.blockcanary
+    debugCompile projectDependencies.leakcanary
+    releaseCompile projectDependencies.leakcanaryno
+    testCompile projectDependencies.leakcanaryno
     compile 'com.github.arimorty:floatingsearchview:2.0.3'
 }

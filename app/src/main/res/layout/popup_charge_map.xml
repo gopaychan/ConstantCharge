@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/charge_map_pop"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/common_span"
+    android:paddingLeft="@dimen/common_margin_lr"
+    android:paddingRight="@dimen/common_margin_lr">
+
+    <TextView
+        android:id="@+id/popupChargeMapAddressTvId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="@dimen/common_span"
+        android:text="大学城"
+        android:textColor="@color/chargeMapTextColor"
+        android:textSize="@dimen/charge_map_address_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/chargeMapDivider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/popupChargeMapTotalTvId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_span"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/common_span"
+            android:paddingTop="@dimen/common_span"
+            android:text="总桩数：6"
+            android:textColor="@color/chargeMapTextColor" />
+
+        <TextView
+            android:id="@+id/popupChargeMapFreeTvId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/common_span"
+            android:paddingTop="@dimen/common_span"
+            android:text="空桩数：6"
+            android:textColor="@color/chargeMapTextColor" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/popupChargeMapPredictTvId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="@dimen/common_span"
+        android:text="预计30分钟后有空桩"
+        android:textColor="@color/chargeMapTextColor" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/popupChargeMapnavigationBtnId"
+            android:layout_width="@dimen/charge_map_popup_btn_w"
+            android:layout_height="@dimen/charge_map_popup_btn_h"
+            android:layout_marginLeft="@dimen/common_margin_lr"
+            android:layout_marginRight="@dimen/common_span"
+            android:background="@drawable/common_btn_selector"
+            android:text="@string/charge_map_popup_navigation" />
+
+        <Button
+            android:id="@+id/popupChargeMapDetailBtnId"
+            android:layout_width="@dimen/charge_map_popup_btn_w"
+            android:layout_height="@dimen/charge_map_popup_btn_h"
+            android:layout_marginLeft="@dimen/common_span"
+            android:layout_marginRight="@dimen/common_margin_lr"
+            android:background="@drawable/common_btn_selector"
+            android:text="@string/charge_map_popup_detail" />
+
+    </LinearLayout>
+
+</LinearLayout>

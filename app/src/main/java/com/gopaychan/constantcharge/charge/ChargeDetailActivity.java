@@ -45,7 +45,6 @@ public class ChargeDetailActivity extends ActionBarActivity {
     ViewStub mViewStub;
     private boolean isInflater = false;
 
-
     RingProgress mRingProgress;
     LinearLayout mTimeLl;
     LinearLayout mMoneyLl;
@@ -61,6 +60,7 @@ public class ChargeDetailActivity extends ActionBarActivity {
     ChargeDetailData mChargeDetailData;
     @Inject
     ThreadExecutor mThreadExecutor;
+    public static final String TO_CHARGE_DETAIL_ACTIVITY_ARGS = "charge_detail_activity_info";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -176,7 +176,7 @@ public class ChargeDetailActivity extends ActionBarActivity {
         mViewPager = (ViewPager) root.findViewById(R.id.chargeDetailVpId);
         mPercentTv = (TextView) root.findViewById(R.id.chargeDetailPercentTvId);
         mTimeTv = (TextView) root.findViewById(R.id.chargeDetailTimeTvId);
-        mStopChargeBtn = (Button)root.findViewById(R.id.chargeDetailEndId);
+        mStopChargeBtn = (Button) root.findViewById(R.id.chargeDetailEndId);
         mStopChargeBtn.setOnClickListener(new View.OnClickListener() {//结束充电
             @Override
             public void onClick(View v) {

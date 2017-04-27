@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/chargeItemIvId"
+        android:layout_width="@dimen/charge_map_item_iv_wh"
+        android:layout_height="@dimen/charge_map_item_iv_wh" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/common_margin_lr">
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/chargeItemTv1Id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/charge_detail_item_tv_text_size"
+            android:textColor="@color/chargeDetailTextColor"/>
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/chargeItemTv2Id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/charge_detail_item_tv_text_size"
+            android:textColor="@color/chargeDetailItemText2"/>
+    </LinearLayout>
+
+</LinearLayout>
