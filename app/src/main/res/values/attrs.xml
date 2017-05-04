@@ -12,6 +12,11 @@
         <attr name="broken_line_color" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
     <string-array name="LatLngNearby">
         <item>23.050412</item>
         <item>113.394161</item>
@@ -68,5 +73,15 @@
         <item>7</item>
         <item>4</item>
         <item>0</item>
+    </string-array>
+
+    <string-array name="AdImgUrl">
+        <item>https://images.unsplash.com/photo-1490079027102-cd08f2308c73</item>
+        <item>https://tse3-mm.cn.bing.net/th?id=OIP.Bka5OAzcdc_71EkXjLnzQQEsDN</item>
+        <item>https://tse3-mm.cn.bing.net/th?id=OIP.J0GqCNGpReJ_2rtShkotnQFNC7</item>
+    </string-array>
+
+    <string-array name="IntroductionImgUrl">
+        <item></item>
     </string-array>
 </resources>

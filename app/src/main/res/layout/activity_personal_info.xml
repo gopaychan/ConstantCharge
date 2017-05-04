@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_theme_action_bar" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mine_space_height"
+            android:background="@color/commonPageBgColor" />
+
+        <include layout="@layout/include_horizontal_divider" />
+
+        <RelativeLayout
+            android:id="@+id/personalInfoAvatarRytId"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/personal_info_avatar_ly_h"
+            android:background="@drawable/white_selector"
+            android:clickable="true"
+            android:paddingLeft="@dimen/common_margin_trbl"
+            android:paddingRight="@dimen/common_margin_trbl">
+
+            <TextView
+                style="@style/settingsItemTv"
+                android:layout_centerVertical="true"
+                android:text="@string/personal_info_avatar" />
+
+            <TextView
+                android:id="@+id/personalInfoArrow"
+                style="@style/mineItemRightArrowTv"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+
+            <com.hengchongkeji.constantcharge.view.CircleImageView
+                android:layout_width="@dimen/personal_info_avatar_size"
+                android:layout_height="@dimen/personal_info_avatar_size"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_span"
+                android:layout_toLeftOf="@id/personalInfoArrow"
+                android:src="@drawable/mine_header_default_avatar" />
+
+
+        </RelativeLayout>
+
+        <FrameLayout style="@style/mineItemLayout">
+
+            <TextView
+                style="@style/settingsItemTv"
+                android:text="@string/personal_info_nick" />
+
+            <EditText
+                android:id="@+id/personalInfoNickEdt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|right"
+                android:background="@android:color/white"
+                android:text=""
+                android:textSize="13sp"/>
+
+            <include layout="@layout/include_horizontal_divider" />
+
+        </FrameLayout>
+
+        <FrameLayout style="@style/mineItemLayout">
+
+            <TextView
+                style="@style/settingsItemTv"
+                android:text="@string/personal_info_brand" />
+
+            <TextView
+                style="@style/mineItemRightArrowTv"
+                android:text="@string/personal_info_show_brand" />
+
+            <include layout="@layout/include_horizontal_divider" />
+
+        </FrameLayout>
+
+
+        <include layout="@layout/include_horizontal_divider" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/personalInfoTvId"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_logout_btn_h"
+        android:layout_gravity="bottom"
+        android:background="@drawable/theme_color_selector"
+        android:gravity="center"
+        android:text="@string/personal_info_save"
+        android:textColor="@android:color/white" />
+
+</FrameLayout>

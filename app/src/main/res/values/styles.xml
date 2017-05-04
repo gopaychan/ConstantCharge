@@ -6,9 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/colorTheme</item>
         <item name="autoCompleteTextViewStyle">@style/SearchAutoCompleteTextView</item>
     </style>
+
+    <style name="TranslucentStatusTheme" parent="AppTheme"/>
 
     <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
         <item name="android:textColor">@android:color/white</item>
@@ -23,4 +24,125 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
 
+    <style name="mineHeaderOvalTv">
+        <item name="android:layout_height">@dimen/mine_header_oval_btn_h</item>
+        <item name="android:layout_width">@dimen/mine_header_oval_btn_w</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/mine_header_oval_btn_text_size</item>
+        <item name="android:drawableRight">@drawable/mine_white_right_arrow</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/scanning_btn_bg</item>
+        <item name="android:paddingLeft">@dimen/common_span</item>
+        <item name="android:paddingRight">@dimen/common_span</item>
+
+    </style>
+
+    <style name="mineItemLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">@dimen/common_margin_trbl</item>
+        <item name="android:paddingRight">@dimen/common_margin_trbl</item>
+        <item name="android:layout_height">@dimen/mine_item_height</item>
+        <item name="android:background">@drawable/white_selector</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="mineItemTv">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:drawablePadding">@dimen/common_span</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/mine_item_title_text_size</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="mineItemRightArrowTv">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:drawableRight">@drawable/mine_right_arrow</item>
+        <item name="android:layout_gravity">center_vertical|right</item>
+        <item name="android:drawablePadding">@dimen/common_span</item>
+        <item name="android:textSize">@dimen/mine_item_desc_text_size</item>
+        <item name="android:textColor">@color/mineDescTextColor</item>
+    </style>
+
+    <style name="horizontalDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/commonDividerColor</item>
+    </style>
+
+    <style name="verticalDivider">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/commonDividerColor</item>
+    </style>
+
+    <style name="mineItemDetailLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="mineItemDetailValueTv">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/common_span</item>
+        <item name="android:textSize">@dimen/mine_item_detail_value_text_size</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="mineItemDetailKeyTv">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="settingsItemTv">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:drawablePadding">@dimen/common_span</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="commonDialogAnimation" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <style name="messageDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">true</item> <!-- 是否浮现在activity之上 -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item> <!-- 模糊 -->
+        <item name="android:backgroundDimAmount">0.2</item>
+    </style>
+
+    <style name="rechargeItemTv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginLeft">@dimen/common_span</item>
+        <item name="android:layout_marginRight">@dimen/common_span</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:checkable">true</item>
+        <item name="android:background">@drawable/gray_stroke</item>
+        <item name="android:onClick">onItemClick</item>
+    </style>
+
+    <style name="foundItemTv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">@dimen/common_margin_trbl</item>
+        <item name="android:drawablePadding">@dimen/common_span</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_height">88dp</item>
+    </style>
 </resources>

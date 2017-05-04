@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/messageDialogTitleTvId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_margin_trbl"
+        android:paddingBottom="@dimen/common_span"
+        android:paddingTop="@dimen/common_span"
+        android:text=""
+        android:textSize="@dimen/message_dialog_title_text_size"
+        android:gravity="center"/>
+
+    <View
+        android:id="@+id/messageDialogTitleDivider"
+        style="@style/horizontalDivider"
+        android:background="@color/colorTheme" />
+
+    <TextView
+        android:id="@+id/messageDialogMsgTvId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/common_span"
+        android:paddingLeft="@dimen/common_margin_trbl"
+        android:paddingRight="@dimen/common_margin_trbl"
+        android:paddingTop="@dimen/common_span"
+        android:text="是否？"
+        android:textSize="@dimen/message_dialog_msg_text_size" />
+
+    <TextView
+        android:id="@+id/text_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/common_span"
+        android:paddingLeft="@dimen/common_margin_trbl"
+        android:paddingRight="@dimen/common_margin_trbl" />
+
+    <View
+        style="@style/horizontalDivider"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp" />
+
+    <LinearLayout
+        android:id="@+id/curriculum_dialog_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/messageDialogCancelBtnId"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/message_dialog_btn_h"
+            android:layout_weight="1"
+            android:background="@drawable/message_dialog_button_l"
+            android:text="取消"
+            android:textSize="@dimen/message_dialog_btn_text_size" />
+
+        <View
+            android:id="@+id/divider"
+            style="@style/verticalDivider" />
+
+        <Button
+            android:id="@+id/messageDialogConfirmBtnId"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/message_dialog_btn_h"
+            android:layout_weight="1"
+            android:background="@drawable/theme_color_selector"
+            android:text="确定"
+            android:textColor="@color/messageDialogRightBtnTextColor"
+            android:textSize="@dimen/message_dialog_btn_text_size" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -4,6 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#3ba66b</color>
     <color name="colorTheme">#577fa6</color>
+    <color name="colorThemePress">#80577fa6</color>
+
+    <color name="commonPageBgColor">#cacaca</color>
+    <color name="commonDividerColor">#cccccc</color>
+    <color name="messageDialogRightBtnTextColor">@android:color/white</color>
 
     <color name="searchHintGray">#cccccc</color>
     <color name="homeDivideColor">#b6b3b3</color>
@@ -22,5 +27,16 @@
     <color name="chargeMapBg">@color/chargeDetailBg</color>
     <color name="chargeMapTextColor">@android:color/white</color>
     <color name="chargeMapDivider">@android:color/white</color>
+
+    <color name="scanningBtnTextColor">@android:color/white</color>
+    <color name="whiteBtnPress">#1a000000</color>
+
+    <color name="editPileCodeEdtBg">#ebefef</color>
+    <color name="editPileCodeEdtTextColor">#a7a7a7</color>
+
+    <color name="mineDescTextColor">@color/editPileCodeEdtTextColor</color>
+    <color name="whiteIconPress">#dbdbdb</color>
+
+    <color name="grayStroke">#cccccc</color>
 
 </resources>

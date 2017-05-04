@@ -2,9 +2,9 @@
 <resources>
     <dimen name="action_bar_height">56dp</dimen>
     <dimen name="search_view_inset">8dp</dimen>
-    <dimen name="common_margin_lr">16dp</dimen>
+    <dimen name="common_margin_trbl">16dp</dimen>
     <dimen name="common_span">8dp</dimen>
-    <dimen name="title_text_size">24sp</dimen>
+    <dimen name="title_text_size">20sp</dimen>
     <dimen name="second_title_text_size">16sp</dimen>
 
     <dimen name="main_progressbar_padding">150dp</dimen>
@@ -34,4 +34,47 @@
     <dimen name="charge_map_popup_btn_w">60dp</dimen>
 
     <dimen name="charge_list_item_address_text_size">16sp</dimen>
+
+    <dimen name="scanning_description_text_size">18sp</dimen>
+    <dimen name="scanning_descriptino_v2_tv_margin_top">100dp</dimen>
+    <dimen name="scanning_pile_img_margin_top">50dp</dimen>
+    <dimen name="scanning_btn_size">60dp</dimen>
+    <dimen name="scanning_btn_margin_top">30dp</dimen>
+    <dimen name="scanning_btn_ll_margin_top">400dp</dimen>
+    <dimen name="scanning_btn_height">35dp</dimen>
+    
+    <dimen name="theme_oval_btn_h">36dp</dimen>
+    <dimen name="theme_oval_btn_radius">18dp</dimen>
+
+    <dimen name="edit_pile_code_edt_text_size">14sp</dimen>
+    <dimen name="edit_pile_code_padding">10dp</dimen>
+    <dimen name="edit_pile_code_margin">26dp</dimen>
+
+    <dimen name="mine_header_height">112dp</dimen>
+    <dimen name="mine_header_oval_btn_h">20dp</dimen>
+    <dimen name="mine_header_oval_btn_w">80dp</dimen>
+    <dimen name="mine_header_oval_btn_text_size">11sp</dimen>
+    <dimen name="mine_header_avatar_size">64dp</dimen>
+    <dimen name="mine_header_settings_size">25dp</dimen>
+    <dimen name="mine_space_height">16dp</dimen>
+    <dimen name="mine_item_height">48dp</dimen>
+    <dimen name="mine_item_title_text_size">15sp</dimen>
+    <dimen name="mine_item_desc_text_size">14sp</dimen>
+    <dimen name="mine_item_detail_height">88dp</dimen>
+    <dimen name="mine_item_detail_value_text_size">18sp</dimen>
+
+    <dimen name="settings_logout_btn_h">48dp</dimen>
+
+    <dimen name="message_dialog_btn_h">40dp</dimen>
+    <dimen name="message_dialog_title_text_size">18sp</dimen>
+    <dimen name="message_dialog_btn_text_size">15sp</dimen>
+    <dimen name="message_dialog_msg_text_size">16sp</dimen>
+    <dimen name="login_title_text_size">20sp</dimen>
+    <dimen name="login_btn_height">48dp</dimen>
+    <dimen name="recharge_bottom_bar_h">48dp</dimen>
+    <dimen name="recharge_bottom_bar_btn_w">100dp</dimen>
+    <dimen name="found_ad_viewpager_h">160dp</dimen>
+    <dimen name="introduction_btn_text_size">16sp</dimen>
+    <dimen name="personal_info_avatar_size">56dp</dimen>
+    <dimen name="personal_info_avatar_ly_h">72dp</dimen>
 </resources>

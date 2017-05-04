@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -35,14 +35,26 @@ dependencies {
     //butterknife dependencies
     compile projectDependencies.butterknife
     // Dagger dependencies
-    apt projectDependencies.daggerCompiler
+    annotationProcessor projectDependencies.daggerCompiler
     provided projectDependencies.javaxAnnotation
     compile projectDependencies.dagger
     compile projectDependencies.supportDesign
     compile projectDependencies.cardView
+    compile projectDependencies.zxing
+    compile projectDependencies.picasso
+    compile projectDependencies.floatingsearchview
+    compile projectDependencies.okhttp
+    compile projectDependencies.gson
+
+    compile ('com.github.hotchemi:permissionsdispatcher:2.4.0'){
+        exclude module: "support-v13"
+        exclude group: 'com.android.support', module: 'support-compat'
+    }
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
+
     debugCompile projectDependencies.blockcanary
     debugCompile projectDependencies.leakcanary
     releaseCompile projectDependencies.leakcanaryno
     testCompile projectDependencies.leakcanaryno
-    compile 'com.github.arimorty:floatingsearchview:2.0.3'
+//    compile files('libs/taobao-sdk-java-auto-source.jar')
 }

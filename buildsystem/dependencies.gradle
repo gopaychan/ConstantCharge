@@ -14,6 +14,11 @@ ext {
     javaxAnnotationVersion = "1.0"
     blockcanaryVersion = "1.5.0"
     leakcanaryVersion = "1.5.1"
+    zxingVersion = "2.1"
+    picassoVersion = "2.5.2"
+    floatingsearchviewVersion = "2.0.3"
+    okhttpVersion = "3.7.0"
+    gsonVersion = "2.8.0"
 
     projectDependencies = [
             bottomNavigation   : "com.ashokvarma.android:bottom-navigation-bar:${bottomNavigationVersion}",
@@ -28,6 +33,11 @@ ext {
             cardView           : "com.android.support:cardview-v7:${supportVersion}",
             blockcanary        : "com.github.markzhai:blockcanary-android:${blockcanaryVersion}",
             leakcanary         : "com.squareup.leakcanary:leakcanary-android:${leakcanaryVersion}",
-            leakcanaryno       : "com.squareup.leakcanary:leakcanary-android-no-op:${leakcanaryVersion}"
+            leakcanaryno       : "com.squareup.leakcanary:leakcanary-android-no-op:${leakcanaryVersion}",
+            zxing              : "cn.yipianfengye.android:zxing-library:${zxingVersion}",
+            picasso            : "com.squareup.picasso:picasso:${picassoVersion}",
+            floatingsearchview : "com.github.arimorty:floatingsearchview:${floatingsearchviewVersion}",
+            okhttp             : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
+            gson               : "com.google.code.gson:gson:${gsonVersion}"
     ]
 }

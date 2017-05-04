@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/introductionEndLyIvId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <Button
+        android:id="@+id/introductionShowMainBtnId"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/common_margin_trbl"
+        android:background="@drawable/white_stroke_transparent"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/introduction_btn_text_size"/>
+
+</FrameLayout>

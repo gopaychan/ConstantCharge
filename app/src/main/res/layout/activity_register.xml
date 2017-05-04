@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_white_action_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="@string/register_title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/login_title_text_size" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/registerPhoneNumEdtId"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="4"
+                android:background="@android:color/white"
+                android:hint="@string/input_phone_num_hint"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/common_span"
+                android:paddingLeft="@dimen/common_margin_trbl"
+                android:paddingRight="@dimen/common_margin_trbl"
+                android:paddingTop="@dimen/common_span"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <View
+            style="@style/horizontalDivider"
+            android:layout_marginLeft="@dimen/common_margin_trbl"
+            android:layout_marginRight="@dimen/common_margin_trbl" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/registerInputVerCodeEdtId"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@android:color/white"
+                android:hint="@string/register_input_ver_code_hint"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/common_span"
+                android:paddingLeft="@dimen/common_margin_trbl"
+                android:paddingRight="@dimen/common_margin_trbl"
+                android:paddingTop="@dimen/common_span"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/registerInputVerCodeBtnId"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="right|center_vertical"
+                android:layout_margin="5dp"
+                android:background="@drawable/theme_stroke"
+                android:text="@string/register_get_ver_code"
+                android:textColor="@color/colorTheme"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <View
+            style="@style/horizontalDivider"
+            android:layout_marginLeft="@dimen/common_margin_trbl"
+            android:layout_marginRight="@dimen/common_margin_trbl" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/registerPswEdtId"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@android:color/white"
+                android:hint="@string/input_psw_hint"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/common_span"
+                android:paddingLeft="@dimen/common_margin_trbl"
+                android:paddingRight="@dimen/common_margin_trbl"
+                android:paddingTop="@dimen/common_span"
+                android:textSize="15sp" />
+
+            <!--<Button-->
+            <!--android:id="@+id/login_change_pass_style_btn"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:background="@drawable/manage_btn_selector"-->
+            <!--android:text="显示"-->
+            <!--android:textColor="@color/common_text1"-->
+            <!--android:textSize="14sp" />-->
+        </FrameLayout>
+
+        <View
+            style="@style/horizontalDivider"
+            android:layout_marginLeft="@dimen/common_margin_trbl"
+            android:layout_marginRight="@dimen/common_margin_trbl" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/common_margin_trbl"
+            android:paddingRight="@dimen/common_margin_trbl">
+
+            <CheckBox
+                android:id="@+id/registerAgreementCbId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注册即代表您同意"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="《恒充电APP用户使用协议》"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/registerInputInviteCodeEdtId"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@android:color/white"
+                android:hint="@string/register_input_invite_code_hint"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/common_span"
+                android:paddingLeft="@dimen/common_margin_trbl"
+                android:paddingRight="@dimen/common_margin_trbl"
+                android:paddingTop="@dimen/common_span"
+                android:textSize="15sp" />
+        </FrameLayout>
+
+        <View
+            style="@style/horizontalDivider"
+            android:layout_marginLeft="@dimen/common_margin_trbl"
+            android:layout_marginRight="@dimen/common_margin_trbl" />
+
+        <TextView
+            android:id="@+id/to_register_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/common_margin_trbl"
+            android:layout_marginRight="@dimen/common_margin_trbl"
+            android:layout_marginTop="@dimen/common_span"
+            android:text="@string/register_input_invite_code_desc"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/registerBtnId"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_btn_height"
+            android:layout_marginLeft="@dimen/common_margin_trbl"
+            android:layout_marginRight="@dimen/common_margin_trbl"
+            android:layout_marginTop="@dimen/common_margin_trbl"
+            android:background="@drawable/theme_color_selector"
+            android:paddingBottom="@dimen/common_span"
+            android:paddingTop="@dimen/common_span"
+            android:text="@string/register_btn_text"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

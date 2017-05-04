@@ -5,7 +5,7 @@
     android:background="@color/chargeDetailBg"
     android:orientation="vertical">
 
-    <include layout="@layout/include_common_action_bar" />
+    <include layout="@layout/include_theme_action_bar" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/chargeDetailSwipeRefreshLyId"

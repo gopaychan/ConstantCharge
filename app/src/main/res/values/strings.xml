@@ -8,11 +8,11 @@
     <string name="bottom_navigation_bar_txt5">我的</string>
 
     <string name="home_search_view_hint">输入目的地/电站名</string>
-    <string name="home_charge_detail_txt">充电实况</string>
-    <string name="home_charge_collection_txt">充地收藏</string>
-    <string name="home_charge_reserve_txt">预约充电</string>
-    <string name="home_charge_map_txt">充电地图</string>
-    <string name="home_online_recharge_txt">在线充值</string>
+    <string name="home_charge_detail_title">充电实况</string>
+    <string name="home_charge_collection_title">充地收藏</string>
+    <string name="home_charge_reserve_title">预约充电</string>
+    <string name="home_charge_map_title">充电地图</string>
+    <string name="home_online_recharge_title">在线充值</string>
     <string name="home_location_unknown">未知</string>
     <string name="home_mode_list">列表</string>
     <string name="home_mode_map">地图</string>
@@ -35,9 +35,99 @@
     <string name="charge_map_popup_free_pile">空桩数:{}</string>
     <string name="charge_map_popup_predict_free_pile">预计{}后有空桩</string>
     <string name="charge_map_popup_predict_reach_time">预计到达时间:{}</string>
-    <string name="charge_map_TTS_APP_ID">9441461</string>
+
+    <string name="charge_map_TTS_APP_ID">9587966</string>
+    <!--<string name="charge_map_TTS_APP_ID">9441461</string>-->
 
     <string name="charge_list_item_navigation">导航</string>
-    
+
     <string name="scanning_description">扫描充电桩上的二维码即可启动充电</string>
+    <string name="scanning_description_v2">将二维码放入框内，即可自动扫描</string>
+    <string name="scanning">扫描</string>
+    <string name="scanning_title">扫一扫</string>
+    <string name="scanning_toggle_light">闪光灯</string>
+    <string name="scanning_edit_pile_code">输入桩编码</string>
+    <string name="edit_pile_code_return">返回扫码</string>
+    <string name="edit_pile_code_certain">确定</string>
+    <string name="edit_pile_code_edt_hint">请输入充电终端编码</string>
+    <string name="edit_pile_code_title">二维码编码</string>
+
+    <string name="mine_sign">签到</string>
+    <string name="mine_rank">排行榜</string>
+    <string name="mine_item_account">我的账户</string>
+    <string name="mine_item_recharge">账户充值</string>
+    <string name="mine_item_invite">邀请好友</string>
+    <string name="mine_item_manager">管理私人桩</string>
+    <string name="mine_item_message">我的消息</string>
+    <string name="mine_item_save">我的收藏</string>
+    <string name="mine_item_account_desc">充电记录，免密支付</string>
+    <string name="mine_item_detail_money">余额(元)</string>
+    <string name="mine_item_detail_lucky">充电红包(个)</string>
+    <string name="mine_item_detail_bi">充电币(个)</string>
+    <string name="mine_title">我的</string>
+
+    <string name="settings_personal_info">个人信息</string>
+    <string name="settings_change_psw">修改密码</string>
+    <string name="settings_feedback">意见反馈</string>
+    <string name="settings_version_check">版本检测</string>
+    <string name="settings_about_us">关于我们</string>
+    <string name="settings_title">设置</string>
+    <string name="settings_logout">退出登录</string>
+    <string name="settings_confirm_logout">"确定要退出?"</string>
+
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="login_title">账号登录</string>
+    <string name="login_forget_psw">忘记密码？</string>
+    <string name="login_quick_register">快速注册</string>
+    <string name="input_phone_num_hint">请输入您的手机号码</string>
+    <string name="input_psw_hint">请输入密码</string>
+    <string name="register_title">注册</string>
+    <string name="register_get_ver_code">获取验证码</string>
+    <string name="register_input_ver_code_hint">请输入短信验证码</string>
+    <string name="register_input_invite_code_hint">请输入邀请码(选填)</string>
+    <string name="register_input_invite_code_desc">输入好友的邀请码,您和好友均可获得20元充电红包</string>
+    <string name="register_btn_text">立即注册</string>
+    <string name="recharge_desc">充值后不可退款，消费后余额将退回到您的APP账户中</string>
+    <string name="recharge_btn_text">立即充值</string>
+    <string name="recharge_title">账户充值</string>
+    <string name="recharge_choose_price">请选择充值价格</string>
+    <string name="recharge_choose_pay_way">请选择支付方式</string>
+    <string name="found_our_service">我们的服务</string>
+    <string name="found_item_0">团购买车</string>
+    <string name="found_item_1">车主商城</string>
+    <string name="found_item_2">我要建桩</string>
+    <string name="found_item_3">添加新站点</string>
+    <string name="found_item_4">电车资讯</string>
+    <string name="found_item_5">违章查询缴费</string>
+
+    <string name="ali_da_yu_APP_KEY">23781826</string>
+    <string name="ali_da_yu_APP_SECRET">7f0079fed2008096ef361f7d2acc8974</string>
+
+    <string name="introduction_show_main_text">立即体验</string>
+
+    <string name="no_net_text">当前网络不可用，请检查你的网络设置</string>
+    <string name="net_io_exception">网络连接失败，请换个好一点的网络环境再试试</string>
+    <string name="net_server_error">服务器异常</string>
+
+    <string name="register_ver_template_code">SMS_63755373</string>
+    <string name="register_ver_sign">恒充电APP</string>
+    <string name="register_ver_sms_param">{\"code\":\"{}\",\"product\":\"恒充电APP\"}</string>
+    <string name="register_ver_sms_url">http://gw.api.taobao.com/router/rest</string>
+    <string name="register_ver_sms_type">normal</string>
+    <string name="register_input_right_phone_num">请输入正确的手机号码</string>
+    <string name="register_ver_code_error">验证码错误</string>
+    <string name="register_phone_num_error">手机号与接收验证码的手机号不一致，请重新验证请求验证码</string>
+    <string name="register_ver_code_resend">重发</string>
+    <string name="register_psw_invalid">密码数目应控制在6-11位</string>
+    <string name="register_success">注册成功，正在登录账号...</string>
+    <string name="register_no_agree_agreement">请先同意恒充电app的用户协议，再进行注册</string>
+    <string name="login_input_right_info">请输入正确的账号密码</string>
+    <string name="personal_info_avatar">头像</string>
+    <string name="personal_info_nick">昵称</string>
+    <string name="personal_info_brand">品牌型号</string>
+    <string name="personal_info_show_brand">请选择品牌车型</string>
+    <string name="personal_info_title">个人信息</string>
+    <string name="personal_info_save">保存</string>
+
 </resources>

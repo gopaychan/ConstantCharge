@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_second"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_my_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/common_margin_trbl"
+        android:paddingRight="@dimen/common_margin_trbl">
+
+        <ImageView
+            android:id="@+id/actionBarBackIvId"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/action_bar_back_img" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/scanning_title"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_text_size" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scanning_descriptino_v2_tv_margin_top"
+        android:gravity="center"
+        android:text="@string/scanning_description_v2"
+        android:textColor="@color/scanningBtnTextColor" />
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scanning_btn_ll_margin_top"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/scanningLightBtnId"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/scanning_btn_height"
+            android:layout_marginRight="@dimen/common_span"
+            android:background="@drawable/scanning_btn_bg"
+            android:text="@string/scanning_toggle_light"
+            android:textColor="@color/scanningBtnTextColor" />
+
+        <Button
+            android:id="@+id/scanningEditCodeBtnId"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/scanning_btn_height"
+            android:layout_marginLeft="@dimen/common_span"
+            android:background="@drawable/scanning_btn_bg"
+            android:text="@string/scanning_edit_pile_code"
+            android:textColor="@color/scanningBtnTextColor" />
+    </LinearLayout>
+
+</FrameLayout>

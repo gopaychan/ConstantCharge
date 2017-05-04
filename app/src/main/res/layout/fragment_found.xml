@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/foundSpaceViewId"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorTheme"/>
+
+        <include layout="@layout/include_theme_action_bar" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/foundAdVpId"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/found_ad_viewpager_h" />
+
+        <RadioGroup
+            android:id="@+id/foundAdRgId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="@dimen/common_span"
+            android:orientation="horizontal" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="@dimen/common_margin_trbl"
+        android:layout_marginRight="@dimen/common_margin_trbl"
+        android:gravity="center_vertical"
+        android:text="@string/found_our_service" />
+
+    <include layout="@layout/include_horizontal_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/foundItemTv"
+            android:drawableTop="@drawable/found_item_0"
+            android:text="@string/found_item_0" />
+
+        <include layout="@layout/include_vertical_divider" />
+
+        <TextView
+            style="@style/foundItemTv"
+            android:drawableTop="@drawable/found_item_1"
+            android:text="@string/found_item_1" />
+
+        <include layout="@layout/include_vertical_divider" />
+
+        <TextView
+            style="@style/foundItemTv"
+            android:drawableTop="@drawable/found_item_2"
+            android:text="@string/found_item_2" />
+
+    </LinearLayout>
+
+    <include layout="@layout/include_horizontal_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/foundItemTv"
+            android:drawableTop="@drawable/found_item_3"
+            android:text="@string/found_item_3" />
+
+        <include layout="@layout/include_vertical_divider" />
+
+        <TextView
+            style="@style/foundItemTv"
+            android:drawableTop="@drawable/found_item_4"
+            android:text="@string/found_item_4" />
+
+        <include layout="@layout/include_vertical_divider" />
+
+        <TextView
+            style="@style/foundItemTv"
+            android:drawableTop="@drawable/found_item_5"
+            android:text="@string/found_item_5" />
+
+    </LinearLayout>
+
+    <include layout="@layout/include_horizontal_divider" />
+
+</LinearLayout>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_white_action_bar" />
+
+        <include layout="@layout/include_horizontal_divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_margin_trbl"
+            android:paddingLeft="@dimen/common_span"
+            android:paddingRight="@dimen/common_span">
+
+            <TextView
+                android:id="@+id/rechargeItemTv0Id"
+                style="@style/rechargeItemTv"
+                android:tag="15"
+                android:text="15元" />
+
+            <TextView
+                android:id="@+id/rechargeItemTv1Id"
+                style="@style/rechargeItemTv"
+                android:tag="30"
+                android:text="30元" />
+
+            <TextView
+                android:id="@+id/rechargeItemTv2Id"
+                style="@style/rechargeItemTv"
+                android:tag="50"
+                android:text="50元" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_margin_trbl"
+            android:paddingLeft="@dimen/common_span"
+            android:paddingRight="@dimen/common_span">
+
+            <TextView
+                android:id="@+id/rechargeItemTv3Id"
+                style="@style/rechargeItemTv"
+                android:tag="100"
+                android:text="100元" />
+
+            <TextView
+                android:id="@+id/rechargeItemTv4Id"
+                style="@style/rechargeItemTv"
+                android:tag="200"
+                android:text="200元" />
+
+            <TextView
+                android:id="@+id/rechargeItemTv5Id"
+                style="@style/rechargeItemTv"
+                android:tag="300"
+                android:text="300元" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_margin_trbl"
+                android:checked="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@string/recharge_desc"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <View
+            style="@style/horizontalDivider"
+            android:layout_marginLeft="@dimen/common_margin_trbl"
+            android:layout_marginRight="@dimen/common_margin_trbl" />
+
+        <RelativeLayout
+            android:id="@+id/rechargeAliPayRlId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_margin_trbl"
+            android:layout_marginRight="@dimen/common_margin_trbl"
+            android:layout_marginTop="@dimen/common_margin_trbl">
+
+            <ImageView
+                android:id="@+id/rechargeAliPayIvId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/recharge_pay_ali" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_span"
+                android:layout_toRightOf="@id/rechargeAliPayIvId"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="支付宝"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_span"
+                    android:text="支付宝用户使用" />
+
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/rechargeAliPayCbId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="false" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rechargeWechatPayRlId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_margin_trbl"
+            android:layout_marginRight="@dimen/common_margin_trbl"
+            android:layout_marginTop="@dimen/common_margin_trbl">
+
+            <ImageView
+                android:id="@+id/rechargeWechatPayIvId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/recharge_pay_wechat" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_span"
+                android:layout_toRightOf="@id/rechargeWechatPayIvId"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微信支付"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_span"
+                    android:text="微信支付用户使用" />
+
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/rechargeWechatPayCbId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="false" />
+        </RelativeLayout>
+
+        <include layout="@layout/include_horizontal_divider"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/recharge_bottom_bar_h"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white">
+
+        <include layout="@layout/include_horizontal_divider" />
+
+        <TextView
+            android:id="@+id/rechargeMoneyTvId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/common_margin_trbl"
+            android:text="合计：¥ 0"
+            android:textColor="@color/colorTheme" />
+
+        <TextView
+            android:id="@+id/rechargeTvId"
+            android:layout_width="@dimen/recharge_bottom_bar_btn_w"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|right"
+            android:background="@drawable/theme_color_selector"
+            android:gravity="center"
+            android:text="@string/recharge_btn_text"
+            android:textColor="@android:color/white" />
+    </FrameLayout>
+
+</FrameLayout>

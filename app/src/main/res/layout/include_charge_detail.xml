@@ -40,7 +40,7 @@
                 android:textSize="@dimen/charge_detail_common_text_size" />
         </LinearLayout>
 
-        <com.gopaychan.constantcharge.view.RingProgress
+        <com.hengchongkeji.constantcharge.view.RingProgress
             android:id="@+id/electricityRingProgressId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

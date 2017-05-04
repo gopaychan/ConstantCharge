@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<include layout="@layout/include_theme_action_bar" />-->
+
+    <!--<include layout="@layout/include_horizontal_divider"/>-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/mine_header_bg"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/mineSpaceViewId"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/mine_header_height"
+                    android:clickable="true">
+
+                    <com.hengchongkeji.constantcharge.view.CircleImageView
+                        android:id="@+id/mineUserAvatarIvId"
+                        android:layout_width="@dimen/mine_header_avatar_size"
+                        android:layout_height="@dimen/mine_header_avatar_size"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="@dimen/common_span"
+                        android:layout_marginLeft="@dimen/common_margin_trbl"
+                        android:src="@drawable/mine_header_default_avatar" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/common_margin_trbl"
+                        android:layout_toRightOf="@id/mineUserAvatarIvId"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/mineUserNickTvId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="185****7677"
+                                android:textColor="@android:color/white"
+                                android:textSize="15sp"
+                                android:visibility="gone" />
+
+                            <LinearLayout
+                                android:id="@+id/mineUnLoginLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/mineLoginTvId"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="@dimen/common_span"
+                                    android:text="@string/login"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="15sp" />
+
+                                <View
+                                    style="@style/verticalDivider"
+                                    android:background="@android:color/white" />
+
+                                <TextView
+                                    android:id="@+id/mineRegisterTvId"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/common_span"
+                                    android:text="@string/register"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/common_span"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:id="@+id/mainSignTvId"
+                                style="@style/mineHeaderOvalTv"
+                                android:layout_height="match_parent"
+                                android:drawableLeft="@drawable/mine_header_sign"
+                                android:text="@string/mine_sign" />
+
+                            <TextView
+                                android:id="@+id/mainRankTvId"
+                                style="@style/mineHeaderOvalTv"
+                                android:layout_marginLeft="@dimen/common_span"
+                                android:drawableLeft="@drawable/mine_header_rank"
+                                android:text="@string/mine_rank" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/mineSettingsIvId"
+                        android:layout_width="@dimen/mine_header_settings_size"
+                        android:layout_height="@dimen/mine_header_settings_size"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/common_margin_trbl"
+                        android:layout_marginTop="@dimen/common_span"
+                        android:src="@drawable/mine_header_settings" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mine_space_height"
+                android:background="@color/commonPageBgColor" />
+
+            <include layout="@layout/include_horizontal_divider" />
+
+            <FrameLayout style="@style/mineItemLayout">
+
+                <TextView
+                    style="@style/mineItemTv"
+                    android:drawableLeft="@drawable/mine_item_account"
+                    android:text="@string/mine_item_account" />
+
+                <TextView
+                    style="@style/mineItemRightArrowTv"
+                    android:text="@string/mine_item_account_desc" />
+
+            </FrameLayout>
+
+            <include layout="@layout/include_horizontal_divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mine_item_detail_height"
+                android:background="@drawable/white"
+                android:paddingBottom="@dimen/common_margin_trbl"
+                android:paddingTop="@dimen/common_margin_trbl">
+
+                <LinearLayout style="@style/mineItemDetailLayout">
+
+                    <TextView
+                        android:id="@+id/mineDetailMonkeyTvId"
+                        style="@style/mineItemDetailValueTv"
+                        android:text="15.00" />
+
+                    <TextView
+                        style="@style/mineItemDetailKeyTv"
+                        android:text="@string/mine_item_detail_money" />
+                </LinearLayout>
+
+                <include layout="@layout/include_vertical_divider" />
+
+                <LinearLayout style="@style/mineItemDetailLayout">
+
+                    <TextView
+                        android:id="@+id/mineDetailLuckyTvId"
+                        style="@style/mineItemDetailValueTv"
+                        android:text="0" />
+
+                    <TextView
+                        style="@style/mineItemDetailKeyTv"
+                        android:text="@string/mine_item_detail_lucky" />
+                </LinearLayout>
+
+                <include layout="@layout/include_vertical_divider" />
+
+                <LinearLayout style="@style/mineItemDetailLayout">
+
+                    <TextView
+                        android:id="@+id/mineDetailBiTvId"
+                        style="@style/mineItemDetailValueTv"
+                        android:text="0" />
+
+                    <TextView
+                        style="@style/mineItemDetailKeyTv"
+                        android:text="@string/mine_item_detail_bi" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <include layout="@layout/include_horizontal_divider" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mine_space_height"
+                android:background="@color/commonPageBgColor" />
+
+            <include layout="@layout/include_horizontal_divider" />
+
+            <FrameLayout
+                android:id="@+id/mineItemRechargeFlId"
+                style="@style/mineItemLayout">
+
+                <TextView
+                    style="@style/mineItemTv"
+                    android:drawableLeft="@drawable/mine_item_recharge"
+                    android:text="@string/mine_item_recharge" />
+
+                <TextView style="@style/mineItemRightArrowTv" />
+
+            </FrameLayout>
+
+            <FrameLayout style="@style/mineItemLayout">
+
+                <TextView
+                    style="@style/mineItemTv"
+                    android:drawableLeft="@drawable/mine_item_invite"
+                    android:text="@string/mine_item_invite" />
+
+                <TextView style="@style/mineItemRightArrowTv" />
+
+                <include layout="@layout/include_horizontal_divider" />
+
+            </FrameLayout>
+
+            <FrameLayout style="@style/mineItemLayout">
+
+                <TextView
+                    style="@style/mineItemTv"
+                    android:drawableLeft="@drawable/mine_item_manager"
+                    android:text="@string/mine_item_manager" />
+
+                <TextView style="@style/mineItemRightArrowTv" />
+
+                <include layout="@layout/include_horizontal_divider" />
+
+            </FrameLayout>
+
+            <FrameLayout style="@style/mineItemLayout">
+
+                <TextView
+                    style="@style/mineItemTv"
+                    android:drawableLeft="@drawable/mine_item_message"
+                    android:text="@string/mine_item_message" />
+
+                <TextView style="@style/mineItemRightArrowTv" />
+
+                <include layout="@layout/include_horizontal_divider" />
+
+            </FrameLayout>
+
+            <FrameLayout style="@style/mineItemLayout">
+
+                <TextView
+                    style="@style/mineItemTv"
+                    android:drawableLeft="@drawable/mine_item_save"
+                    android:text="@string/mine_item_save" />
+
+                <TextView style="@style/mineItemRightArrowTv" />
+
+                <include layout="@layout/include_horizontal_divider" />
+
+            </FrameLayout>
+
+            <include layout="@layout/include_horizontal_divider" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/commonPageBgColor" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
