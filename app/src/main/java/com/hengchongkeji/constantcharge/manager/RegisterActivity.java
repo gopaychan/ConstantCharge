@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -104,7 +105,11 @@ public class RegisterActivity extends ActionBarActivity {
         final String phoneNum = mPhoneNumEdt.getText().toString().trim();
         String verCode = mVerCodeEdt.getText().toString().trim();
         final String psw = mPswEdt.getText().toString().trim();
-        if (!mUserNum.equals(phoneNum)) {
+        if (TextUtils.isEmpty(phoneNum)){
+            showSnackbar(getString(R.string.register_phone_no_null));
+            return;
+        }
+        if (!phoneNum.equals(mUserNum)) {
             showSnackbar(getString(R.string.register_phone_num_error));
             return;
         }

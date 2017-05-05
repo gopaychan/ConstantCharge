@@ -40,6 +40,8 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
+import static com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager.hasPermission;
+
 
 @RuntimePermissions
 public class MainActivity extends BaseActivity {
@@ -209,6 +211,7 @@ public class MainActivity extends BaseActivity {
     @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE})
     void needsPermission() {
         mMainPresenter.start();
+        hasPermission = true;
     }
 
     @OnShowRationale({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE})
@@ -220,12 +223,14 @@ public class MainActivity extends BaseActivity {
     void permissionDenied() {
         mMainPresenter.mMainView.showSnackbar("拒绝定位权限将无法准确找到附近的充电桩,拒绝读取文件权限将无法正常导航");
         mHomePresenter.mView.hideProgressBar("未知");
+        hasPermission = false;
     }
 
     @OnNeverAskAgain({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE})
     void permissionNerverAskAgain() {
         mMainPresenter.mMainView.showSnackbar("定位权限，读取文件权限请求将不再弹出，如需正常使用功能请到手机设置中打开权限");
         mHomePresenter.mView.hideProgressBar("未知");
+        hasPermission = false;
     }
 
 

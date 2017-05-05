@@ -84,8 +84,7 @@
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".SplashActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

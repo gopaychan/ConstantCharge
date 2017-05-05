@@ -129,5 +129,6 @@
     <string name="personal_info_show_brand">请选择品牌车型</string>
     <string name="personal_info_title">个人信息</string>
     <string name="personal_info_save">保存</string>
+    <string name="register_phone_no_null">手机号不能为空</string>
 
 </resources>
