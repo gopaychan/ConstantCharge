@@ -1,48 +1,46 @@
 package com.hengchongkeji.constantcharge.manager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.hengchongkeji.constantcharge.ActionBarActivity;
-import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.R;
-import com.hengchongkeji.constantcharge.data.entity.User;
 import com.hengchongkeji.constantcharge.http.IHttpRequest;
-import com.hengchongkeji.constantcharge.main.MainActivity;
 import com.hengchongkeji.constantcharge.utils.StringUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
- * Created by gopayChan on 2017/4/29.
+ * Created by gopayChan on 2017/5/7.
  */
 
-public class RegisterActivity extends ActionBarActivity {
-
-    @Bind(R.id.registerPhoneNumEdtId)
-    EditText mPhoneNumEdt;
-    @Bind(R.id.registerInputVerCodeEdtId)
-    EditText mVerCodeEdt;
-    @Bind(R.id.registerPswEdtId)
+public class ForgetPswActivity extends ActionBarActivity {
+    @Bind(R.id.forgetPswEdtId)
     EditText mPswEdt;
-    @Bind(R.id.registerInputVerCodeBtnId)
-    Button mRegisterVerCodeBtn;
-    @Bind(R.id.registerAgreementCbId)
-    CheckBox mAgreementCb;
+    @Bind(R.id.forgetPswInputVerCodeEdtId)
+    EditText mVerCodeEdt;
+    @Bind(R.id.forgetPswPhoneNumEdtId)
+    EditText mPhoneNumEdt;
+    @Bind(R.id.forgetPswInputVerCodeBtnId)
+    Button mVerCodeBtnId;
     private String mUserNum;
     private CountDownTimer mTimer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_forget_psw);
+    }
+
+    @OnClick(R.id.forgetPswInputVerCodeBtnId)
+    public void getVerCode() {
+        getVerCodeInternal();
     }
 
     @Override
@@ -51,23 +49,17 @@ public class RegisterActivity extends ActionBarActivity {
         mTimer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                mRegisterVerCodeBtn.setText("(" + Long.toString(millisUntilFinished / 1000) + "秒)后重试");
-                mRegisterVerCodeBtn.setClickable(false);
+                mVerCodeBtnId.setText("(" + Long.toString(millisUntilFinished / 1000) + "秒)后重试");
+                mVerCodeBtnId.setClickable(false);
             }
 
             @Override
             public void onFinish() {
-                mRegisterVerCodeBtn.setText(R.string.register_ver_code_resend);
-                mRegisterVerCodeBtn.setClickable(true);
+                mVerCodeBtnId.setText(R.string.register_ver_code_resend);
+                mVerCodeBtnId.setClickable(true);
             }
         };
     }
-
-    @OnClick(R.id.registerInputVerCodeBtnId)
-    public void getVerCode() {
-        getVerCodeInternal();
-    }
-
 
     private void getVerCodeInternal() {
         mUserNum = mPhoneNumEdt.getText().toString().trim();
@@ -77,7 +69,7 @@ public class RegisterActivity extends ActionBarActivity {
             return;
         }
         mPd.show();
-        ManagerAction.getVerCode(this, mUserNum, new IHttpRequest.OnResponseListener<String>() {
+        ManagerAction.forgetPswGetVerCode(this, mUserNum, new IHttpRequest.OnResponseListener<String>() {
             @Override
             public void onSuccess(String o) {
                 mPd.dismiss();
@@ -93,8 +85,8 @@ public class RegisterActivity extends ActionBarActivity {
         });
     }
 
-    @OnClick(R.id.registerBtnId)
-    public void register() {
+    @OnClick(R.id.forgetPswBtnId)
+    public void forgetPswChange() {
         final String phoneNum = mPhoneNumEdt.getText().toString().trim();
         String verCode = mVerCodeEdt.getText().toString().trim();
         final String psw = mPswEdt.getText().toString().trim();
@@ -114,26 +106,15 @@ public class RegisterActivity extends ActionBarActivity {
             showSnackbar(getString(R.string.register_psw_invalid));
             return;
         }
-        if (!mAgreementCb.isChecked()) {
-            showSnackbar(getString(R.string.register_no_agree_agreement));
-            return;
-        }
         mPd.show();
-        ManagerAction.register(this, phoneNum, psw, verCode, new IHttpRequest.OnResponseListener<ManagerAction.LoginResponse>() {
+        ManagerAction.forgetPswCheckVerCode(this, phoneNum, verCode, new IHttpRequest.OnResponseListener() {
             @Override
-            public void onSuccess(final ManagerAction.LoginResponse response) {
-                showSnackbar(getString(R.string.register_success));
-                ChargeApplication.getInstance().saveUserEntity(response.getAppCustomer());
-                ManagerAction.login(RegisterActivity.this, phoneNum, psw, new IHttpRequest.OnResponseListener<ManagerAction.LoginResponse>() {
+            public void onSuccess(Object o) {
+                ManagerAction.forgetPswChangePsw(ForgetPswActivity.this, psw, psw, new IHttpRequest.OnResponseListener() {
                     @Override
-                    public void onSuccess(ManagerAction.LoginResponse response1) {
-                        User user = response1.getAppCustomer();
-                        user.setPassword(psw);
-                        ChargeApplication.getInstance().saveUserEntity(user);
+                    public void onSuccess(Object o) {
                         mPd.dismiss();
-                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        ChargeApplication.getInstance().login();
+                        Toast.makeText(ForgetPswActivity.this, o.toString(), Toast.LENGTH_LONG).show();
                         finish();
                     }
 
@@ -153,15 +134,4 @@ public class RegisterActivity extends ActionBarActivity {
         });
 
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mTimer.cancel();
-        if (mPd != null && mPd.isShowing()) {
-            mPd.dismiss();
-        }
-    }
-
-    //    private void
 }

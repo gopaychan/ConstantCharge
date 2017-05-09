@@ -25,12 +25,16 @@ public interface IHomeContract {
 
         void hideHorizontalProgressBar();
 
+        void showSnackbar(String msg);
+
     }
 
     interface IPresenter extends IBasePresenter {
         void resetMode();
 
         void onLocationChange(BDLocation location);
+
+        void onLocationFail(String msg);
 
         void showHorizontalProgressBar();
 

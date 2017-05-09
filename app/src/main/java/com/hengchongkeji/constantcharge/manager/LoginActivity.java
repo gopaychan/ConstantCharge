@@ -1,10 +1,8 @@
 package com.hengchongkeji.constantcharge.manager;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,10 +10,9 @@ import android.widget.EditText;
 import com.hengchongkeji.constantcharge.ActionBarActivity;
 import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.R;
+import com.hengchongkeji.constantcharge.data.entity.User;
 import com.hengchongkeji.constantcharge.http.IHttpRequest;
 import com.hengchongkeji.constantcharge.main.MainActivity;
-import com.hengchongkeji.constantcharge.utils.PreferenceUtils;
-import com.hengchongkeji.constantcharge.utils.ThreadUtils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -32,21 +29,19 @@ public class LoginActivity extends ActionBarActivity {
     EditText mPswEdt;
     @Bind(R.id.loginBtnId)
     Button mLoginBtn;
-    ProgressDialog mPd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mPd = new ProgressDialog(this);
     }
 
     @Override
     protected void initView() {
         super.initView();
-        String phone = PreferenceUtils.getUserNumber(this);
-        if (!"".equals(phone)) {
-            mPhoneEdt.setText(phone);
+        User user = ChargeApplication.getInstance().getUser();
+        if (user != null) {
+            mPhoneEdt.setText(user.getPhone());
         }
     }
 
@@ -64,16 +59,17 @@ public class LoginActivity extends ActionBarActivity {
             return;
         }
         mPd.show();
-        ManagerAction.login(this, phone, psw, new IHttpRequest.OnResponseListener() {
+        ManagerAction.login(this, phone, psw, new IHttpRequest.OnResponseListener<ManagerAction.LoginResponse>() {
             @Override
-            public void onSuccess(Object o) {
+            public void onSuccess(ManagerAction.LoginResponse response) {
                 mPd.dismiss();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 ChargeApplication.getInstance().login();
-                //登录成功返回个人信息后，要存真正的nick
-                final String nick = phone.substring(0, 3) + "****" + phone.substring(7, 11);
-                PreferenceUtils.saveUserInfo(LoginActivity.this, phone, psw, nick);
+                //登录成功返回个人信息后保存本地
+                User user = response.getAppCustomer();
+                user.setPassword(psw);
+                ChargeApplication.getInstance().saveUserEntity(user);
                 finish();
             }
 
@@ -91,12 +87,9 @@ public class LoginActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    private void showSnackbar(final String message) {
-        ThreadUtils.runOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                Snackbar.make(mPhoneEdt, message, Snackbar.LENGTH_LONG).show();
-            }
-        });
+    @OnClick(R.id.showForgetPswActTvId)
+    public void forgetPsw(){
+        Intent intent = new Intent(this, ForgetPswActivity.class);
+        startActivity(intent);
     }
 }

@@ -47,6 +47,10 @@
     <string name="scanning_title">扫一扫</string>
     <string name="scanning_toggle_light">闪光灯</string>
     <string name="scanning_edit_pile_code">输入桩编码</string>
+    <string name="scanning_permission_show_rationale">扫一扫需要摄像头权限，是否弹出权限申请？</string>
+    <string name="scanning_permission_denied">拒绝摄像头权限无法使用扫一扫功能</string>
+    <string name="scanning_permission_never_ask">摄像头权限请求将不再弹出，如需正常使用扫一扫请到手机设置中打开权限</string>
+
     <string name="edit_pile_code_return">返回扫码</string>
     <string name="edit_pile_code_certain">确定</string>
     <string name="edit_pile_code_edt_hint">请输入充电终端编码</string>
@@ -74,6 +78,7 @@
     <string name="settings_title">设置</string>
     <string name="settings_logout">退出登录</string>
     <string name="settings_confirm_logout">"确定要退出?"</string>
+    <string name="settings_change_psw_desc">为保障你的数据安全，修改密码前请填写原密码。</string>
 
     <string name="login">登录</string>
     <string name="register">注册</string>
@@ -123,6 +128,7 @@
     <string name="register_success">注册成功，正在登录账号...</string>
     <string name="register_no_agree_agreement">请先同意恒充电app的用户协议，再进行注册</string>
     <string name="login_input_right_info">请输入正确的账号密码</string>
+
     <string name="personal_info_avatar">头像</string>
     <string name="personal_info_nick">昵称</string>
     <string name="personal_info_brand">品牌型号</string>
@@ -130,5 +136,12 @@
     <string name="personal_info_title">个人信息</string>
     <string name="personal_info_save">保存</string>
     <string name="register_phone_no_null">手机号不能为空</string>
+
+    <string name="main_permission_nerver_ask">定位权限、读取文件权限请求将不再弹出，如需正常使用功能请到手机设置中打开权限</string>
+    <string name="main_persion_denied">拒绝定位权限将无法准确找到附近的充电桩,拒绝读取文件权限将无法正常导航</string>
+    <string name="main_permission_show_rationale">导航、显示附近充电桩需要定位权限和读取文件权限，是否弹出权限申请</string>
+    <string name="forget_psw_title">忘记密码</string>
+    <string name="forget_psw_input_psw">请输入新密码</string>
+    <string name="forget_psw_btn_text">立即提交</string>
 
 </resources>

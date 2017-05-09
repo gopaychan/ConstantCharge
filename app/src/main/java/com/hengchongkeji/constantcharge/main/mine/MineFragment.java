@@ -9,11 +9,11 @@ import android.widget.TextView;
 import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.base.BaseFragment;
+import com.hengchongkeji.constantcharge.data.entity.User;
 import com.hengchongkeji.constantcharge.manager.LoginActivity;
 import com.hengchongkeji.constantcharge.manager.RechargeActivity;
 import com.hengchongkeji.constantcharge.manager.RegisterActivity;
 import com.hengchongkeji.constantcharge.manager.SettingsActivity;
-import com.hengchongkeji.constantcharge.utils.PreferenceUtils;
 import com.hengchongkeji.constantcharge.utils.ScreenUtils;
 
 import butterknife.Bind;
@@ -82,7 +82,7 @@ public class MineFragment extends BaseFragment {
     }
 
     private void checkLoginState() {
-        if (ChargeApplication.isLogin) {
+        if (ChargeApplication.getInstance().getIsLogin()) {
             userIsLogin();
         } else {
             userUnLogin();
@@ -91,13 +91,9 @@ public class MineFragment extends BaseFragment {
 
     private void userIsLogin() {
         mUserNickTv.setVisibility(View.VISIBLE);
-        String nick = PreferenceUtils.getUserNick(getActivity());
-        if ("".equals(nick)) {
-            String phone = PreferenceUtils.getUserNumber(getActivity());
-            nick = phone.substring(0, 3) + "****" + phone.substring(7, 11);
-            PreferenceUtils.setUserNick(getActivity(), phone);
-        }
-        mUserNickTv.setText(nick);
+        User user = ChargeApplication.getInstance().getUser();
+        if (user != null)
+            mUserNickTv.setText(user.getUsername());
 
         mUnLoginLayout.setVisibility(View.GONE);
     }

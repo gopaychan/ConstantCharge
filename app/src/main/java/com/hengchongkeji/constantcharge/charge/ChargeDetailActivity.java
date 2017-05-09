@@ -18,11 +18,12 @@ import android.widget.TextView;
 import com.hengchongkeji.constantcharge.ActionBarActivity;
 import com.hengchongkeji.constantcharge.DaggerActivityComponent;
 import com.hengchongkeji.constantcharge.R;
-import com.hengchongkeji.constantcharge.data.domain.ChargeDetailData;
-import com.hengchongkeji.constantcharge.data.domain.CurrentVoltage;
-import com.hengchongkeji.constantcharge.data.domain.Temperature;
+import com.hengchongkeji.constantcharge.data.entity.ChargeDetailData;
+import com.hengchongkeji.constantcharge.data.entity.CurrentVoltage;
+import com.hengchongkeji.constantcharge.data.entity.Temperature;
 import com.hengchongkeji.constantcharge.data.source.DataFactory;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
+import com.hengchongkeji.constantcharge.http.IHttpRequest;
 import com.hengchongkeji.constantcharge.view.RingProgress;
 
 import java.util.HashMap;
@@ -90,36 +91,46 @@ public class ChargeDetailActivity extends ActionBarActivity {
         mThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mChargeDetailData = DataFactory.getInstance().getDataSource(true).getChargeDetailData();
-                fragments = initViewData(mChargeDetailData);
-                runOnUiThread(new Runnable() {
+                DataFactory.getInstance().getDataSource(true).getChargeDetailData(new IHttpRequest.OnResponseListener<ChargeDetailData>() {
                     @Override
-                    public void run() {
-                        if (!isInflater) {
-                            isInflater = true;
-                            inflater(mViewStub.inflate());
-                        }
-                        mRingProgress.setProgress(Integer.valueOf(mChargeDetailData.mPercent) * 360 / 100);
-                        mPercentTv.setText(mChargeDetailData.mPercent + "%");
-                        mTimeTv.setText("预计" + mChargeDetailData.mCompleteTime + "后充电完成");
+                    public void onSuccess(ChargeDetailData chargeDetailData) {
+                        mChargeDetailData = chargeDetailData;
+                        fragments = initViewData(mChargeDetailData);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!isInflater) {
+                                    isInflater = true;
+                                    inflater(mViewStub.inflate());
+                                }
+                                mRingProgress.setProgress(Integer.valueOf(mChargeDetailData.mPercent) * 360 / 100);
+                                mPercentTv.setText(mChargeDetailData.mPercent + "%");
+                                mTimeTv.setText("预计" + mChargeDetailData.mCompleteTime + "后充电完成");
 
-                        for (int i = 0; i < mLayouts.length; i++) {
-                            View[] vs = mLayoutViewMap.get(mLayouts[i]);
-                            TextView tv1 = (TextView) vs[1];
-                            switch (i) {
-                                case 0:
-                                    tv1.setText(mChargeDetailData.mChargeTime);
-                                    break;
-                                case 1:
-                                    tv1.setText(mChargeDetailData.mChargeMoney);
-                                    break;
-                                case 2:
-                                    tv1.setText(mChargeDetailData.mChargeCount);
-                                    break;
+                                for (int i = 0; i < mLayouts.length; i++) {
+                                    View[] vs = mLayoutViewMap.get(mLayouts[i]);
+                                    TextView tv1 = (TextView) vs[1];
+                                    switch (i) {
+                                        case 0:
+                                            tv1.setText(mChargeDetailData.mChargeTime);
+                                            break;
+                                        case 1:
+                                            tv1.setText(mChargeDetailData.mChargeMoney);
+                                            break;
+                                        case 2:
+                                            tv1.setText(mChargeDetailData.mChargeCount);
+                                            break;
+                                    }
+                                }
+                                mViewPager.getAdapter().notifyDataSetChanged();
+                                mRefreshLayout.setRefreshing(false);
                             }
-                        }
-                        mViewPager.getAdapter().notifyDataSetChanged();
-                        mRefreshLayout.setRefreshing(false);
+                        });
+                    }
+
+                    @Override
+                    public void onFail(String errorMsg) {
+
                     }
                 });
             }

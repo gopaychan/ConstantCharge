@@ -1,4 +1,4 @@
-package com.hengchongkeji.constantcharge.data.domain;
+package com.hengchongkeji.constantcharge.data.entity;
 
 import java.util.List;
 

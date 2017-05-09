@@ -23,7 +23,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.base.BaseFragment;
 import com.hengchongkeji.constantcharge.charge.ChargeDetailActivity;
-import com.hengchongkeji.constantcharge.data.domain.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
 import com.hengchongkeji.constantcharge.main.MainActivity;
 import com.hengchongkeji.constantcharge.utils.ThreadUtils;
 
@@ -69,6 +69,11 @@ public class ChargeMapFragment extends BaseFragment implements IChargeMapContrac
                 @Override
                 public void onChange(BDLocation location) {
                     mPresenter.onLocationChange(location);
+                }
+
+                @Override
+                public void onFail(String failStr) {
+                    mPresenter.onLocationFail(failStr);
                 }
             });
         }

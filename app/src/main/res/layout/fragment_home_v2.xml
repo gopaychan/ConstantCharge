@@ -44,7 +44,7 @@
                 android:layout_marginEnd="@dimen/common_margin_trbl"
                 android:layout_marginRight="@dimen/common_margin_trbl"
                 android:text="列表"
-                android:textColor="@color/home_title_text_color"
+                android:textColor="@color/white_text_color_selector"
                 android:textSize="@dimen/home_title_text_size" />
 
             <ProgressBar

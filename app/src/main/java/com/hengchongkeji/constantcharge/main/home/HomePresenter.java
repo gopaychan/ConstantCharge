@@ -58,6 +58,11 @@ public class HomePresenter implements IHomeContract.IPresenter {
     }
 
     @Override
+    public void onLocationFail(String msg) {
+        mView.hideProgressBar("未知");
+    }
+
+    @Override
     public void showHorizontalProgressBar() {
         mView.showHorizontalProgressBar();
     }

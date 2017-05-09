@@ -39,34 +39,4 @@ public class PreferenceUtils {
     public static void setHasOpenApp(Context context) {
         getSharedDefaultPreferences(context).edit().putBoolean(HAS_OPEN_APP, true).apply();
     }
-
-    public static void setUserNumber(Context context, String userNumber) {
-        getSharedDefaultPreferences(context).edit().putString(USER_NUMBER, userNumber).apply();
-    }
-
-    public static String getUserNumber(Context context) {
-        return getSharedDefaultPreferences(context).getString(USER_NUMBER, "");
-    }
-
-    public static void setUserPsw(Context context, String userPsw) {
-        getSharedDefaultPreferences(context).edit().putString(USER_PSW, userPsw).apply();
-    }
-
-    public static String getUserPsw(Context context) {
-        return getSharedDefaultPreferences(context).getString(USER_PSW, "");
-    }
-
-    public static void setUserNick(Context context, String userNick) {
-        getSharedDefaultPreferences(context).edit().putString(USER_NICK, userNick).apply();
-    }
-
-    public static String getUserNick(Context context) {
-        return getSharedDefaultPreferences(context).getString(USER_NICK, "");
-    }
-
-    public static void saveUserInfo(Context context, String userNumber, String userPsw, String userNick) {
-        setUserPsw(context, userPsw);
-        setUserNumber(context, userNumber);
-        setUserNick(context, userNick);
-    }
 }

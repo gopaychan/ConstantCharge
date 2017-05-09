@@ -1,8 +1,10 @@
 package com.hengchongkeji.constantcharge.base;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hengchongkeji.constantcharge.ActivityModule;
@@ -29,11 +31,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected boolean isBindAuto = true;
+    protected ProgressDialog mPd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
+        mPd = new ProgressDialog(this);
 //        inject();
     }
 
@@ -52,5 +56,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected ActivityModule getActivityModule() {
         return new ActivityModule(this);
+    }
+
+    protected final void showSnackbar(String msg) {
+        Snackbar.make(getWindow().getDecorView(), msg, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPd != null && mPd.isShowing()) {
+            mPd.dismiss();
+        }
     }
 }

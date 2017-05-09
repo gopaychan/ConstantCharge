@@ -16,9 +16,11 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.hengchongkeji.constantcharge.ChargeApplication;
-import com.hengchongkeji.constantcharge.data.domain.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
 import com.hengchongkeji.constantcharge.data.source.DataFactory;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
+import com.hengchongkeji.constantcharge.http.IHttpRequest;
+import com.hengchongkeji.constantcharge.utils.ThreadUtils;
 
 import java.util.List;
 
@@ -33,13 +35,14 @@ public class ChargeMapPresenter implements IChargeMapContract.IPresenter {
     private OrientationListener mOrientationListener;
     private IChargeMapContract.IView mView;
     private BaiduMap mBaiduMap;
-    private boolean hasLocationed;
+    public boolean hasLocationed;
     private List<MapMarkerInfo> mMapMarkerInfoList;
     //当前定位的模式
     private MyLocationConfiguration.LocationMode mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
     private ThreadExecutor mThreadExecutor;
     private Context mContext;
     private Marker mPreMarker;
+    private int mXDirection;
 
     @Inject
     public ChargeMapPresenter(IChargeMapContract.IView view, Context context, ThreadExecutor threadExecutor) {
@@ -67,10 +70,21 @@ public class ChargeMapPresenter implements IChargeMapContract.IPresenter {
         mThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mMapMarkerInfoList = DataFactory.getInstance().getDataSource(true).getLatLngNearby(new LatLng(location.getLatitude(), location.getLongitude()));
-                for (MapMarkerInfo makerInfo : mMapMarkerInfoList) {
-                    mView.showMarker(makerInfo);
-                }
+                DataFactory.getInstance().getDataSource(true).getLatLngNearby(new LatLng(location.getLatitude(), location.getLongitude()), new IHttpRequest.OnResponseListener<List<MapMarkerInfo>>() {
+                    @Override
+                    public void onSuccess(List<MapMarkerInfo> mapMarkerInfos) {
+                        mMapMarkerInfoList = mapMarkerInfos;
+                        for (MapMarkerInfo makerInfo : mMapMarkerInfoList) {
+                            mView.showMarker(makerInfo);
+                        }
+                    }
+
+                    @Override
+                    public void onFail(String errorMsg) {
+
+                    }
+                });
+
             }
         });
     }
@@ -92,8 +106,18 @@ public class ChargeMapPresenter implements IChargeMapContract.IPresenter {
         mThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                String balance = DataFactory.getInstance().getDataSource(true).getChargeBalance();
-                mView.showChargeBalanceText(balance);
+                DataFactory.getInstance().getDataSource(true).getChargeBalance(new IHttpRequest.OnResponseListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        String balance = s;
+                        mView.showChargeBalanceText(balance);
+                    }
+
+                    @Override
+                    public void onFail(String errorMsg) {
+
+                    }
+                });
             }
         });
     }
@@ -138,7 +162,7 @@ public class ChargeMapPresenter implements IChargeMapContract.IPresenter {
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
                     // 此处设置开发者获取到的方向信息，顺时针0-360
-                    .direction(100).latitude(location.getLatitude())
+                    .direction(mXDirection).latitude(location.getLatitude())
                     .longitude(location.getLongitude()).build();
             // 设置定位数据
             mBaiduMap.setMyLocationData(locData);
@@ -155,6 +179,19 @@ public class ChargeMapPresenter implements IChargeMapContract.IPresenter {
                 mBaiduMap.animateMapStatus(u);
                 initMarkers(location);
             }
+        }
+    }
+
+    @Override
+    public void onLocationFail(final String msg) {
+        if (!hasLocationed) {
+            ThreadUtils.runOnMainThread(new Runnable() {
+                @Override
+                public void run() {
+                    mView.showSnackbar(msg);
+                    hasLocationed = true;
+                }
+            });
         }
     }
 
@@ -232,6 +269,7 @@ public class ChargeMapPresenter implements IChargeMapContract.IPresenter {
                 // 这里我们可以得到数据，然后根据需要来处理
                 float x = event.values[SensorManager.DATA_X];
                 if (Math.abs(x - lastX) > 1.0) {
+                    mXDirection = (int)x;
                     BDLocation location = ChargeApplication.getInstance().getCurLocation();
                     if (location != null) {
                         MyLocationData locData = new MyLocationData.Builder()

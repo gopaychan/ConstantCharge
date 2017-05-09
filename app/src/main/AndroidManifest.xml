@@ -68,6 +68,8 @@
         <activity android:name=".main.scanning.ScanningActivity"/>
         <activity android:name=".main.scanning.EditPileCodeActivity"/>
         <activity android:name=".manager.SettingsActivity"/>
+        <activity android:name=".manager.ChangePswActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".manager.LoginActivity"
             android:windowSoftInputMode="adjustResize"/>
@@ -91,6 +93,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".manager.ForgetPswActivity"
+                  android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".manager.PersonalInfoActivity"/>
 

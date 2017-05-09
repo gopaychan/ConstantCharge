@@ -4,10 +4,11 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.R;
-import com.hengchongkeji.constantcharge.data.domain.ChargeDetailData;
-import com.hengchongkeji.constantcharge.data.domain.CurrentVoltage;
-import com.hengchongkeji.constantcharge.data.domain.MapMarkerInfo;
-import com.hengchongkeji.constantcharge.data.domain.Temperature;
+import com.hengchongkeji.constantcharge.data.entity.ChargeDetailData;
+import com.hengchongkeji.constantcharge.data.entity.CurrentVoltage;
+import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.Temperature;
+import com.hengchongkeji.constantcharge.http.IHttpRequest;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,7 +39,7 @@ public class DataFactory {
     private class DataLocalSource implements IDataSource {
 
         @Override
-        public ChargeDetailData getChargeDetailData() {
+        public void getChargeDetailData(IHttpRequest.OnResponseListener listener) {
             Random random = new Random();
             ChargeDetailData chargeDetailData = new ChargeDetailData();
             chargeDetailData.mPercent = String.valueOf(random.nextInt(100));
@@ -64,18 +65,17 @@ public class DataFactory {
             }
             chargeDetailData.mCurrentVoltages = currentVoltages;
             chargeDetailData.mTemperatures = temperatures;
-
-            return chargeDetailData;
+            listener.onSuccess(chargeDetailData);
         }
 
         @Override
-        public String getChargeBalance() {
+        public void getChargeBalance(IHttpRequest.OnResponseListener listener) {
             Random random = new Random();
-            return String.valueOf(random.nextInt(1000));
+            listener.onSuccess(String.valueOf(random.nextInt(1000)));
         }
 
         @Override
-        public List<MapMarkerInfo> getLatLngNearby(LatLng curLatLng) {
+        public void getLatLngNearby(LatLng curLatLng, IHttpRequest.OnResponseListener listener) {
             CharSequence[] textArray = ChargeApplication.getApplicationComponent().context().getResources().getTextArray(R.array.LatLngNearby);
             List<MapMarkerInfo> makerInfos = new ArrayList<>();
             for (int i = 0; i < textArray.length; i++) {
@@ -92,52 +92,52 @@ public class DataFactory {
                 makerInfos.add(makerInfo);
             }
             Collections.sort(makerInfos);
-            return makerInfos;
+            listener.onSuccess(makerInfos);
         }
 
         @Override
-        public int[] getFoundAdImgUrl() {
+        public void getFoundAdImgUrl(IHttpRequest.OnResponseListener listener) {
             int[] ints = new int[]{R.drawable.found_ad_item_0, R.drawable.found_ad_item_1, R.drawable.found_ad_item_2};
 //            CharSequence[] textArray = ChargeApplication.getApplicationComponent().context().getResources().getTextArray(R.array.AdImgUrl);
 //            String[] strings = new String[textArray.length];
 //            for (int i = 0; i < textArray.length; i++) {
 //                strings[i] = textArray[i].toString();
 //            }
-            return ints;
+            listener.onSuccess(ints);
         }
 
         @Override
-        public int[] getIntroductionImgUrl() {
+        public void getIntroductionImgUrl(IHttpRequest.OnResponseListener listener) {
             int[] ints = new int[]{R.drawable.introduction_img_0, R.drawable.introduction_img_1, R.drawable.introduction_img_2};
-            return ints;
+            listener.onSuccess(ints);
         }
     }
 
     private class DataRemoteSource implements IDataSource {
 
         @Override
-        public ChargeDetailData getChargeDetailData() {
-            return new ChargeDetailData();
+        public void getChargeDetailData(IHttpRequest.OnResponseListener<ChargeDetailData> listener) {
+
         }
 
         @Override
-        public String getChargeBalance() {
-            return null;
+        public void getChargeBalance(IHttpRequest.OnResponseListener<String> listener) {
+
         }
 
         @Override
-        public List<MapMarkerInfo> getLatLngNearby(LatLng curLatLng) {
-            return null;
+        public void getLatLngNearby(LatLng curLatLng, IHttpRequest.OnResponseListener<List<MapMarkerInfo>> listener) {
+
         }
 
         @Override
-        public int[] getFoundAdImgUrl() {
-            return new int[0];
+        public void getFoundAdImgUrl(IHttpRequest.OnResponseListener<int[]> listener) {
+
         }
 
         @Override
-        public int[] getIntroductionImgUrl() {
-            return new int[0];
+        public void getIntroductionImgUrl(IHttpRequest.OnResponseListener<int[]> listener) {
+
         }
     }
 }

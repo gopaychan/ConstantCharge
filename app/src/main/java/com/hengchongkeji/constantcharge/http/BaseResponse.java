@@ -6,6 +6,6 @@ package com.hengchongkeji.constantcharge.http;
 
 public class BaseResponse {
 
-    String code;
-    String info;
+    public String code;
+    public String info;
 }

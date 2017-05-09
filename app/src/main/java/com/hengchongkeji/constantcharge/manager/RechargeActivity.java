@@ -88,10 +88,6 @@ public class RechargeActivity extends ActionBarActivity {
 
     }
 
-    private void showSnackbar(String message) {
-        Snackbar.make(mWechatPayCb, message, Snackbar.LENGTH_SHORT).show();
-    }
-
     @OnClick(R.id.rechargeTvId)
     public void recharge() {
         String price;

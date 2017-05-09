@@ -58,7 +58,7 @@
                                 android:id="@+id/mineUserNickTvId"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="185****7677"
+                                android:text=""
                                 android:textColor="@android:color/white"
                                 android:textSize="15sp"
                                 android:visibility="gone" />

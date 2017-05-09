@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,11 @@ public class HomeFragmentV2 extends BaseFragment implements IHomeContract.IView 
                 public void onChange(BDLocation location) {
                     mPresenter.onLocationChange(location);
                 }
+
+                @Override
+                public void onFail(String failStr) {
+                    mPresenter.onLocationFail(failStr);
+                }
             });
         }
     }
@@ -138,7 +144,7 @@ public class HomeFragmentV2 extends BaseFragment implements IHomeContract.IView 
                     mProgressBar.setVisibility(View.INVISIBLE);
                     mCityTv.setVisibility(View.VISIBLE);
                 }
-                if(!mCityTv.getText().toString().equals(city)) {
+                if (!mCityTv.getText().toString().equals(city)) {
                     mCityTv.setText(city);
                 }
             }
@@ -168,6 +174,11 @@ public class HomeFragmentV2 extends BaseFragment implements IHomeContract.IView 
     @Override
     public void hideHorizontalProgressBar() {
         mHorizontalProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSnackbar(String msg) {
+        Snackbar.make(mCardView, msg, Snackbar.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.homeSwitchModeTvId)

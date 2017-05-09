@@ -12,7 +12,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.model.LatLng;
 import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.base.PerActivity;
-import com.hengchongkeji.constantcharge.data.domain.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
 import com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -29,7 +29,6 @@ import javax.inject.Inject;
 public class MainPresenter implements IMainContract.IPresenter {
 
     public IMainContract.MainView mMainView;
-    int mInitNaviState = 0;//0：未初始化；1：初始化中；2：已初始化
     private ThreadExecutor mThreadExecutor;
     private List<MainActivity.OnLocationChangeListener> mListeners;
     private LocationClient mLocationClient;
@@ -81,7 +80,7 @@ public class MainPresenter implements IMainContract.IPresenter {
         BaiduNaviManager.getInstance().initNavi(mMainView.getActivity(), new BaiduNaviManager.onInitResponse() {
             @Override
             public void onResponse(int result) {
-                switch (result){
+                switch (result) {
                     case BaiduNaviManager.INIT_NAVI_FAIL:
                         mMainView.showSnackbar("百度导航引擎初始化失败");
                         break;
@@ -95,20 +94,20 @@ public class MainPresenter implements IMainContract.IPresenter {
 
     @Override
     public void routePlanToNavi(LatLng destinationLatLng, String description) {
-        if (!BaiduNaviManager.hasPermission){
+        if (!BaiduNaviManager.hasPermission) {
             mMainView.showSnackbar("请同意权限申请后再进行导航");
             MainActivityPermissionsDispatcher.needsPermissionWithCheck(mMainView.getActivity());
             return;
         }
         BDLocation location = ChargeApplication.getInstance().getCurLocation();
-        if (location == null){
+        if (location == null) {
             mMainView.showSnackbar("没有定位到当前位置，请检查是否打开定位权限或走到空旷的地方再尝试定位");
             return;
         }
         BaiduNaviManager.getInstance().routePlanToNavi(mMainView.getActivity(), location, destinationLatLng, description, new BaiduNaviManager.onRoutePlanResponse() {
             @Override
             public void onResponse(int result) {
-                switch (result){
+                switch (result) {
                     case PLAN_NO_INIT:
                         mMainView.showSnackbar("百度导航引擎还未初始化");
                         MainActivityPermissionsDispatcher.needsPermissionWithCheck(mMainView.getActivity());
@@ -163,8 +162,18 @@ public class MainPresenter implements IMainContract.IPresenter {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
+            String description = location.getLocTypeDescription();
+            if (description != null && description.contains("failed")) {
+                ChargeApplication.getInstance().setCurLocation(null);
+                if (mListeners != null && mListeners.size() > 0) {
+                    for (MainActivity.OnLocationChangeListener listener : mListeners) {
+                        listener.onFail("定位失败，请检查网络或gps是否打开");
+                    }
+                }
+                return;
+            }
+            ChargeApplication.getInstance().setCurLocation(location);
             if (mListeners != null && mListeners.size() > 0) {
-                ChargeApplication.getInstance().setCurLocation(location);
                 for (MainActivity.OnLocationChangeListener listener : mListeners) {
                     listener.onChange(location);
                 }
@@ -174,6 +183,15 @@ public class MainPresenter implements IMainContract.IPresenter {
         @Override
         public void onConnectHotSpotMessage(String s, int i) {
 
+        }
+    }
+
+    @Override
+    public void onLocationPermissionDenied(){
+        if (mListeners != null && mListeners.size() > 0) {
+            for (MainActivity.OnLocationChangeListener listener : mListeners) {
+                listener.onFail("定位失败，请打开权限");
+            }
         }
     }
 }

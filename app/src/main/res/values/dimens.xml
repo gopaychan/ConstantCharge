@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="action_bar_height">56dp</dimen>
+    <dimen name="action_bar_lr_text_size">16sp</dimen>
     <dimen name="search_view_inset">8dp</dimen>
     <dimen name="common_margin_trbl">16dp</dimen>
     <dimen name="common_span">8dp</dimen>

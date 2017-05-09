@@ -9,7 +9,7 @@ import com.hengchongkeji.constantcharge.base.BaseActivity;
 import com.hengchongkeji.constantcharge.base.IBasePresenter;
 import com.hengchongkeji.constantcharge.base.IBaseView;
 import com.hengchongkeji.constantcharge.charge.ChargeDetailActivity;
-import com.hengchongkeji.constantcharge.data.domain.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
 import com.hengchongkeji.constantcharge.utils.ThreadUtils;
 
 import javax.inject.Inject;
@@ -48,6 +48,8 @@ public interface IMainContract {
         void onStart();
 
         void onStop();
+
+        void onLocationPermissionDenied();
 
     }
 

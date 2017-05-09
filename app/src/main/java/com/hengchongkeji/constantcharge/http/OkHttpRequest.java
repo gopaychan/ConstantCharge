@@ -167,7 +167,7 @@ public class OkHttpRequest implements IHttpRequest {
 
     private void returnObj(String result, TypeToken token, final OnResponseListener listener) {
         Gson gson = new Gson();
-        final BaseResponse response = gson.fromJson(result, token.getType());
+        final BaseResponse response = gson.fromJson(result,token.getType());
         ThreadUtils.runOnMainThread(new Runnable() {
             @Override
             public void run() {

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import com.hengchongkeji.constantcharge.base.BaseActivity;
 import com.hengchongkeji.constantcharge.data.source.DataFactory;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
+import com.hengchongkeji.constantcharge.http.IHttpRequest;
 import com.hengchongkeji.constantcharge.main.MainActivity;
 import com.hengchongkeji.constantcharge.utils.PreferenceUtils;
 import com.hengchongkeji.constantcharge.utils.ScreenUtils;
@@ -60,7 +61,17 @@ public class IntroductionActivity extends BaseActivity {
         mThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mIntroductionUrl = DataFactory.getInstance().getDataSource(true).getIntroductionImgUrl();
+                DataFactory.getInstance().getDataSource(true).getIntroductionImgUrl(new IHttpRequest.OnResponseListener<int[]>() {
+                    @Override
+                    public void onSuccess(int[] ints) {
+                        mIntroductionUrl = ints;
+                    }
+
+                    @Override
+                    public void onFail(String errorMsg) {
+
+                    }
+                });
                 mAdapter.notifyDataSetChanged();
             }
         });

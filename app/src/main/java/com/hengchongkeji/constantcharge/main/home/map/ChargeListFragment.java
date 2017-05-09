@@ -21,9 +21,10 @@ import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.ViewHolder;
 import com.hengchongkeji.constantcharge.base.BaseFragment;
 import com.hengchongkeji.constantcharge.charge.ChargeDetailActivity;
-import com.hengchongkeji.constantcharge.data.domain.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
 import com.hengchongkeji.constantcharge.data.source.DataFactory;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
+import com.hengchongkeji.constantcharge.http.IHttpRequest;
 import com.hengchongkeji.constantcharge.main.MainActivity;
 
 import java.util.ArrayList;
@@ -62,7 +63,8 @@ public class ChargeListFragment extends BaseFragment {
                 case LOAD_DATA_SUCCESS:
                     List<MapMarkerInfo> infos = (List<MapMarkerInfo>) msg.obj;
                     mMapMarkerInfos.clear();
-                    mMapMarkerInfos.addAll(infos);
+                    if (infos != null)
+                        mMapMarkerInfos.addAll(infos);
                     mAdapter.notifyDataSetChanged();
                     break;
             }
@@ -79,6 +81,14 @@ public class ChargeListFragment extends BaseFragment {
                 @Override
                 public void onChange(BDLocation location) {
                     resetData();
+                }
+
+                @Override
+                public void onFail(String failStr) {
+                    Message msg = Message.obtain();
+                    msg.obj = null;
+                    msg.what = LOAD_DATA_SUCCESS;
+                    mHandler.sendMessage(msg);
                 }
             });
         }
@@ -116,11 +126,21 @@ public class ChargeListFragment extends BaseFragment {
             public void run() {
                 BDLocation location = ChargeApplication.getInstance().getCurLocation();
                 if (location != null) {
-                    List<MapMarkerInfo> mapMarkerInfos = DataFactory.getInstance().getDataSource(true).getLatLngNearby(new LatLng(location.getLatitude(), location.getLongitude()));
-                    Message msg = Message.obtain();
-                    msg.obj = mapMarkerInfos;
-                    msg.what = LOAD_DATA_SUCCESS;
-                    mHandler.sendMessage(msg);
+                    DataFactory.getInstance().getDataSource(true).getLatLngNearby(new LatLng(location.getLatitude(), location.getLongitude()), new IHttpRequest.OnResponseListener<List<MapMarkerInfo>>() {
+                        @Override
+                        public void onSuccess(List<MapMarkerInfo> mapMarkerInfos) {
+                            Message msg = Message.obtain();
+                            msg.obj = mapMarkerInfos;
+                            msg.what = LOAD_DATA_SUCCESS;
+                            mHandler.sendMessage(msg);
+                        }
+
+                        @Override
+                        public void onFail(String errorMsg) {
+
+                        }
+                    });
+
                 }
             }
         });

@@ -85,17 +85,17 @@ public class ScanningFragment extends BaseFragment {
 
     @OnShowRationale(Manifest.permission.CAMERA)
     void onShowRationable(final PermissionRequest request) {
-        PermissionUtils.showRationaleDialog(getActivity(),"扫一扫需要摄像头权限，是否弹出权限申请？",request);
+        PermissionUtils.showRationaleDialog(getActivity(), R.string.scanning_permission_show_rationale,request);
     }
 
     @OnPermissionDenied(Manifest.permission.CAMERA)
     void onPermissionDenied() {
-        ((MainActivity)getActivity()).mMainPresenter.mMainView.showSnackbar("拒绝摄像头权限无法使用扫一扫功能");
+        ((MainActivity)getActivity()).mMainPresenter.mMainView.showSnackbar(getString(R.string.scanning_permission_denied));
     }
 
     @OnNeverAskAgain(Manifest.permission.CAMERA)
     void onNeverAskAgain() {
-        ((MainActivity)getActivity()).mMainPresenter.mMainView.showSnackbar("摄像头权限请求将不再弹出，如需正常使用扫一扫请到手机设置中打开权限");
+        ((MainActivity)getActivity()).mMainPresenter.mMainView.showSnackbar(getString(R.string.scanning_permission_never_ask));
     }
 
 

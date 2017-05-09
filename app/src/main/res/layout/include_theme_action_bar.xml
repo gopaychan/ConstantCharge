@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="@dimen/action_bar_height"
-    android:background="@color/colorTheme"
-    android:paddingLeft="@dimen/common_margin_trbl"
-    android:paddingRight="@dimen/common_margin_trbl">
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/action_bar_height"
+             android:background="@color/colorTheme"
+             android:orientation="vertical"
+             android:paddingLeft="@dimen/common_margin_trbl"
+             android:paddingRight="@dimen/common_margin_trbl">
 
     <ImageView
+        android:id="@+id/actionBarBackIvId"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/actionBarBackIvId"
         android:src="@drawable/action_bar_back_img"/>
 
     <TextView
         android:id="@+id/actionBarTitleId"
-        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/title_text_size"/>
+
+    <TextView
+        android:id="@+id/actionBarRightTvId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:text="完成"
+        android:textSize="@dimen/action_bar_lr_text_size"
+        android:textColor="@color/white_text_color_selector"
+        android:visibility="gone"/>
 </FrameLayout>

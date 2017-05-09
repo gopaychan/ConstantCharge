@@ -4,13 +4,13 @@ import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.widget.EditText;
 
 import com.hengchongkeji.constantcharge.ActionBarActivity;
+import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.R;
+import com.hengchongkeji.constantcharge.data.entity.User;
 import com.hengchongkeji.constantcharge.utils.PermissionUtils;
-import com.hengchongkeji.constantcharge.utils.PreferenceUtils;
 import com.hengchongkeji.constantcharge.view.PictureDialog;
 
 import butterknife.Bind;
@@ -48,7 +48,8 @@ public class PersonalInfoActivity extends ActionBarActivity {
                 mDialog.openGallery();
             }
         };
-        mNickEdt.setText(PreferenceUtils.getUserNick(this));
+        User user = ChargeApplication.getInstance().getUser();
+        mNickEdt.setText(user == null? "" : user.getUsername());
     }
 
     @OnClick(R.id.personalInfoAvatarRytId)
@@ -89,7 +90,4 @@ public class PersonalInfoActivity extends ActionBarActivity {
         showSnackbar("摄像头、写文件权限请求将不再弹出，如需正常使用功能请到手机设置中打开权限");
     }
 
-    private void showSnackbar(String message) {
-        Snackbar.make(mNickEdt, message, Snackbar.LENGTH_LONG).show();
-    }
 }

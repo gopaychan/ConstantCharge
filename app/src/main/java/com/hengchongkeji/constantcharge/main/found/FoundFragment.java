@@ -15,6 +15,7 @@ import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.base.BaseFragment;
 import com.hengchongkeji.constantcharge.data.source.DataFactory;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
+import com.hengchongkeji.constantcharge.http.IHttpRequest;
 import com.hengchongkeji.constantcharge.utils.ScreenUtils;
 import com.hengchongkeji.constantcharge.utils.ThreadUtils;
 import com.squareup.picasso.Picasso;
@@ -62,7 +63,17 @@ public class FoundFragment extends BaseFragment {
         mThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                mImgUrls = DataFactory.getInstance().getDataSource(true).getFoundAdImgUrl();
+                DataFactory.getInstance().getDataSource(true).getFoundAdImgUrl(new IHttpRequest.OnResponseListener<int[]>() {
+                    @Override
+                    public void onSuccess(int[] ints) {
+                        mImgUrls = ints;
+                    }
+
+                    @Override
+                    public void onFail(String errorMsg) {
+
+                    }
+                });
                 mAdapter.notifyDataSetChanged();
                 mRadioButtons = new RadioButton[mImgUrls.length];
                 for (int i = 0; i < mImgUrls.length; i++) {

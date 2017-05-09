@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import com.hengchongkeji.constantcharge.ActionBarActivity;
 import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.charge.ChargeDetailActivity;
-import com.hengchongkeji.constantcharge.data.domain.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
 
 import butterknife.OnClick;
 

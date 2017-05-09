@@ -19,6 +19,7 @@ ext {
     floatingsearchviewVersion = "2.0.3"
     okhttpVersion = "3.7.0"
     gsonVersion = "2.8.0"
+    greendaoVersion = "3.2.2"
 
     projectDependencies = [
             bottomNavigation   : "com.ashokvarma.android:bottom-navigation-bar:${bottomNavigationVersion}",
@@ -38,6 +39,7 @@ ext {
             picasso            : "com.squareup.picasso:picasso:${picassoVersion}",
             floatingsearchview : "com.github.arimorty:floatingsearchview:${floatingsearchviewVersion}",
             okhttp             : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
-            gson               : "com.google.code.gson:gson:${gsonVersion}"
+            gson               : "com.google.code.gson:gson:${gsonVersion}",
+            greendao           : "org.greenrobot:greendao:${greendaoVersion}"
     ]
 }
