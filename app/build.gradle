@@ -31,6 +31,13 @@ greendao {
 dependencies {
     def projectDependencies = rootProject.ext.projectDependencies
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    compile(name: 'lib-zxing-release', ext: 'aar')
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -51,7 +58,7 @@ dependencies {
     compile projectDependencies.okhttp
     compile projectDependencies.gson
     compile projectDependencies.greendao
-    compile('com.github.hotchemi:permissionsdispatcher:2.4.0'){
+    compile('com.github.hotchemi:permissionsdispatcher:2.4.0') {
         exclude module: "support-v13"
         exclude group: 'com.android.support', module: 'support-compat'
     }
@@ -61,5 +68,4 @@ dependencies {
     releaseCompile projectDependencies.leakcanaryno
     testCompile projectDependencies.leakcanaryno
     //    compile files('libs/taobao-sdk-java-auto-source.jar')
-    compile project(':lib-zxing')
 }
