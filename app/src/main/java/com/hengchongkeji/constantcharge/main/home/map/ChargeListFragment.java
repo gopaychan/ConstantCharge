@@ -21,7 +21,7 @@ import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.ViewHolder;
 import com.hengchongkeji.constantcharge.base.BaseFragment;
 import com.hengchongkeji.constantcharge.charge.ChargeDetailActivity;
-import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.Station;
 import com.hengchongkeji.constantcharge.data.source.DataFactory;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
 import com.hengchongkeji.constantcharge.http.IHttpRequest;
@@ -46,7 +46,7 @@ public class ChargeListFragment extends BaseFragment {
     ListView mListview;
     @Inject
     ThreadExecutor mThreadExecutor;
-    private List<MapMarkerInfo> mMapMarkerInfos;
+    private List<Station> mMapMarkerInfos;
     private final static int LOAD_DATA_SUCCESS = 1;
     private BaseAdapter mAdapter;
 
@@ -61,7 +61,7 @@ public class ChargeListFragment extends BaseFragment {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case LOAD_DATA_SUCCESS:
-                    List<MapMarkerInfo> infos = (List<MapMarkerInfo>) msg.obj;
+                    List<Station> infos = (List<Station>) msg.obj;
                     mMapMarkerInfos.clear();
                     if (infos != null)
                         mMapMarkerInfos.addAll(infos);
@@ -126,9 +126,9 @@ public class ChargeListFragment extends BaseFragment {
             public void run() {
                 BDLocation location = ChargeApplication.getInstance().getCurLocation();
                 if (location != null) {
-                    DataFactory.getInstance().getDataSource(true).getLatLngNearby(new LatLng(location.getLatitude(), location.getLongitude()), new IHttpRequest.OnResponseListener<List<MapMarkerInfo>>() {
+                    DataFactory.getInstance().getDataSource(false).getLatLngNearby(getActivity(), new LatLng(location.getLatitude(), location.getLongitude()), new IHttpRequest.OnResponseListener<List<Station>>() {
                         @Override
-                        public void onSuccess(List<MapMarkerInfo> mapMarkerInfos) {
+                        public void onSuccess(List<Station> mapMarkerInfos) {
                             Message msg = Message.obtain();
                             msg.obj = mapMarkerInfos;
                             msg.what = LOAD_DATA_SUCCESS;
@@ -154,7 +154,7 @@ public class ChargeListFragment extends BaseFragment {
         }
 
         @Override
-        public MapMarkerInfo getItem(int position) {
+        public Station getItem(int position) {
             return mMapMarkerInfos == null ? null : mMapMarkerInfos.get(position);
         }
 
@@ -174,21 +174,21 @@ public class ChargeListFragment extends BaseFragment {
             TextView freePileTv = ViewHolder.get(convertView, R.id.listItemChargeListFreeTvId);
             TextView distanceTv = ViewHolder.get(convertView, R.id.listItemChargeListDistanceTvId);
             TextView navigationTv = ViewHolder.get(convertView, R.id.listItemChargeListNaviTvId);
-            final MapMarkerInfo info = getItem(position);
-            addressTv.setText(info.address);
-            totalPileTv.setText(getString(R.string.charge_map_popup_total_pile).replace("{}", info.totalPile));
-            freePileTv.setText(getString(R.string.charge_map_popup_free_pile).replace("{}", info.freePile));
-            if (info.distance.length() > 3) {
-                distanceTv.setText(String.format("%.1f", Double.valueOf(info.distance) / 1000) + "km");
+            final Station info = getItem(position);
+            addressTv.setText(info.getAddress());
+            totalPileTv.setText(getString(R.string.charge_map_popup_total_pile).replace("{}", info.getTotalPile()));
+            freePileTv.setText(getString(R.string.charge_map_popup_free_pile).replace("{}", info.getFreePile()));
+            if (info.getDistance().length() > 3) {
+                distanceTv.setText(String.format("%.1f", Double.valueOf(info.getDistance()) / 1000) + "km");
             } else {
-                distanceTv.setText(info.distance + "m");
+                distanceTv.setText(info.getDistance() + "m");
             }
             navigationTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Activity activity = getActivity();
                     if (activity != null) {
-                        ((MainActivity) activity).mMainPresenter.routePlanToNavi(info.latLng, info.address);
+                        ((MainActivity) activity).mMainPresenter.routePlanToNavi(info.getLatLng(), info.getAddress());
                     }
                 }
             });

@@ -12,7 +12,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.model.LatLng;
 import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.base.PerActivity;
-import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.Station;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
 import com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -70,7 +70,7 @@ public class MainPresenter implements IMainContract.IPresenter {
         // 设置定位的相关配置
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true);// 打开gps
-        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setCoorType("GCJ02"); // 设置坐标类型 国测局加密的坐标
         option.setScanSpan(1000);
         option.setIsNeedAddress(true);
         mLocationClient.setLocOption(option);
@@ -142,7 +142,7 @@ public class MainPresenter implements IMainContract.IPresenter {
         if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
             String result = bundle.getString(CodeUtils.RESULT_STRING);
             mMainView.showSnackbar("解析结果:" + result);
-            mMainView.showChargeDetailActivity(new MapMarkerInfo());
+            mMainView.showChargeDetailActivity(new Station());
         } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
             mMainView.showSnackbar("解析二维码失败");
         }
@@ -167,7 +167,11 @@ public class MainPresenter implements IMainContract.IPresenter {
                 ChargeApplication.getInstance().setCurLocation(null);
                 if (mListeners != null && mListeners.size() > 0) {
                     for (MainActivity.OnLocationChangeListener listener : mListeners) {
-                        listener.onFail("定位失败，请检查网络或gps是否打开");
+                        if(android.os.Build.VERSION.SDK_INT < 23){
+                            listener.onFail("定位失败，请检查网络或gps是否打开，或是否授予软件定位权限");
+                        }else {
+                            listener.onFail("定位失败，请检查网络或gps是否打开");
+                        }
                     }
                 }
                 return;

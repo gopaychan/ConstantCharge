@@ -19,13 +19,13 @@
 
     <string name="charge_detail_always_complete">已完成</string>
     <string name="charge_detail_end_charge">结束充电</string>
-    <string name="charge_detail_battery_temperature">电池温度</string>
-    <string name="charge_detail_current_voltage">电流/电压</string>
+    <string name="charge_detail_current">电流</string>
+    <string name="charge_detail_voltage">电压</string>
     <string name="charge_detail_max_temperature">最高位温度</string>
     <string name="charge_detail_max_voltage">最高电压</string>
     <string name="charge_detail_time">充电时长</string>
     <string name="charge_detail_money">充电金额</string>
-    <string name="charge_detail_count">总耗电量</string>
+    <string name="charge_detail_count">已充电量</string>
 
     <string name="charge_map_distance">搜索范围</string>
     <string name="charge_map_money">剩余金额</string>

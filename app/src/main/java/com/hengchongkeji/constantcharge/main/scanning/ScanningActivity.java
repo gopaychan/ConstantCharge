@@ -36,12 +36,16 @@ public class ScanningActivity extends BaseActivity {
 
     @OnClick(R.id.scanningLightBtnId)
     public void toggleLight() {
-        if (!isOpen) {
-            CodeUtils.isLightEnable(true);
-            isOpen = true;
-        } else {
-            CodeUtils.isLightEnable(false);
-            isOpen = false;
+        try {
+            if (!isOpen) {
+                CodeUtils.isLightEnable(true);
+                isOpen = true;
+            } else {
+                CodeUtils.isLightEnable(false);
+                isOpen = false;
+            }
+        }catch (RuntimeException e){
+            showSnackbar("请检查摄像头权限是否打开");
         }
     }
 

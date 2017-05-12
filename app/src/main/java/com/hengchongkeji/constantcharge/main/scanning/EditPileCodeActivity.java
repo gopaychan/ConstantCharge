@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import com.hengchongkeji.constantcharge.ActionBarActivity;
 import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.charge.ChargeDetailActivity;
-import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.Station;
 
 import butterknife.OnClick;
 
@@ -39,7 +39,7 @@ public class EditPileCodeActivity extends ActionBarActivity {
     public void certainCode() {
         Intent intent = new Intent(this, ChargeDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(TO_CHARGE_DETAIL_ACTIVITY_ARGS, new MapMarkerInfo());
+        bundle.putSerializable(TO_CHARGE_DETAIL_ACTIVITY_ARGS, new Station());
         startActivity(intent);
     }
 }

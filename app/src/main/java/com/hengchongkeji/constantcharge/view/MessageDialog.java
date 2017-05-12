@@ -39,7 +39,7 @@ public class MessageDialog {
 
     private void initView() {
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        root = inflater.inflate(R.layout.message_dialog, null);
+        root = inflater.inflate(R.layout.dialog_message, null);
         mTitleTv = (TextView) root.findViewById(R.id.messageDialogTitleTvId);
         mMessageTv = (TextView) root.findViewById(R.id.messageDialogMsgTvId);
         mCancelBtn = (Button) root.findViewById(R.id.messageDialogCancelBtnId);

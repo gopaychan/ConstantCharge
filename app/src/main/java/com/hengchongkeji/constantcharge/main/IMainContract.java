@@ -9,7 +9,7 @@ import com.hengchongkeji.constantcharge.base.BaseActivity;
 import com.hengchongkeji.constantcharge.base.IBasePresenter;
 import com.hengchongkeji.constantcharge.base.IBaseView;
 import com.hengchongkeji.constantcharge.charge.ChargeDetailActivity;
-import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.Station;
 import com.hengchongkeji.constantcharge.utils.ThreadUtils;
 
 import javax.inject.Inject;
@@ -26,7 +26,7 @@ public interface IMainContract {
 
         void showSnackbar(final String msg);
 
-        void showChargeDetailActivity(MapMarkerInfo mapMarkerInfo);
+        void showChargeDetailActivity(Station mapMarkerInfo);
 
         void showProgressBar();
 
@@ -81,7 +81,7 @@ public interface IMainContract {
         }
 
         @Override
-        public void showChargeDetailActivity(MapMarkerInfo mapMarkerInfo) {
+        public void showChargeDetailActivity(Station mapMarkerInfo) {
             Intent intent = new Intent(getActivity(), ChargeDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable(TO_CHARGE_DETAIL_ACTIVITY_ARGS, mapMarkerInfo);

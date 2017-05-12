@@ -7,7 +7,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.Marker;
 import com.hengchongkeji.constantcharge.base.IBasePresenter;
 import com.hengchongkeji.constantcharge.base.IBaseView;
-import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.Station;
 
 /**
  * Created by gopayChan on 2017/4/20.
@@ -26,7 +26,7 @@ public interface IChargeMapContract {
 
         void hidePopupWindow(Marker marker);
 
-        void showMarker(MapMarkerInfo mapMarkerInfo);
+        void showMarker(Station mapMarkerInfo);
 
         Activity getActivity();
 

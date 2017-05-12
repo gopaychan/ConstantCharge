@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.base.BaseFragment;
 import com.hengchongkeji.constantcharge.main.MainActivity;
+import com.hengchongkeji.constantcharge.manager.LoginActivity;
 import com.hengchongkeji.constantcharge.utils.PermissionUtils;
 import com.hengchongkeji.constantcharge.utils.ScreenUtils;
 
@@ -64,10 +66,15 @@ public class ScanningFragment extends BaseFragment {
 
     @OnClick(R.id.scanningBtnId)
     public void showScanningActivity() {
-        ScanningFragmentPermissionsDispatcher.needsPermissionWithCheck(this);
+        if (ChargeApplication.getInstance().getIsLogin()) {
+            ScanningFragmentPermissionsDispatcher.needsPermissionWithCheck(this);
+        } else {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
-    private void showScanningActivityInternal(){
+    private void showScanningActivityInternal() {
         Intent intent = new Intent(getActivity(), ScanningActivity.class);
         getActivity().startActivityForResult(intent, SCANNING_REQUEST_CODE);
     }
@@ -85,17 +92,18 @@ public class ScanningFragment extends BaseFragment {
 
     @OnShowRationale(Manifest.permission.CAMERA)
     void onShowRationable(final PermissionRequest request) {
-        PermissionUtils.showRationaleDialog(getActivity(), R.string.scanning_permission_show_rationale,request);
+        PermissionUtils.showRationaleDialog(getActivity(), R.string.scanning_permission_show_rationale, request);
     }
 
     @OnPermissionDenied(Manifest.permission.CAMERA)
     void onPermissionDenied() {
-        ((MainActivity)getActivity()).mMainPresenter.mMainView.showSnackbar(getString(R.string.scanning_permission_denied));
+        ((MainActivity) getActivity()).mMainPresenter.mMainView.showSnackbar(getString(R.string.scanning_permission_denied));
+        showScanningActivityInternal();
     }
 
     @OnNeverAskAgain(Manifest.permission.CAMERA)
     void onNeverAskAgain() {
-        ((MainActivity)getActivity()).mMainPresenter.mMainView.showSnackbar(getString(R.string.scanning_permission_never_ask));
+        ((MainActivity) getActivity()).mMainPresenter.mMainView.showSnackbar(getString(R.string.scanning_permission_never_ask));
     }
 
 

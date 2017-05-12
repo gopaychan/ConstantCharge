@@ -3,6 +3,7 @@ package com.hengchongkeji.constantcharge;
 import android.app.Application;
 
 import com.baidu.location.BDLocation;
+import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.hengchongkeji.constantcharge.common.MyAppExceptions;
 import com.hengchongkeji.constantcharge.data.entity.DaoMaster;
@@ -36,6 +37,7 @@ public class ChargeApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.setCoordType(CoordType.GCJ02);//默认为BD09LL坐标
         initializeInjector();
         initGreendao();
         Thread.setDefaultUncaughtExceptionHandler(MyAppExceptions

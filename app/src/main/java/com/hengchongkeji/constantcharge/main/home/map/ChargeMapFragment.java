@@ -2,7 +2,6 @@ package com.hengchongkeji.constantcharge.main.home.map;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -15,15 +14,13 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.base.BaseFragment;
-import com.hengchongkeji.constantcharge.charge.ChargeDetailActivity;
-import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.Station;
 import com.hengchongkeji.constantcharge.main.MainActivity;
 import com.hengchongkeji.constantcharge.utils.ThreadUtils;
 
@@ -31,7 +28,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 import static com.baidu.mapapi.map.BitmapDescriptorFactory.fromResource;
-import static com.hengchongkeji.constantcharge.charge.ChargeDetailActivity.TO_CHARGE_DETAIL_ACTIVITY_ARGS;
 
 
 /**
@@ -47,6 +43,7 @@ public class ChargeMapFragment extends BaseFragment implements IChargeMapContrac
     Button mDetailBtn, mNavigationBtn;
 
     IChargeMapContract.IPresenter mPresenter;
+    private StationDetailDialog mStationDetailDialog;
 
     private Marker mPreMarker;
     private static final String INFO = "info";
@@ -114,7 +111,7 @@ public class ChargeMapFragment extends BaseFragment implements IChargeMapContrac
     }
 
     @OnClick(R.id.chargeMapLocationIvId)
-    public void location(){
+    public void location() {
         mPresenter.location();
     }
 
@@ -144,51 +141,80 @@ public class ChargeMapFragment extends BaseFragment implements IChargeMapContrac
 
     @Override
     public void showPopupWindow(final Marker marker) {
-        final MapMarkerInfo mapMarkerInfo = (MapMarkerInfo) marker.getExtraInfo().get(INFO);
+        final Station mapMarkerInfo = (Station) marker.getExtraInfo().get(INFO);
         if (mPreMarker != null)
             mPreMarker.setIcon(mNormalMarkerIcon);
         marker.setIcon(mFocusMarkerIcon);
         mPreMarker = marker;
-        mAddressTv.setText(mapMarkerInfo.address);
-        mTotalPileTv.setText(getString(R.string.charge_map_popup_total_pile).replace("{}", mapMarkerInfo.totalPile));
-        mFreePileTv.setText(getString(R.string.charge_map_popup_free_pile).replace("{}", mapMarkerInfo.freePile));
-        if ("0".equals(mapMarkerInfo.predictFreePileTime))
-            mPredictTvId.setText(getString(R.string.charge_map_popup_predict_reach_time).replace("{}", mapMarkerInfo.predictReachTime));
-        else
-            mPredictTvId.setText(getString(R.string.charge_map_popup_predict_free_pile).replace("{}", mapMarkerInfo.predictFreePileTime));
-        InfoWindow mInfoWindow;
-        //为弹出的InfoWindow添加点击事件
-        mInfoWindow = new InfoWindow(mBubbleLayout, mapMarkerInfo.latLng, -47);
-        //显示InfoWindow
-        getBaiduMap().showInfoWindow(mInfoWindow);
-        mDetailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ChargeDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(TO_CHARGE_DETAIL_ACTIVITY_ARGS, mapMarkerInfo);
-                startActivity(intent);
-                hidePopupWindow(marker);
-            }
-        });
-        mNavigationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity activity = getActivity();
-                if (activity != null) {
-                    ((MainActivity) activity).mMainPresenter.routePlanToNavi(mapMarkerInfo.latLng, mapMarkerInfo.address);
-                }
-                hidePopupWindow(marker);
-            }
-        });
+        mAddressTv.setText(mapMarkerInfo.getAddress());
+        mStationDetailDialog = new StationDetailDialog.Builder(getActivity())
+                .setAddress(mapMarkerInfo.getAddress())
+                .setNaviClickListener(new StationDetailDialog.OnNaviClickListener() {
+                    @Override
+                    public void onClick() {
+                        Activity activity = getActivity();
+                        if (activity != null) {
+                            ((MainActivity) activity).mMainPresenter.routePlanToNavi(mapMarkerInfo.getLatLng(), mapMarkerInfo.getAddress());
+                        }
+                        hidePopupWindow(marker);
+                    }
+                })
+                .setOnDialogCancelListener(new StationDetailDialog.OnDialogCancelListener() {
+                    @Override
+                    public void onCancel() {
+                        hidePopupWindow(marker);
+                    }
+                }).create();
+
+        if (mapMarkerInfo.getDistance().length() > 3) {
+            mStationDetailDialog.setDistance(String.format("%.1f", Double.valueOf(mapMarkerInfo.getDistance()) / 1000) + "km");
+        } else {
+            mStationDetailDialog.setDistance(mapMarkerInfo.getDistance() + "m");
+        }
+        mStationDetailDialog.showDialog();
+
+//        mTotalPileTv.setText(getString(R.string.charge_map_popup_total_pile).replace("{}", mapMarkerInfo.getTotalPile()));
+//        mFreePileTv.setText(getString(R.string.charge_map_popup_free_pile).replace("{}", mapMarkerInfo.getFreePile()));
+//        if ("0".equals(mapMarkerInfo.getPredictFreePileTime()))
+//            mPredictTvId.setText(getString(R.string.charge_map_popup_predict_reach_time).replace("{}", mapMarkerInfo.getPredictReachTime()));
+//        else
+//            mPredictTvId.setText(getString(R.string.charge_map_popup_predict_free_pile).replace("{}", mapMarkerInfo.getPredictFreePileTime()));
+//        InfoWindow mInfoWindow;
+//        //为弹出的InfoWindow添加点击事件
+//        mInfoWindow = new InfoWindow(mBubbleLayout, mapMarkerInfo.getLatLng(), -47);
+//        //显示InfoWindow
+//        getBaiduMap().showInfoWindow(mInfoWindow);
+//        mDetailBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), ChargeDetailActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable(TO_CHARGE_DETAIL_ACTIVITY_ARGS, mapMarkerInfo);
+//                startActivity(intent);
+//                hidePopupWindow(marker);
+//            }
+//        });
+//        mNavigationBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Activity activity = getActivity();
+//                if (activity != null) {
+//                    ((MainActivity) activity).mMainPresenter.routePlanToNavi(mapMarkerInfo.getLatLng(), mapMarkerInfo.getAddress());
+//                }
+//                hidePopupWindow(marker);
+//            }
+//        });
     }
 
     @Override
     public void hidePopupWindow(Marker marker) {
         if (mPreMarker != null) {
-            getBaiduMap().hideInfoWindow();
-            final MapMarkerInfo mapMarkerInfo = (MapMarkerInfo) marker.getExtraInfo().get(INFO);
-            if ("0".equals(mapMarkerInfo.freePile)) {
+//            getBaiduMap().hideInfoWindow();
+            if (mStationDetailDialog.isShowing()) {
+                mStationDetailDialog.dismiss();
+            }
+            final Station mapMarkerInfo = (Station) marker.getExtraInfo().get(INFO);
+            if ("0".equals(mapMarkerInfo.getFreePile())) {
                 mPreMarker.setIcon(mNotFreePileIcon);
             } else {
                 mPreMarker.setIcon(mNormalMarkerIcon);
@@ -198,13 +224,13 @@ public class ChargeMapFragment extends BaseFragment implements IChargeMapContrac
     }
 
     @Override
-    public void showMarker(MapMarkerInfo mapMarkerInfo) {
-        LatLng point = mapMarkerInfo.latLng;
+    public void showMarker(Station mapMarkerInfo) {
+        LatLng point = mapMarkerInfo.getLatLng();
         //构建Marker图标
         //构建MarkerOption，用于在地图上添加Marker
         MarkerOptions option = new MarkerOptions()
                 .position(point);
-        if ("0".equals(mapMarkerInfo.freePile)) {
+        if ("0".equals(mapMarkerInfo.getFreePile())) {
             option.icon(mNotFreePileIcon);
         } else {
             option.icon(mNormalMarkerIcon);

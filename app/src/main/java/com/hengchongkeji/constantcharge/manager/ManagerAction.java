@@ -4,20 +4,19 @@ import android.content.Context;
 
 import com.google.gson.reflect.TypeToken;
 import com.hengchongkeji.constantcharge.data.entity.User;
+import com.hengchongkeji.constantcharge.http.BaseAction;
 import com.hengchongkeji.constantcharge.http.BaseResponse;
-import com.hengchongkeji.constantcharge.http.HttpRequestFactory;
 import com.hengchongkeji.constantcharge.http.IHttpRequest;
 
 /**
  * Created by gopayChan on 2017/5/1.
  */
 
-public class ManagerAction {
+public class ManagerAction extends BaseAction {
 
     private void ManagerAction() {
     }
 
-    private static final String BASE_URL = "http://www.everest-energy.cn/app/";
     private static final String GET_VER_CODE_URL = BASE_URL + "getIdentifyCode";
     private static final String REGISTER_URL = BASE_URL + "register";
     private static final String LOGIN_URL = BASE_URL + "login";
@@ -27,10 +26,6 @@ public class ManagerAction {
     private static final String FORGET_PSW_CHANGE_PSW = BASE_URL + "findPassword";
 
     private static final String CHANGE_PSW = BASE_URL + "updatePassword";
-
-    private static IHttpRequest getRequest(Context context) {
-        return HttpRequestFactory.getInstance(context).getRequest();
-    }
 
     static void getVerCode(Context context, String phoneNum, IHttpRequest.OnResponseListener listener) {
         getRequest(context).post(GET_VER_CODE_URL, new String[]{"phone"}, new String[]{phoneNum}, listener);

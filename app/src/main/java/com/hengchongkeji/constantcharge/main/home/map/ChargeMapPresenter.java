@@ -16,7 +16,7 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.hengchongkeji.constantcharge.ChargeApplication;
-import com.hengchongkeji.constantcharge.data.entity.MapMarkerInfo;
+import com.hengchongkeji.constantcharge.data.entity.Station;
 import com.hengchongkeji.constantcharge.data.source.DataFactory;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
 import com.hengchongkeji.constantcharge.http.IHttpRequest;
@@ -36,7 +36,7 @@ public class ChargeMapPresenter implements IChargeMapContract.IPresenter {
     private IChargeMapContract.IView mView;
     private BaiduMap mBaiduMap;
     public boolean hasLocationed;
-    private List<MapMarkerInfo> mMapMarkerInfoList;
+    private List<Station> mMapMarkerInfoList;
     //当前定位的模式
     private MyLocationConfiguration.LocationMode mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
     private ThreadExecutor mThreadExecutor;
@@ -70,11 +70,11 @@ public class ChargeMapPresenter implements IChargeMapContract.IPresenter {
         mThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                DataFactory.getInstance().getDataSource(true).getLatLngNearby(new LatLng(location.getLatitude(), location.getLongitude()), new IHttpRequest.OnResponseListener<List<MapMarkerInfo>>() {
+                DataFactory.getInstance().getDataSource(false).getLatLngNearby(mContext,new LatLng(location.getLatitude(), location.getLongitude()), new IHttpRequest.OnResponseListener<List<Station>>() {
                     @Override
-                    public void onSuccess(List<MapMarkerInfo> mapMarkerInfos) {
+                    public void onSuccess(List<Station> mapMarkerInfos) {
                         mMapMarkerInfoList = mapMarkerInfos;
-                        for (MapMarkerInfo makerInfo : mMapMarkerInfoList) {
+                        for (Station makerInfo : mMapMarkerInfoList) {
                             mView.showMarker(makerInfo);
                         }
                     }

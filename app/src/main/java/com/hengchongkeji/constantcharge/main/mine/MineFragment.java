@@ -32,6 +32,8 @@ public class MineFragment extends BaseFragment {
     TextView mUserNickTv;
     @Bind(R.id.mineSpaceViewId)
     View view;
+    @Bind(R.id.mineDetailMoneyTvId)
+    TextView moneyTv;
 
 
     public static MineFragment getInstance() {
@@ -91,11 +93,14 @@ public class MineFragment extends BaseFragment {
 
     private void userIsLogin() {
         mUserNickTv.setVisibility(View.VISIBLE);
-        User user = ChargeApplication.getInstance().getUser();
-        if (user != null)
-            mUserNickTv.setText(user.getUsername());
-
         mUnLoginLayout.setVisibility(View.GONE);
+        User user = ChargeApplication.getInstance().getUser();
+        if (user != null) {
+            mUserNickTv.setText(user.getUsername());
+            moneyTv.setText(user.getBalance());
+        } else {
+            ChargeApplication.getInstance().logout();
+        }
     }
 
     private void userUnLogin() {

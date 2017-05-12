@@ -61,7 +61,7 @@ public class TwoOptionsDialog {
     public TwoOptionsDialog showDialog() {
         mdl.show();
         window = mdl.getWindow();
-        window.setContentView(R.layout.two_option_dialog);//要在show之后才能调用
+        window.setContentView(R.layout.dialog_two_option);//要在show之后才能调用
         ll_title = (LinearLayout) window
                 .findViewById(R.id.ll_title);
         tv_title = (TextView) window.findViewById(R.id.tv_title);

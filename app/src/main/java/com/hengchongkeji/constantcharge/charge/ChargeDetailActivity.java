@@ -91,7 +91,7 @@ public class ChargeDetailActivity extends ActionBarActivity {
         mThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                DataFactory.getInstance().getDataSource(true).getChargeDetailData(new IHttpRequest.OnResponseListener<ChargeDetailData>() {
+                DataFactory.getInstance().getDataSource(true).getChargeDetailData(ChargeDetailActivity.this, new IHttpRequest.OnResponseListener<ChargeDetailData>() {
                     @Override
                     public void onSuccess(ChargeDetailData chargeDetailData) {
                         mChargeDetailData = chargeDetailData;
@@ -237,8 +237,8 @@ public class ChargeDetailActivity extends ActionBarActivity {
             @Override
             public CharSequence getPageTitle(int position) {
                 if (position == 0)
-                    return getString(R.string.charge_detail_current_voltage);
-                else return getString(R.string.charge_detail_battery_temperature);
+                    return getString(R.string.charge_detail_voltage);
+                else return getString(R.string.charge_detail_current);
             }
 
             @Override
