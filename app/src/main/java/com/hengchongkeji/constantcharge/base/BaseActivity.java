@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.hengchongkeji.constantcharge.ActivityModule;
 import com.hengchongkeji.constantcharge.ApplicationComponent;
 import com.hengchongkeji.constantcharge.ChargeApplication;
+import com.hengchongkeji.constantcharge.utils.ThreadUtils;
 
 import butterknife.ButterKnife;
 
@@ -58,8 +59,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         return new ActivityModule(this);
     }
 
-    protected final void showSnackbar(String msg) {
-        Snackbar.make(getWindow().getDecorView(), msg, Snackbar.LENGTH_LONG).show();
+    protected final void showSnackbar(final String msg) {
+        ThreadUtils.runOnMainThread(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar.make(getWindow().getDecorView(), msg, Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override

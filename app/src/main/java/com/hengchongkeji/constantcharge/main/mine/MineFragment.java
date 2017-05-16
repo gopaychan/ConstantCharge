@@ -79,8 +79,13 @@ public class MineFragment extends BaseFragment {
 
     @OnClick(R.id.mineItemRechargeFlId)
     public void showRechargeActivity() {
-        Intent intent = new Intent(getActivity(), RechargeActivity.class);
-        startActivity(intent);
+        if (ChargeApplication.getInstance().getIsLogin()) {
+            Intent intent = new Intent(getActivity(), RechargeActivity.class);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void checkLoginState() {

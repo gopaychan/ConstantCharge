@@ -6,8 +6,11 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import com.hengchongkeji.constantcharge.base.BaseActivity;
+import com.hengchongkeji.constantcharge.data.entity.User;
+import com.hengchongkeji.constantcharge.http.IHttpRequest;
 import com.hengchongkeji.constantcharge.main.MainActivity;
 import com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager;
+import com.hengchongkeji.constantcharge.manager.ManagerAction;
 import com.hengchongkeji.constantcharge.utils.PreferenceUtils;
 
 /**
@@ -16,14 +19,30 @@ import com.hengchongkeji.constantcharge.utils.PreferenceUtils;
 
 public class SplashActivity extends BaseActivity {
     public static final int WAIT_TIME = 2000;
-    private Handler mHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        mHandler = new Handler(getMainLooper());
-        mHandler.postDelayed(new Runnable() {
+
+        User user = ChargeApplication.getInstance().getUser();
+        if (ChargeApplication.getInstance().getIsLogin()) {
+
+            ManagerAction.login(this, user.getPhone(), user.getPassword(), new IHttpRequest.OnResponseListener() {
+                @Override
+                public void onSuccess(Object o) {
+
+                }
+
+                @Override
+                public void onFail(String errorMsg) {
+                    ChargeApplication.getInstance().logout();
+                }
+            });
+        }
+
+        Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 long start = System.currentTimeMillis();

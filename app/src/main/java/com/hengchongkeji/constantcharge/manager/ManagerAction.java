@@ -2,6 +2,7 @@ package com.hengchongkeji.constantcharge.manager;
 
 import android.content.Context;
 
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.hengchongkeji.constantcharge.data.entity.User;
 import com.hengchongkeji.constantcharge.http.BaseAction;
@@ -27,6 +28,11 @@ public class ManagerAction extends BaseAction {
 
     private static final String CHANGE_PSW = BASE_URL + "updatePassword";
 
+    private static final String ALI_PAY = BASE_URL + "alipay/generatePay";
+
+    private static final String WECHAT_PAY = BASE_URL + "tenpay/prepay";
+
+
     static void getVerCode(Context context, String phoneNum, IHttpRequest.OnResponseListener listener) {
         getRequest(context).post(GET_VER_CODE_URL, new String[]{"phone"}, new String[]{phoneNum}, listener);
     }
@@ -35,7 +41,7 @@ public class ManagerAction extends BaseAction {
         getRequest(context).post(REGISTER_URL, new String[]{"password", "phone", "identifyCode"}, new String[]{password, phone, identifyCode}, TypeToken.get(LoginResponse.class), listener);
     }
 
-    static void login(Context context, String phone, String password, IHttpRequest.OnResponseListener listener) {
+    public static void login(Context context, String phone, String password, IHttpRequest.OnResponseListener listener) {
         getRequest(context).post(LOGIN_URL, new String[]{"phone", "password"}, new String[]{phone, password}, TypeToken.get(LoginResponse.class), listener);
     }
 
@@ -55,14 +61,18 @@ public class ManagerAction extends BaseAction {
         getRequest(context).post(FORGET_PSW_CHANGE_PSW, new String[]{"password", "confirmPassword"}, new String[]{newPsw, confirmPsw}, listener);
     }
 
+    static void getAliPayInfo(Context context, String totalAmount, IHttpRequest.OnResponseListener listener) {
+        getRequest(context).post(ALI_PAY, new String[]{"totalAmount"}, new String[]{totalAmount}, TypeToken.get(AliPayResponse.class), listener);
+    }
+
+    static void getWechatInfo(Context context, String total_fee, IHttpRequest.OnResponseListener listener) {
+        getRequest(context).post(WECHAT_PAY, new String[]{"total_fee"}, new String[]{total_fee}, TypeToken.get(WechatResponse.class), listener);
+    }
+
     static class LoginResponse extends BaseResponse {
 
         public User getAppCustomer() {
             return appCustomer;
-        }
-
-        public void setAppCustomer(User appCustomer) {
-            this.appCustomer = appCustomer;
         }
 
         @Override
@@ -73,5 +83,97 @@ public class ManagerAction extends BaseAction {
         }
 
         public User appCustomer;
+    }
+
+    static class AliPayResponse extends BaseResponse {
+
+        private String data;
+
+        public String getData() {
+            return data;
+        }
+    }
+
+    static class WechatResponse extends BaseResponse {
+
+        @SerializedName("noncestr")
+        private String nonce_str;
+        @SerializedName("package")
+        private String package_;
+        @SerializedName("timestamp")
+        private String time_start;
+        private String appid;
+        private String sign;
+        private String prepayid;
+        private String partnerid;
+
+        public String getSign() {
+            return sign;
+        }
+
+        public void setSign(String sign) {
+            this.sign = sign;
+        }
+
+        @Override
+        public String toString() {
+            return "WechatResponse{" +
+                    "nonce_str='" + nonce_str + '\'' +
+                    ", package_='" + package_ + '\'' +
+                    ", time_start='" + time_start + '\'' +
+                    ", appid='" + appid + '\'' +
+                    ", sign='" + sign + '\'' +
+                    ", prepayid='" + prepayid + '\'' +
+                    ", partnerid='" + partnerid + '\'' +
+                    '}';
+        }
+
+        public String getNonce_str() {
+            return nonce_str;
+        }
+
+        public void setNonce_str(String nonce_str) {
+            this.nonce_str = nonce_str;
+        }
+
+        public String getPackage_() {
+            return package_;
+        }
+
+        public void setPackage_(String package_) {
+            this.package_ = package_;
+        }
+
+        public String getPrepayid() {
+            return prepayid;
+        }
+
+        public void setPrepayid(String prepayid) {
+            this.prepayid = prepayid;
+        }
+
+        public String getPartnerid() {
+            return partnerid;
+        }
+
+        public void setPartnerid(String partnerid) {
+            this.partnerid = partnerid;
+        }
+
+        public String getTime_start() {
+            return time_start;
+        }
+
+        public void setTime_start(String time_start) {
+            this.time_start = time_start;
+        }
+
+        public String getAppid() {
+            return appid;
+        }
+
+        public void setAppid(String appid) {
+            this.appid = appid;
+        }
     }
 }

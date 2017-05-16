@@ -52,6 +52,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".main.MainActivity"
+            android:launchMode="singleTask"
             android:theme="@style/TranslucentStatusTheme"
             android:windowSoftInputMode="adjustPan">
             <!--<intent-filter>-->
@@ -68,7 +69,8 @@
         <activity android:name=".main.scanning.ScanningActivity"/>
         <activity android:name=".main.scanning.EditPileCodeActivity"/>
         <activity android:name=".manager.SettingsActivity"/>
-        <activity android:name=".manager.ChangePswActivity"
+        <activity
+            android:name=".manager.ChangePswActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".manager.LoginActivity"
@@ -94,8 +96,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".manager.ForgetPswActivity"
-                  android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".manager.ForgetPswActivity"
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".manager.PersonalInfoActivity"/>
 
@@ -111,6 +114,28 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="tb0VfArhZBY3oIBqoeNK2EtoQgKoPpmo"/>
+
+        <!--alipay-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind">
+        </activity>
+
+        <!-- 微信 回调Activity -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
     </application>
 

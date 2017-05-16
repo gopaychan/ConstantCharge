@@ -43,7 +43,7 @@
 
     <string name="scanning_description">扫描充电桩上的二维码即可启动充电</string>
     <string name="scanning_description_v2">将二维码放入框内，即可自动扫描</string>
-    <string name="scanning">扫描</string>
+    <string name="scanning">扫码</string>
     <string name="scanning_title">扫一扫</string>
     <string name="scanning_toggle_light">闪光灯</string>
     <string name="scanning_edit_pile_code">输入桩编码</string>
@@ -143,5 +143,10 @@
     <string name="forget_psw_title">忘记密码</string>
     <string name="forget_psw_input_psw">请输入新密码</string>
     <string name="forget_psw_btn_text">立即提交</string>
+
+    <string name="recharge_success">充值成功</string>
+    <string name="recharge_fail">充值失败</string>
+
+    <string name="recharge_pay_result" formatted="false">微信支付结果：%s</string>
 
 </resources>

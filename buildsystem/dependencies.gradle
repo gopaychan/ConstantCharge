@@ -40,6 +40,7 @@ ext {
             floatingsearchview : "com.github.arimorty:floatingsearchview:${floatingsearchviewVersion}",
             okhttp             : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
             gson               : "com.google.code.gson:gson:${gsonVersion}",
-            greendao           : "org.greenrobot:greendao:${greendaoVersion}"
+            greendao           : "org.greenrobot:greendao:${greendaoVersion}",
+            wechat             : 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     ]
 }

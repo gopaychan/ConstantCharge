@@ -18,15 +18,15 @@ import com.hengchongkeji.constantcharge.utils.ThreadUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.baidu.navisdk.adapter.BNRoutePlanNode.CoordinateType.BD09LL;
+import static com.baidu.navisdk.adapter.BNRoutePlanNode.CoordinateType.GCJ02;
 import static com.hengchongkeji.constantcharge.main.MainActivity.activityList;
-import static com.hengchongkeji.constantcharge.main.home.map.ChargeMapFragment.ROUTE_PLAN_NODE;
 import static com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager.onRoutePlanResponse.PLAN_FAIL;
 import static com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager.onRoutePlanResponse.PLAN_INIT_NOW;
 import static com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager.onRoutePlanResponse.PLAN_NO_INIT;
 import static com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager.onRoutePlanResponse.PLAN_OPEN_BAIDU_FAIL;
 import static com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager.onRoutePlanResponse.PLAN_START;
 import static com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager.onRoutePlanResponse.PLAN_SUCCESS;
+import static com.hengchongkeji.constantcharge.main.home.map.ChargeMapFragment.ROUTE_PLAN_NODE;
 
 
 /**
@@ -140,9 +140,8 @@ public class BaiduNaviManager {
             return;
         }
         response.onResponse(PLAN_START);
-        // 权限申请
-        BNRoutePlanNode sNode = new BNRoutePlanNode(startLocation.getLongitude(), startLocation.getLatitude(), startLocation.getStreet() + startLocation.getStreetNumber(), null, BD09LL);
-        BNRoutePlanNode eNode = new BNRoutePlanNode(destinationLatLng.longitude, destinationLatLng.latitude, description + "充电桩", null, BD09LL);
+        BNRoutePlanNode sNode = new BNRoutePlanNode(startLocation.getLongitude(), startLocation.getLatitude(), startLocation.getStreet() + startLocation.getStreetNumber(), null, GCJ02);
+        BNRoutePlanNode eNode = new BNRoutePlanNode(destinationLatLng.longitude, destinationLatLng.latitude, description + "充电桩", null, GCJ02);
         List<BNRoutePlanNode> list = new ArrayList<>();
         list.add(sNode);
         list.add(eNode);

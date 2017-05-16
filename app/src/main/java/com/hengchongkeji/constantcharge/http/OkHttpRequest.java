@@ -88,14 +88,28 @@ public class OkHttpRequest implements IHttpRequest {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
-                    ThreadUtils.runOnMainThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            listener.onFail(mContext.getString(R.string.net_server_error));
-                        }
-                    });
+                    if (BuildConfig.DEBUG)
+                     ThreadUtils.runOnMainThread(new Runnable() {
+                         @Override
+                         public void run() {
+                             try {
+                                 listener.onFail(response.body().string());
+                             } catch (IOException e) {
+                                 e.printStackTrace();
+                                 listener.onFail(mContext.getString(R.string.net_server_error));
+                             }
+                         }
+                     });
+                    else{
+                        ThreadUtils.runOnMainThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                listener.onFail(mContext.getString(R.string.net_server_error));
+                            }
+                        });
+                    }
                     return;
                 }
                 String result = response.body().string();
