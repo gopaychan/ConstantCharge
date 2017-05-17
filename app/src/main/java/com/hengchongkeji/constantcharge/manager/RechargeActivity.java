@@ -98,6 +98,9 @@ public class RechargeActivity extends ActionBarActivity {
 
     @OnLongClick(R.id.actionBarTitleId)
     public boolean charge1Yuan(){
+        if (mRechargeItemView != null && mRechargeItemView != mCharge1View) {
+            mRechargeItemView.setBackgroundDrawable(getResources().getDrawable(R.drawable.gray_stroke));
+        }
         mRechargeItemView = mCharge1View;
         mMoneyTv.setText("合计：¥ " + mRechargeItemView.getTag().toString());
         return true;
