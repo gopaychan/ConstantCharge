@@ -27,16 +27,57 @@ public class Station implements Serializable, Comparable<Station> {
     private String matchCars;
     private String busineHours;
     private String remark;
+    private String quickCount;
+    private String slowCount;
+    private String quickFreeCount;
+    private String slowFreeCount;
+
+
+    //费率
+    private String serviceFee;
+    private String parkFee;
+    private String chargeFee;
+
 
     //客户端自己计算的
-    private String totalPile;
     private LatLng latLng;
-    private String freePile;
     private String distance;
     private String predictReachTime;
     private String predictFreePileTime = " 暂无 ";
 
     private List<Equipment> equipmentInfos;
+
+    public String getQuickCount() {
+        return quickCount;
+    }
+
+    public void setQuickCount(String quickCount) {
+        this.quickCount = quickCount;
+    }
+
+    public String getSlowCount() {
+        return slowCount;
+    }
+
+    public void setSlowCount(String slowCount) {
+        this.slowCount = slowCount;
+    }
+
+    public String getQuickFreeCount() {
+        return quickFreeCount;
+    }
+
+    public void setQuickFreeCount(String quickFreeCount) {
+        this.quickFreeCount = quickFreeCount;
+    }
+
+    public String getSlowFreeCount() {
+        return slowFreeCount;
+    }
+
+    public void setSlowFreeCount(String slowFreeCount) {
+        this.slowFreeCount = slowFreeCount;
+    }
 
     public String getStationId() {
         return stationId;
@@ -134,28 +175,12 @@ public class Station implements Serializable, Comparable<Station> {
         this.remark = remark;
     }
 
-    public String getTotalPile() {
-        return totalPile;
-    }
-
-    public void setTotalPile(String totalPile) {
-        this.totalPile = totalPile;
-    }
-
     public LatLng getLatLng() {
         return latLng;
     }
 
     public void setLatLng(LatLng latLng) {
         this.latLng = latLng;
-    }
-
-    public String getFreePile() {
-        return freePile;
-    }
-
-    public void setFreePile(String freePile) {
-        this.freePile = freePile;
     }
 
     public String getDistance() {
@@ -195,4 +220,27 @@ public class Station implements Serializable, Comparable<Station> {
         return Double.valueOf(distance).compareTo(Double.valueOf(o.distance));
     }
 
+    public String getParkFee() {
+        return parkFee;
+    }
+
+    public void setParkFee(String parkFee) {
+        this.parkFee = parkFee;
+    }
+
+    public String getServiceFee() {
+        return serviceFee;
+    }
+
+    public void setServiceFee(String serviceFee) {
+        this.serviceFee = serviceFee;
+    }
+
+    public String getChargeFee() {
+        return chargeFee;
+    }
+
+    public void setChargeFee(String chargeFee) {
+        this.chargeFee = chargeFee;
+    }
 }

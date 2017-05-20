@@ -22,15 +22,15 @@ public class ManagerAction extends BaseAction {
     private static final String REGISTER_URL = BASE_URL + "register";
     private static final String LOGIN_URL = BASE_URL + "login";
 
-    private static final String FORGET_PSW_GET_VER_CODE = BASE_URL + "identifyPhone";
-    private static final String FORGET_PSW_CHECK_VER_CODE = BASE_URL + "phone";
-    private static final String FORGET_PSW_CHANGE_PSW = BASE_URL + "findPassword";
+    private static final String FORGET_PSW_GET_VER_CODE_URL = BASE_URL + "identifyPhone";
+    private static final String FORGET_PSW_CHECK_VER_CODE_URL = BASE_URL + "phone";
+    private static final String FORGET_PSW_CHANGE_PSW_URL = BASE_URL + "findPassword";
 
-    private static final String CHANGE_PSW = BASE_URL + "updatePassword";
+    private static final String CHANGE_PSW_URL = BASE_URL + "updatePassword";
 
-    private static final String ALI_PAY = BASE_URL + "alipay/generatePay";
+    private static final String ALI_PAY_URL = BASE_URL + "alipay/generatePay";
 
-    private static final String WECHAT_PAY = BASE_URL + "tenpay/prepay";
+    private static final String WECHAT_PAY_URL = BASE_URL + "tenpay/prepay";
 
 
     static void getVerCode(Context context, String phoneNum, IHttpRequest.OnResponseListener listener) {
@@ -46,27 +46,27 @@ public class ManagerAction extends BaseAction {
     }
 
     static void changePsw(Context context, String phone, String oldPsw, String newPsw, IHttpRequest.OnResponseListener listener) {
-        getRequest(context).post(CHANGE_PSW, new String[]{"oldPassword", "password", "confirmPassword"}, new String[]{oldPsw, newPsw, newPsw}, listener);
+        getRequest(context).post(CHANGE_PSW_URL, new String[]{"oldPassword", "password", "confirmPassword"}, new String[]{oldPsw, newPsw, newPsw}, listener);
     }
 
     static void forgetPswGetVerCode(Context context, String phone, IHttpRequest.OnResponseListener listener) {
-        getRequest(context).post(FORGET_PSW_GET_VER_CODE, new String[]{"phone"}, new String[]{phone}, listener);
+        getRequest(context).post(FORGET_PSW_GET_VER_CODE_URL, new String[]{"phone"}, new String[]{phone}, listener);
     }
 
     static void forgetPswCheckVerCode(Context context, String phone, String verCode, IHttpRequest.OnResponseListener listener) {
-        getRequest(context).post(FORGET_PSW_CHECK_VER_CODE, new String[]{"phone", "identifyCode"}, new String[]{phone, verCode}, listener);
+        getRequest(context).post(FORGET_PSW_CHECK_VER_CODE_URL, new String[]{"phone", "identifyCode"}, new String[]{phone, verCode}, listener);
     }
 
     static void forgetPswChangePsw(Context context, String newPsw, String confirmPsw, IHttpRequest.OnResponseListener listener) {
-        getRequest(context).post(FORGET_PSW_CHANGE_PSW, new String[]{"password", "confirmPassword"}, new String[]{newPsw, confirmPsw}, listener);
+        getRequest(context).post(FORGET_PSW_CHANGE_PSW_URL, new String[]{"password", "confirmPassword"}, new String[]{newPsw, confirmPsw}, listener);
     }
 
     static void getAliPayInfo(Context context, String totalAmount, IHttpRequest.OnResponseListener listener) {
-        getRequest(context).post(ALI_PAY, new String[]{"totalAmount"}, new String[]{totalAmount}, TypeToken.get(AliPayResponse.class), listener);
+        getRequest(context).post(ALI_PAY_URL, new String[]{"totalAmount"}, new String[]{totalAmount}, TypeToken.get(AliPayResponse.class), listener);
     }
 
     static void getWechatInfo(Context context, String total_fee, IHttpRequest.OnResponseListener listener) {
-        getRequest(context).post(WECHAT_PAY, new String[]{"total_fee"}, new String[]{total_fee}, TypeToken.get(WechatResponse.class), listener);
+        getRequest(context).post(WECHAT_PAY_URL, new String[]{"total_fee"}, new String[]{total_fee}, TypeToken.get(WechatResponse.class), listener);
     }
 
     static class LoginResponse extends BaseResponse {

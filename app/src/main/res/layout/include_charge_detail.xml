@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
                 android:layout_marginBottom="@dimen/common_span"
                 android:text="@string/charge_detail_always_complete"
                 android:textColor="@color/chargeDetailTextColor"
-                android:textSize="@dimen/charge_detail_common_text_size" />
+                android:textSize="@dimen/charge_detail_common_text_size"/>
 
             <TextView
                 android:id="@+id/chargeDetailPercentTvId"
@@ -29,7 +29,7 @@
                 android:layout_marginBottom="@dimen/common_span"
                 android:text="55%"
                 android:textColor="@color/chargeDetailTextColor"
-                android:textSize="@dimen/charge_detail_percent_text_size" />
+                android:textSize="@dimen/charge_detail_percent_text_size"/>
 
             <TextView
                 android:id="@+id/chargeDetailTimeTvId"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="预计5小时后充电完成"
                 android:textColor="@color/chargeDetailTextColor"
-                android:textSize="@dimen/charge_detail_common_text_size" />
+                android:textSize="@dimen/charge_detail_common_text_size"/>
         </LinearLayout>
 
         <com.hengchongkeji.constantcharge.view.RingProgress
@@ -49,7 +49,7 @@
             android:paddingBottom="@dimen/charge_detail_progress_padding_tb"
             android:paddingTop="@dimen/charge_detail_progress_padding_tb"
             app:ring_background="@color/chargeDetailRingProgressBg"
-            app:ring_stroke_width="@dimen/charge_detail_progress_stroke_width" />
+            app:ring_stroke_width="@dimen/charge_detail_progress_stroke_width"/>
 
     </FrameLayout>
 
@@ -80,7 +80,7 @@
 
                 <include
                     android:id="@+id/chargeDetailTimeId"
-                    layout="@layout/include_charge_detail_item" />
+                    layout="@layout/include_charge_detail_item"/>
 
                 <!--<Space-->
                 <!--android:layout_width="match_parent"-->
@@ -89,7 +89,7 @@
 
                 <include
                     android:id="@+id/chargeDetailCountId"
-                    layout="@layout/include_charge_detail_item" />
+                    layout="@layout/include_charge_detail_item"/>
 
             </LinearLayout>
 
@@ -102,12 +102,12 @@
 
                 <include
                     android:id="@+id/chargeDetailMoneyId"
-                    layout="@layout/include_charge_detail_item" />
+                    layout="@layout/include_charge_detail_item"/>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.25" />
+                    android:layout_weight="0.25"/>
 
                 <Button
                     android:id="@+id/chargeDetailEndId"
@@ -115,12 +115,12 @@
                     android:layout_height="0dp"
                     android:layout_weight="0.6"
                     android:background="@drawable/common_btn_selector"
-                    android:text="@string/charge_detail_end_charge" />
+                    android:text="@string/charge_detail_start_charge"/>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.2" />
+                    android:layout_weight="0.2"/>
 
             </LinearLayout>
 
@@ -139,17 +139,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/chargeDetailStationPileInfo"
+                android:padding="@dimen/common_span"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="黄村充电站1001号桩"
+                android:textColor="@color/chargeDetailTextColor"/>
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/chargeDetailTabLyId"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/charge_detail_navigationbar_height"
-                android:layout_alignParentBottom="true" />
+                android:layout_alignParentBottom="true"/>
 
             <android.support.v4.view.ViewPager
+                android:layout_below="@id/chargeDetailStationPileInfo"
                 android:id="@+id/chargeDetailVpId"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/chargeDetailTabLyId" />
+                android:layout_above="@id/chargeDetailTabLyId"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

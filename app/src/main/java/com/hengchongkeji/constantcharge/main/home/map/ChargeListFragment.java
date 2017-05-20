@@ -2,7 +2,6 @@ package com.hengchongkeji.constantcharge.main.home.map;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +19,6 @@ import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.ViewHolder;
 import com.hengchongkeji.constantcharge.base.BaseFragment;
-import com.hengchongkeji.constantcharge.charge.ChargeDetailActivity;
 import com.hengchongkeji.constantcharge.data.entity.Station;
 import com.hengchongkeji.constantcharge.data.source.DataFactory;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
@@ -33,8 +31,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.Bind;
-
-import static com.hengchongkeji.constantcharge.charge.ChargeDetailActivity.TO_CHARGE_DETAIL_ACTIVITY_ARGS;
 
 /**
  * Created by gopayChan on 2017/4/26.
@@ -49,6 +45,7 @@ public class ChargeListFragment extends BaseFragment {
     private List<Station> mMapMarkerInfos;
     private final static int LOAD_DATA_SUCCESS = 1;
     private BaseAdapter mAdapter;
+    private boolean isShow = false;
 
     public static ChargeListFragment getInstance() {
         ChargeListFragment fragment = new ChargeListFragment();
@@ -80,7 +77,8 @@ public class ChargeListFragment extends BaseFragment {
             activity.registerOnLocationChangeListener(new MainActivity.OnLocationChangeListener() {
                 @Override
                 public void onChange(BDLocation location) {
-                    resetData();
+                    if (isShow)
+                        resetData();
                 }
 
                 @Override
@@ -117,6 +115,9 @@ public class ChargeListFragment extends BaseFragment {
         super.onHiddenChanged(hidden);
         if (!hidden) {
             resetData();
+            isShow = true;
+        } else {
+            isShow = false;
         }
     }
 
@@ -170,14 +171,14 @@ public class ChargeListFragment extends BaseFragment {
 
             }
             TextView addressTv = ViewHolder.get(convertView, R.id.listItemChargeListAddressTvId);
-            TextView totalPileTv = ViewHolder.get(convertView, R.id.listItemChargeListTotalTvId);
-            TextView freePileTv = ViewHolder.get(convertView, R.id.listItemChargeListFreeTvId);
+            TextView totalPileTv = ViewHolder.get(convertView, R.id.listItemChargeListSlowTestTvId);
+            TextView freePileTv = ViewHolder.get(convertView, R.id.listItemChargeListQuickTextTvId);
             TextView distanceTv = ViewHolder.get(convertView, R.id.listItemChargeListDistanceTvId);
             TextView navigationTv = ViewHolder.get(convertView, R.id.listItemChargeListNaviTvId);
             final Station info = getItem(position);
             addressTv.setText(info.getAddress());
-            totalPileTv.setText(getString(R.string.charge_map_popup_total_pile).replace("{}", info.getTotalPile()));
-            freePileTv.setText(getString(R.string.charge_map_popup_free_pile).replace("{}", info.getFreePile()));
+            totalPileTv.setText(getString(R.string.charge_map_pile_text,info.getSlowFreeCount(),info.getSlowCount()));
+            freePileTv.setText(getString(R.string.charge_map_pile_text,info.getQuickFreeCount(),info.getQuickCount()));
             if (info.getDistance().length() > 3) {
                 distanceTv.setText(String.format("%.1f", Double.valueOf(info.getDistance()) / 1000) + "km");
             } else {
@@ -196,10 +197,10 @@ public class ChargeListFragment extends BaseFragment {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), ChargeDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(TO_CHARGE_DETAIL_ACTIVITY_ARGS, info);
-                    startActivity(intent);
+//                    Intent intent = new Intent(getActivity(), ChargeDetailActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable(TO_CHARGE_DETAIL_ACTIVITY_ARGS, info);
+//                    startActivity(intent);
                 }
             });
             return convertView;

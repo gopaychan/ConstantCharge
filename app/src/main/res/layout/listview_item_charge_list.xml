@@ -40,22 +40,27 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/listItemChargeListTotalTvId"
+            android:id="@+id/listItemChargeListQuickTextTvId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/common_span"
             android:paddingTop="@dimen/common_span"
-            android:text="总桩数：6" />
+            android:drawableLeft="@drawable/station_detail_dialog_quick"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/common_span"
+            android:layout_marginLeft="@dimen/common_span"/>
 
         <TextView
-            android:id="@+id/listItemChargeListFreeTvId"
+            android:id="@+id/listItemChargeListSlowTestTvId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/listItemChargeListTotalTvId"
             android:paddingBottom="@dimen/common_span"
+            android:layout_toRightOf="@id/listItemChargeListQuickTextTvId"
+            android:drawableLeft="@drawable/station_detail_dialog_slow"
             android:paddingTop="@dimen/common_span"
-            android:text="空桩数：6"
-            android:layout_marginLeft="@dimen/common_span"/>
+            android:layout_marginLeft="@dimen/common_span"
+            android:drawablePadding="@dimen/common_span"
+            android:gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/listItemChargeListDistanceTvId"

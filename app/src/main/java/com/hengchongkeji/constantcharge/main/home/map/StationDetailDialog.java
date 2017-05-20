@@ -81,26 +81,25 @@ public class StationDetailDialog {
         mDistance.setText(distance);
     }
 
-    public void setQuickText(String quickText) {
-        mQuickTv.setText(quickText);
+    public void setQuickText(String quickFree, String quickTotal) {
+        mQuickTv.setText(mContext.getString(R.string.charge_map_pile_text, quickFree, quickTotal));
     }
 
-    public void setSlowText(String slowText) {
-        mSlowTv.setText(slowText);
+    public void setSlowText(String slowFree, String slowTotal) {
+        mSlowTv.setText(mContext.getString(R.string.charge_map_pile_text, slowFree, slowTotal));
     }
 
     public void setChargeMoney(String chargeMoney) {
-        mChargeMoneyTv.setText(chargeMoney);
+        mChargeMoneyTv.setText(mContext.getString(R.string.charge_map_fee,chargeMoney));
     }
 
     public void setServiceMoney(String serviceMoney) {
-        mServiceMoneyTv.setText(serviceMoney);
+        mServiceMoneyTv.setText(mContext.getString(R.string.charge_map_fee,serviceMoney));
     }
 
     public void setParkMoney(String parkMoney) {
-        mParkMoneyTv.setText(parkMoney);
+        mParkMoneyTv.setText(mContext.getString(R.string.charge_map_fee,parkMoney));
     }
-
 
     interface OnNaviClickListener {
         void onClick();
@@ -123,11 +122,15 @@ public class StationDetailDialog {
     }
 
     public void showDialog() {
-        mDialog.show();
-        // 设置dialog宽度
-        WindowManager.LayoutParams params = mDialog.getWindow().getAttributes();
-        params.width = ScreenUtils.getScreenWidth(mContext);
-        mDialog.getWindow().setAttributes(params);
+        try {
+            mDialog.show();
+            // 设置dialog宽度
+            WindowManager.LayoutParams params = mDialog.getWindow().getAttributes();
+            params.width = ScreenUtils.getScreenWidth(mContext);
+            mDialog.getWindow().setAttributes(params);
+        } catch (WindowManager.BadTokenException e) {
+            mInstance = null;
+        }
     }
 
     public boolean isShowing() {
@@ -150,13 +153,23 @@ public class StationDetailDialog {
             return this;
         }
 
-        public Builder setQuickText(String quickText) {
-            p.mQuickText = quickText;
+        public Builder setQuickFree(String quickFree) {
+            p.mQuickFree = quickFree;
             return this;
         }
 
-        public Builder setSlowText(String slowText) {
-            p.mSlowText = slowText;
+        public Builder setSlowFree(String slowFree) {
+            p.mSlowFree = slowFree;
+            return this;
+        }
+
+        public Builder setQuickTotal(String quickTotal) {
+            p.mQuickTotal = quickTotal;
+            return this;
+        }
+
+        public Builder setSlowTotal(String slowTotal) {
+            p.mSlowTotal = slowTotal;
             return this;
         }
 
@@ -185,7 +198,7 @@ public class StationDetailDialog {
             return this;
         }
 
-        public Builder setOnDialogCancelListener(OnDialogCancelListener listener){
+        public Builder setOnDialogCancelListener(OnDialogCancelListener listener) {
             p.mCancelListener = listener;
             return this;
         }
@@ -195,11 +208,11 @@ public class StationDetailDialog {
             if (p.mAddress != null) {
                 detailDialog.setAddress(p.mAddress);
             }
-            if (p.mQuickText != null) {
-                detailDialog.setQuickText(p.mQuickText);
+            if (p.mQuickFree != null && p.mQuickTotal != null) {
+                detailDialog.setQuickText(p.mQuickFree, p.mQuickTotal);
             }
-            if (p.mSlowText != null) {
-                detailDialog.setSlowText(p.mSlowText);
+            if (p.mSlowFree != null && p.mSlowTotal != null) {
+                detailDialog.setSlowText(p.mSlowFree, p.mSlowTotal);
             }
             if (p.mChargeMoney != null) {
                 detailDialog.setChargeMoney(p.mChargeMoney);
@@ -216,7 +229,7 @@ public class StationDetailDialog {
             if (p.mListener != null) {
                 detailDialog.setNaviClickListener(p.mListener);
             }
-            if(p.mCancelListener != null){
+            if (p.mCancelListener != null) {
                 detailDialog.setOnDialogCancelListener(p.mCancelListener);
             }
             return detailDialog;
@@ -226,8 +239,10 @@ public class StationDetailDialog {
     private static class AlertParams {
         final Context mContext;
         String mAddress;
-        String mQuickText;
-        String mSlowText;
+        String mQuickFree;
+        String mQuickTotal;
+        String mSlowFree;
+        String mSlowTotal;
         String mDistance;
         String mChargeMoney;
         String mServiceMoney;

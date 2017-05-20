@@ -57,7 +57,7 @@ public class RechargeActivity extends ActionBarActivity {
         mWachatApi = WXAPIFactory.createWXAPI(this, WXPayEntryActivity.APP_ID);
         mWachatApi.registerApp(WXPayEntryActivity.APP_ID);
         mCharge1View = new View(this);
-        mCharge1View.setTag("1");
+        mCharge1View.setTag("0.1");
     }
 
     @OnClick(R.id.rechargeAliPayRlId)

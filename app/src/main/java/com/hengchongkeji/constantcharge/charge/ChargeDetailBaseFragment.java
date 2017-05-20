@@ -1,7 +1,6 @@
 package com.hengchongkeji.constantcharge.charge;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.base.BaseFragment;
@@ -22,10 +21,10 @@ public class ChargeDetailBaseFragment extends BaseFragment {
     public static final String MIN_SCORE = "min_score";
     @Bind(R.id.chargeDetailScoreTrendId)
     ScoreTrend mScoreTrend;
-    @Bind(R.id.chargeDetailValueTvId)
-    TextView mValueTv;
-    @Bind(R.id.chargeDetailKeyTvId)
-    TextView mKeyTv;
+//    @Bind(R.id.chargeDetailValueTvId)
+//    TextView mValueTv;
+//    @Bind(R.id.chargeDetailKeyTvId)
+//    TextView mKeyTv;
 
     public static ChargeDetailBaseFragment getInstance(Bundle args) {
         ChargeDetailBaseFragment fragment = new ChargeDetailBaseFragment();
@@ -42,8 +41,8 @@ public class ChargeDetailBaseFragment extends BaseFragment {
     protected void postOnCreateView() {
         super.postOnCreateView();
         Bundle args = getArguments();
-        mValueTv.setText(args.getString(VALUE));
-        mKeyTv.setText(args.getString(KEY));
+//        mValueTv.setText(args.getString(VALUE));
+//        mKeyTv.setText(args.getString(KEY));
         mScoreTrend.setMaxScore(args.getString(MAX_SCORE))
                 .setMinScore(args.getString(MIN_SCORE))
                 .setScore(args.getStringArray(SCORE))

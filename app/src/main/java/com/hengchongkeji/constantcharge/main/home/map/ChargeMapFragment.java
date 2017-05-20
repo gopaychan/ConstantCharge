@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,8 @@ import com.baidu.mapapi.model.LatLng;
 import com.hengchongkeji.constantcharge.R;
 import com.hengchongkeji.constantcharge.base.BaseFragment;
 import com.hengchongkeji.constantcharge.data.entity.Station;
+import com.hengchongkeji.constantcharge.data.source.DataFactory;
+import com.hengchongkeji.constantcharge.http.IHttpRequest;
 import com.hengchongkeji.constantcharge.main.MainActivity;
 import com.hengchongkeji.constantcharge.utils.ThreadUtils;
 
@@ -97,7 +100,7 @@ public class ChargeMapFragment extends BaseFragment implements IChargeMapContrac
         super.postOnCreateView();
         if (mPresenter == null) return;
         mPresenter.start();
-        initPopupWindow();
+//        initPopupWindow();
     }
 
     private void initPopupWindow() {
@@ -146,9 +149,15 @@ public class ChargeMapFragment extends BaseFragment implements IChargeMapContrac
             mPreMarker.setIcon(mNormalMarkerIcon);
         marker.setIcon(mFocusMarkerIcon);
         mPreMarker = marker;
-        mAddressTv.setText(mapMarkerInfo.getAddress());
         mStationDetailDialog = new StationDetailDialog.Builder(getActivity())
                 .setAddress(mapMarkerInfo.getAddress())
+                .setParkMoney(getString(R.string.charge_map_loading_fee))
+                .setChargeMoney(getString(R.string.charge_map_loading_fee))
+                .setServiceMoney(getString(R.string.charge_map_loading_fee))
+                .setQuickFree(mapMarkerInfo.getQuickFreeCount())
+                .setQuickTotal(mapMarkerInfo.getQuickCount())
+                .setSlowFree(mapMarkerInfo.getSlowFreeCount())
+                .setSlowTotal(mapMarkerInfo.getSlowCount())
                 .setNaviClickListener(new StationDetailDialog.OnNaviClickListener() {
                     @Override
                     public void onClick() {
@@ -172,6 +181,21 @@ public class ChargeMapFragment extends BaseFragment implements IChargeMapContrac
             mStationDetailDialog.setDistance(mapMarkerInfo.getDistance() + "m");
         }
         mStationDetailDialog.showDialog();
+        DataFactory.getInstance().getDataSource(false).getStationFeeByIDd(getActivity(), mapMarkerInfo.getStationId(), new IHttpRequest.OnResponseListener<Station>() {
+            @Override
+            public void onSuccess(Station station) {
+                mStationDetailDialog.setServiceMoney(station.getServiceFee());
+                mStationDetailDialog.setParkMoney(station.getParkFee());
+                mStationDetailDialog.setChargeMoney(station.getChargeFee());
+            }
+
+            @Override
+            public void onFail(String errorMsg) {
+                mStationDetailDialog.setServiceMoney(getString(R.string.charge_map_load_fee_fail));
+                mStationDetailDialog.setParkMoney(getString(R.string.charge_map_load_fee_fail));
+                mStationDetailDialog.setChargeMoney(getString(R.string.charge_map_load_fee_fail));
+            }
+        });
 
 //        mTotalPileTv.setText(getString(R.string.charge_map_popup_total_pile).replace("{}", mapMarkerInfo.getTotalPile()));
 //        mFreePileTv.setText(getString(R.string.charge_map_popup_free_pile).replace("{}", mapMarkerInfo.getFreePile()));
@@ -214,7 +238,7 @@ public class ChargeMapFragment extends BaseFragment implements IChargeMapContrac
                 mStationDetailDialog.dismiss();
             }
             final Station mapMarkerInfo = (Station) marker.getExtraInfo().get(INFO);
-            if ("0".equals(mapMarkerInfo.getFreePile())) {
+            if (TextUtils.equals("0", mapMarkerInfo.getSlowFreeCount()) && TextUtils.equals("0", mapMarkerInfo.getQuickFreeCount())) {
                 mPreMarker.setIcon(mNotFreePileIcon);
             } else {
                 mPreMarker.setIcon(mNormalMarkerIcon);
@@ -230,7 +254,7 @@ public class ChargeMapFragment extends BaseFragment implements IChargeMapContrac
         //构建MarkerOption，用于在地图上添加Marker
         MarkerOptions option = new MarkerOptions()
                 .position(point);
-        if ("0".equals(mapMarkerInfo.getFreePile())) {
+        if (TextUtils.equals("0", mapMarkerInfo.getSlowFreeCount()) && TextUtils.equals("0", mapMarkerInfo.getQuickFreeCount())) {
             option.icon(mNotFreePileIcon);
         } else {
             option.icon(mNormalMarkerIcon);

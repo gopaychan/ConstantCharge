@@ -12,8 +12,10 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.model.LatLng;
 import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.base.PerActivity;
-import com.hengchongkeji.constantcharge.data.entity.Station;
+import com.hengchongkeji.constantcharge.data.entity.Equipment;
+import com.hengchongkeji.constantcharge.data.source.DataFactory;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
+import com.hengchongkeji.constantcharge.http.IHttpRequest;
 import com.hengchongkeji.constantcharge.main.home.map.BaiduNaviManager;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
@@ -140,9 +142,20 @@ public class MainPresenter implements IMainContract.IPresenter {
             return;
         }
         if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-            String result = bundle.getString(CodeUtils.RESULT_STRING);
-            mMainView.showSnackbar("解析结果:" + result);
-            mMainView.showChargeDetailActivity(new Station());
+            final String result = bundle.getString(CodeUtils.RESULT_STRING);
+//            mMainView.showSnackbar("解析结果:" + result);
+            DataFactory.getInstance().getDataSource(true).getEquipmentData(mMainView.getActivity(), result, new IHttpRequest.OnResponseListener<Equipment>() {
+                @Override
+                public void onSuccess(Equipment equipment) {
+                    mMainView.showChargeDetailActivity(result);
+                }
+
+                @Override
+                public void onFail(String errorMsg) {
+                    mMainView.showSnackbar(errorMsg);
+                }
+            });
+
         } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
             mMainView.showSnackbar("解析二维码失败");
         }

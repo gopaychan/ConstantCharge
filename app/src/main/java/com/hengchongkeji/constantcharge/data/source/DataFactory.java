@@ -1,18 +1,14 @@
 package com.hengchongkeji.constantcharge.data.source;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.google.gson.reflect.TypeToken;
 import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.R;
-import com.hengchongkeji.constantcharge.data.entity.ChargeDetailData;
-import com.hengchongkeji.constantcharge.data.entity.CurrentVoltage;
 import com.hengchongkeji.constantcharge.data.entity.Equipment;
 import com.hengchongkeji.constantcharge.data.entity.Station;
-import com.hengchongkeji.constantcharge.data.entity.Temperature;
 import com.hengchongkeji.constantcharge.http.BaseAction;
 import com.hengchongkeji.constantcharge.http.BaseResponse;
 import com.hengchongkeji.constantcharge.http.IHttpRequest;
@@ -45,33 +41,26 @@ public class DataFactory {
     private class DataLocalSource implements IDataSource {
 
         @Override
-        public void getChargeDetailData(Context context, IHttpRequest.OnResponseListener<ChargeDetailData> listener) {
+        public void getEquipmentData(Context context, String s, IHttpRequest.OnResponseListener<Equipment> listener) {
             Random random = new Random();
-            ChargeDetailData chargeDetailData = new ChargeDetailData();
-            chargeDetailData.mPercent = String.valueOf(random.nextInt(100));
-            chargeDetailData.mCompleteTime = "5小时6分";
-            chargeDetailData.mChargeTime = "8小时15分";
-            chargeDetailData.mChargeMoney = "¥250元";
-            chargeDetailData.mChargeCount = "200.4kw/h";
-            chargeDetailData.mMaxTemperature = String.valueOf(100 + random.nextInt(10));
-            chargeDetailData.mMinTemperature = "50";
-            chargeDetailData.mMaxVoltages = String.valueOf(700 + random.nextInt(10));
-            chargeDetailData.mMinVoltages = "500";
-            List<CurrentVoltage> currentVoltages = new ArrayList<>();
-            List<Temperature> temperatures = new ArrayList<>();
-            for (int i = 0; i < 24; i++) {
-                CurrentVoltage currentVoltage = new CurrentVoltage();
-                Temperature temperature = new Temperature();
-                currentVoltage.hours = String.valueOf(i + 1) + "h";
-                temperature.hour = String.valueOf(i + 1) + "h";
-                currentVoltage.currentVoltage = String.valueOf(600 + (random.nextInt(100) * ((random.nextInt(2) % 2) == 1 ? 1 : -1)));
-                temperature.temperature = String.valueOf(50 + random.nextInt(50));
-                currentVoltages.add(currentVoltage);
-                temperatures.add(temperature);
-            }
-            chargeDetailData.mCurrentVoltages = currentVoltages;
-            chargeDetailData.mTemperatures = temperatures;
-            listener.onSuccess(chargeDetailData);
+            Equipment equipment = new Equipment();
+            equipment.setPercent("1");
+//            chargeDetailData.mCompleteTime = "5小时6分";
+            equipment.setStartTime("0分");
+            equipment.setElectriciryS("0w/h");
+            equipment.setChargeVoltage(String.valueOf(600 + (random.nextInt(100) * ((random.nextInt(2) % 2) == 1 ? 1 : -1))));
+            equipment.setChargeCurrent(String.valueOf(50 + random.nextInt(50)));
+            listener.onSuccess(equipment);
+        }
+
+        @Override
+        public void startEquipment(Context context, String pileId, IHttpRequest.OnResponseListener listener) {
+            listener.onSuccess(null);
+        }
+
+        @Override
+        public void stopEquipment(Context context, IHttpRequest.OnResponseListener listener) {
+            listener.onSuccess(null);
         }
 
         @Override
@@ -89,8 +78,6 @@ public class DataFactory {
                 Station makerInfo = new Station();
                 makerInfo.setLatLng(latLng);
                 makerInfo.setAddress(textArray[i + 2].toString());
-                makerInfo.setTotalPile(textArray[i + 3].toString());
-                makerInfo.setFreePile(textArray[i + 4].toString());
                 makerInfo.setPredictFreePileTime(textArray[i + 5].toString());
                 makerInfo.setDistance(String.valueOf((int) DistanceUtil.getDistance(curLatLng, latLng)));
                 makerInfo.setPredictReachTime((int) (Double.valueOf(makerInfo.getDistance()) / 1000) + "分钟");
@@ -117,15 +104,19 @@ public class DataFactory {
             int[] ints = new int[]{R.drawable.introduction_img_0, R.drawable.introduction_img_1, R.drawable.introduction_img_2};
             listener.onSuccess(ints);
         }
+
+        @Override
+        public void getStationFeeByIDd(Context context, String stationId, IHttpRequest.OnResponseListener listener) {
+
+        }
     }
 
     private class DataRemoteSource extends BaseAction implements IDataSource {
-        private final String GET_LAT_LNG_NEAR_BY = BASE_URL + "queryAllStation";
-
-        @Override
-        public void getChargeDetailData(Context context, IHttpRequest.OnResponseListener<ChargeDetailData> listener) {
-
-        }
+        private final String GET_LAT_LNG_NEAR_BY_URL = BASE_URL + "queryAllStation";
+        private final String GET_STATION_FEE_URL = BASE_URL + "queryFee";
+        private final String GET_PILE_DATA_URL = BASE_URL + "chargeInfo";
+        private final String START_CHARGE_URL = BASE_URL + "charge";
+        private final String STOP_CHARGE_URL = BASE_URL + "stop";
 
         @Override
         public void getChargeBalance(IHttpRequest.OnResponseListener<String> listener) {
@@ -134,20 +125,12 @@ public class DataFactory {
 
         @Override
         public void getLatLngNearby(Context context, final LatLng curLatLng, final IHttpRequest.OnResponseListener<List<Station>> listener) {
-            getRequest(context).post(GET_LAT_LNG_NEAR_BY, new String[]{}, new String[]{}, TypeToken.get(LatLngNearbyResponse.class), new IHttpRequest.OnResponseListener<LatLngNearbyResponse>() {
+            getRequest(context).post(GET_LAT_LNG_NEAR_BY_URL, new String[]{}, new String[]{}, TypeToken.get(LatLngNearbyResponse.class), new IHttpRequest.OnResponseListener<LatLngNearbyResponse>() {
                 @Override
                 public void onSuccess(LatLngNearbyResponse o) {
                     for (Station station : o.stationInfo) {
                         LatLng latLng = new LatLng(Double.valueOf(station.getStationLat()), Double.valueOf(station.getStationLng()));
                         station.setLatLng(latLng);
-                        int i = 0;
-                        for (Equipment equipment : station.getList()) {
-                            if (TextUtils.equals("1", equipment.getStatus())) {
-                                i += 1;
-                            }
-                        }
-                        station.setFreePile(String.valueOf(i));
-                        station.setTotalPile(String.valueOf(station.getList().size()));
                         station.setDistance(String.valueOf((int) DistanceUtil.getDistance(curLatLng, latLng)));
                         station.setPredictReachTime((int) (Double.valueOf(station.getDistance()) / 1000) + "分钟");
                     }
@@ -171,11 +154,51 @@ public class DataFactory {
         public void getIntroductionImgUrl(IHttpRequest.OnResponseListener<int[]> listener) {
 
         }
+
+        @Override
+        public void getStationFeeByIDd(Context context, String stationId, final IHttpRequest.OnResponseListener<Station> listener) {
+            getRequest(context).post(GET_STATION_FEE_URL, new String[]{"stationId"}, new String[]{stationId}, TypeToken.get(StationFeeResponse.class), new IHttpRequest.OnResponseListener<StationFeeResponse>() {
+                @Override
+                public void onSuccess(StationFeeResponse o) {
+                    listener.onSuccess(o.getData());
+                }
+
+                @Override
+                public void onFail(String errorMsg) {
+                    listener.onFail(errorMsg);
+                }
+            });
+        }
+
+        @Override
+        public void getEquipmentData(Context context, String pileId, final IHttpRequest.OnResponseListener<Equipment> listener) {
+            getRequest(context).post(GET_PILE_DATA_URL, new String[]{"equipmentId"}, new String[]{pileId}, new IHttpRequest.OnResponseListener<EquipmentResponse>() {
+                @Override
+                public void onSuccess(EquipmentResponse o) {
+                    listener.onSuccess(o.getData());
+                }
+
+                @Override
+                public void onFail(String errorMsg) {
+                    listener.onFail(errorMsg);
+                }
+            });
+        }
+
+        @Override
+        public void startEquipment(Context context, String pileId, IHttpRequest.OnResponseListener listener) {
+            getRequest(context).post(START_CHARGE_URL, new String[]{"equipmentId"}, new String[]{pileId}, listener);
+        }
+
+        @Override
+        public void stopEquipment(Context context, IHttpRequest.OnResponseListener listener) {
+            getRequest(context).post(STOP_CHARGE_URL, new String[]{}, new String[]{}, listener);
+        }
     }
 
-    static class LatLngNearbyResponse extends BaseResponse {
+    private static class LatLngNearbyResponse extends BaseResponse {
 
-        public List<Station> getStationInfo() {
+        List<Station> getStationInfo() {
             return stationInfo;
         }
 
@@ -185,4 +208,29 @@ public class DataFactory {
 
         private List<Station> stationInfo;
     }
+
+    private static class StationFeeResponse extends BaseResponse {
+        private Station data;
+
+        public Station getData() {
+            return data;
+        }
+
+        public void setData(Station data) {
+            this.data = data;
+        }
+    }
+
+    private static class EquipmentResponse extends BaseResponse {
+        private Equipment data;
+
+        public Equipment getData() {
+            return data;
+        }
+
+        public void setData(Equipment data) {
+            this.data = data;
+        }
+    }
+
 }

@@ -90,26 +90,12 @@ public class OkHttpRequest implements IHttpRequest {
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
-                    if (BuildConfig.DEBUG)
-                     ThreadUtils.runOnMainThread(new Runnable() {
-                         @Override
-                         public void run() {
-                             try {
-                                 listener.onFail(response.body().string());
-                             } catch (IOException e) {
-                                 e.printStackTrace();
-                                 listener.onFail(mContext.getString(R.string.net_server_error));
-                             }
-                         }
-                     });
-                    else{
-                        ThreadUtils.runOnMainThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                listener.onFail(mContext.getString(R.string.net_server_error));
-                            }
-                        });
-                    }
+                    ThreadUtils.runOnMainThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onFail(mContext.getString(R.string.net_server_error));
+                        }
+                    });
                     return;
                 }
                 String result = response.body().string();
@@ -181,7 +167,7 @@ public class OkHttpRequest implements IHttpRequest {
 
     private void returnObj(String result, TypeToken token, final OnResponseListener listener) {
         Gson gson = new Gson();
-        final BaseResponse response = gson.fromJson(result,token.getType());
+        final BaseResponse response = gson.fromJson(result, token.getType());
         ThreadUtils.runOnMainThread(new Runnable() {
             @Override
             public void run() {

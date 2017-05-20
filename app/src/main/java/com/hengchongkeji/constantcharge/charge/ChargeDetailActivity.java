@@ -16,18 +16,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hengchongkeji.constantcharge.ActionBarActivity;
+import com.hengchongkeji.constantcharge.ChargeApplication;
 import com.hengchongkeji.constantcharge.DaggerActivityComponent;
 import com.hengchongkeji.constantcharge.R;
-import com.hengchongkeji.constantcharge.data.entity.ChargeDetailData;
-import com.hengchongkeji.constantcharge.data.entity.CurrentVoltage;
-import com.hengchongkeji.constantcharge.data.entity.Temperature;
+import com.hengchongkeji.constantcharge.data.entity.Equipment;
 import com.hengchongkeji.constantcharge.data.source.DataFactory;
 import com.hengchongkeji.constantcharge.executor.ThreadExecutor;
 import com.hengchongkeji.constantcharge.http.IHttpRequest;
 import com.hengchongkeji.constantcharge.view.RingProgress;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.inject.Inject;
 
@@ -55,17 +61,33 @@ public class ChargeDetailActivity extends ActionBarActivity {
     ViewPager mViewPager;
     TextView mPercentTv;
     TextView mTimeTv;
-    Button mStopChargeBtn;
+    Button mControlBtn;
     Map<LinearLayout, View[]> mLayoutViewMap;
     Fragment[] fragments = new Fragment[2];
-    ChargeDetailData mChargeDetailData;
     @Inject
     ThreadExecutor mThreadExecutor;
-    public static final String TO_CHARGE_DETAIL_ACTIVITY_ARGS = "charge_detail_activity_info";
+    public static final String EQUIPMENT_ID = "equipment_id";
+
+    private List<String> mVoltageList;
+    private List<String> mCurrentList;
+    private long mLastTimeLong;
+    private List<String> mTimeTextList;
+    SimpleDateFormat mSdf;
+    private int mMaxCurrent;
+    private int mMinCurrent;
+    private int mMaxVoltage;
+    private int mMinVoltage;
+
+    private boolean isStartCharge = false;
+    private String mEquipmentId;
+
+    private TimerTask mTimerTask;
+    private Timer mTimer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mEquipmentId = getIntent().getStringExtra(EQUIPMENT_ID);
         setContentView(R.layout.activity_charge_detail);
     }
 
@@ -76,26 +98,29 @@ public class ChargeDetailActivity extends ActionBarActivity {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadData();
+                loadData(true);
             }
         });
         mRefreshLayout.setRefreshing(true);
-        loadData();
+        loadData(false);
     }
 
     @Override
     protected void initData() {
+        mCurrentList = new ArrayList<>();
+        mVoltageList = new ArrayList<>();
+        mTimeTextList = new ArrayList<>();
+        mSdf = new SimpleDateFormat("mm:ss", Locale.CHINA);
     }
 
-    private void loadData() {
+    private void loadData(final boolean isPullRefresh) {
         mThreadExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                DataFactory.getInstance().getDataSource(true).getChargeDetailData(ChargeDetailActivity.this, new IHttpRequest.OnResponseListener<ChargeDetailData>() {
+                DataFactory.getInstance().getDataSource(true).getEquipmentData(ChargeDetailActivity.this, mEquipmentId, new IHttpRequest.OnResponseListener<Equipment>() {
                     @Override
-                    public void onSuccess(ChargeDetailData chargeDetailData) {
-                        mChargeDetailData = chargeDetailData;
-                        fragments = initViewData(mChargeDetailData);
+                    public void onSuccess(final Equipment equipment) {
+                        fragments = getFragments(equipment, isPullRefresh);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -103,26 +128,48 @@ public class ChargeDetailActivity extends ActionBarActivity {
                                     isInflater = true;
                                     inflater(mViewStub.inflate());
                                 }
-                                mRingProgress.setProgress(Integer.valueOf(mChargeDetailData.mPercent) * 360 / 100);
-                                mPercentTv.setText(mChargeDetailData.mPercent + "%");
-                                mTimeTv.setText("预计" + mChargeDetailData.mCompleteTime + "后充电完成");
+                                if (isStartCharge) {
+                                    mRingProgress.setProgress(Integer.valueOf(equipment.getPercent()) * 360 / 100);
+                                    mPercentTv.setText(equipment.getPercent() + "%");
+//                                mTimeTv.setText("预计" + chargeDetailData.mCompleteTime + "后充电完成");
 
-                                for (int i = 0; i < mLayouts.length; i++) {
-                                    View[] vs = mLayoutViewMap.get(mLayouts[i]);
-                                    TextView tv1 = (TextView) vs[1];
-                                    switch (i) {
-                                        case 0:
-                                            tv1.setText(mChargeDetailData.mChargeTime);
-                                            break;
-                                        case 1:
-                                            tv1.setText(mChargeDetailData.mChargeMoney);
-                                            break;
-                                        case 2:
-                                            tv1.setText(mChargeDetailData.mChargeCount);
-                                            break;
+                                    for (int i = 0; i < mLayouts.length; i++) {
+                                        View[] vs = mLayoutViewMap.get(mLayouts[i]);
+                                        TextView tv1 = (TextView) vs[1];
+                                        switch (i) {
+                                            case 0:
+                                                tv1.setText(equipment.getStartTime() + "小时");
+                                                break;
+                                            case 1:
+                                                tv1.setText(ChargeApplication.getInstance().getUser().getBalance());
+                                                break;
+                                            case 2:
+                                                tv1.setText(equipment.getElectriciryS());
+                                                break;
+                                        }
+                                    }
+                                    mViewPager.getAdapter().notifyDataSetChanged();
+                                } else {
+                                    mRingProgress.setProgress(Integer.valueOf(0 * 360 / 100));
+                                    mPercentTv.setText(0 + "%");
+//                                mTimeTv.setText("预计" + chargeDetailData.mCompleteTime + "后充电完成");
+
+                                    for (int i = 0; i < mLayouts.length; i++) {
+                                        View[] vs = mLayoutViewMap.get(mLayouts[i]);
+                                        TextView tv1 = (TextView) vs[1];
+                                        switch (i) {
+                                            case 0:
+                                                tv1.setText(0 + "小时");
+                                                break;
+                                            case 1:
+                                                tv1.setText(ChargeApplication.getInstance().getUser().getBalance());
+                                                break;
+                                            case 2:
+                                                tv1.setText("0");
+                                                break;
+                                        }
                                     }
                                 }
-                                mViewPager.getAdapter().notifyDataSetChanged();
                                 mRefreshLayout.setRefreshing(false);
                             }
                         });
@@ -137,45 +184,54 @@ public class ChargeDetailActivity extends ActionBarActivity {
         });
     }
 
-    private Fragment[] initViewData(ChargeDetailData chargeDetailData) {
+    private void initFragmentListData(Equipment equipment, boolean isPullRefresh) {
+        if (isStartCharge) {
+            long currentTimeMillis = System.currentTimeMillis();
+            if (currentTimeMillis - mLastTimeLong > 10000 || isPullRefresh || mCurrentList.size() < 3) {
+                mCurrentList.add(equipment.getChargeCurrent());
+                mVoltageList.add(equipment.getChargeVoltage());
+
+                int tempCurrentInt = Integer.parseInt(equipment.getChargeCurrent());
+                if (tempCurrentInt > mMaxCurrent) {
+                    mMaxCurrent = tempCurrentInt;
+                } else if (tempCurrentInt < mMinCurrent || mMinCurrent == 0) {
+                    mMinCurrent = tempCurrentInt;
+                }
+                if (mMinCurrent == 0){
+                    mMinCurrent = tempCurrentInt;
+                }
+
+                int tempVoltageInt = Integer.parseInt(equipment.getChargeVoltage());
+                if (tempVoltageInt > mMaxVoltage) {
+                    mMaxVoltage = tempVoltageInt;
+                } else if (tempVoltageInt < mMinVoltage){
+                    mMinVoltage = tempVoltageInt;
+                }
+                if (mMinVoltage == 0){
+                    mMinVoltage = tempVoltageInt;
+                }
+                mLastTimeLong = currentTimeMillis;
+                mTimeTextList.add(mSdf.format(new Date(currentTimeMillis)));
+            }
+        }
+
+    }
+
+    private Fragment[] getFragments(Equipment equipment, boolean isPullRefresh) {
+        initFragmentListData(equipment, isPullRefresh);
         Fragment[] fragments = new Fragment[2];
-        int cvSize = chargeDetailData.mCurrentVoltages.size();
-        String[] currHours = new String[cvSize];
-        String[] currStrings = new String[cvSize];
-        for (int i = 0; i < cvSize; i++) {
-            CurrentVoltage currentVoltage = mChargeDetailData.mCurrentVoltages.get(i);
-            currHours[i] = currentVoltage.hours;
-            currStrings[i] = currentVoltage.currentVoltage;
-        }
-        Bundle args0 = new Bundle();
-        args0.putStringArray(ChargeDetailBaseFragment.MONTH_TEXT, currHours);
-        args0.putStringArray(ChargeDetailBaseFragment.SCORE, currStrings);
-        args0.putString(ChargeDetailBaseFragment.KEY, getString(R.string.charge_detail_max_voltage));
-        args0.putString(ChargeDetailBaseFragment.VALUE, chargeDetailData.mMaxVoltages + "KW");
-        args0.putString(ChargeDetailBaseFragment.MIN_SCORE, chargeDetailData.mMinVoltages);
-        args0.putString(ChargeDetailBaseFragment.MAX_SCORE, chargeDetailData.mMaxVoltages);
-        ChargeDetailBaseFragment fragment0 = ChargeDetailBaseFragment.getInstance(args0);
-        fragments[0] = fragment0;
-
-
-        int tSize = chargeDetailData.mTemperatures.size();
-        String[] tHours = new String[tSize];
-        String[] tStrings = new String[tSize];
-        for (int i = 0; i < cvSize; i++) {
-            Temperature temperature = mChargeDetailData.mTemperatures.get(i);
-            tHours[i] = temperature.hour;
-            tStrings[i] = temperature.temperature;
-        }
-        Bundle args1 = new Bundle();
-        args1.putStringArray(ChargeDetailBaseFragment.MONTH_TEXT, tHours);
-        args1.putStringArray(ChargeDetailBaseFragment.SCORE, tStrings);
-        args1.putString(ChargeDetailBaseFragment.KEY, getString(R.string.charge_detail_max_temperature));
-        args1.putString(ChargeDetailBaseFragment.VALUE, chargeDetailData.mMaxTemperature + "°");
-        args1.putString(ChargeDetailBaseFragment.MIN_SCORE, chargeDetailData.mMinTemperature);
-        args1.putString(ChargeDetailBaseFragment.MAX_SCORE, chargeDetailData.mMaxTemperature);
-        ChargeDetailBaseFragment fragment1 = ChargeDetailBaseFragment.getInstance(args1);
-        fragments[1] = fragment1;
+        fragments[0] = getFragment(mVoltageList, mMinVoltage, mMaxVoltage);
+        fragments[1] = getFragment(mCurrentList, mMinCurrent, mMaxCurrent);
         return fragments;
+    }
+
+    private Fragment getFragment(List<String> scoreList, int min, int max) {
+        Bundle args = new Bundle();
+        args.putStringArray(ChargeDetailBaseFragment.MONTH_TEXT, mTimeTextList.toArray(new String[mTimeTextList.size()]));
+        args.putStringArray(ChargeDetailBaseFragment.SCORE, scoreList.toArray(new String[scoreList.size()]));
+        args.putString(ChargeDetailBaseFragment.MIN_SCORE, String.valueOf(min));
+        args.putString(ChargeDetailBaseFragment.MAX_SCORE, String.valueOf(max));
+        return ChargeDetailBaseFragment.getInstance(args);
     }
 
     private void inflater(View root) {
@@ -187,11 +243,52 @@ public class ChargeDetailActivity extends ActionBarActivity {
         mViewPager = (ViewPager) root.findViewById(R.id.chargeDetailVpId);
         mPercentTv = (TextView) root.findViewById(R.id.chargeDetailPercentTvId);
         mTimeTv = (TextView) root.findViewById(R.id.chargeDetailTimeTvId);
-        mStopChargeBtn = (Button) root.findViewById(R.id.chargeDetailEndId);
-        mStopChargeBtn.setOnClickListener(new View.OnClickListener() {//结束充电
+        mControlBtn = (Button) root.findViewById(R.id.chargeDetailEndId);
+        mControlBtn.setOnClickListener(new View.OnClickListener() {//结束充电
             @Override
             public void onClick(View v) {
+                mPd.show();
+                if (isStartCharge) {
+                    DataFactory.getInstance().getDataSource(true).stopEquipment(ChargeDetailActivity.this, new IHttpRequest.OnResponseListener() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            mPd.dismiss();
+                            isStartCharge = false;
+                            mControlBtn.setText(ChargeDetailActivity.this.getString(R.string.charge_detail_start_charge));
+                            mTimer.cancel();
+                        }
 
+                        @Override
+                        public void onFail(String errorMsg) {
+                            mPd.dismiss();
+                            showSnackbar(errorMsg);
+                        }
+                    });
+                } else {
+                    DataFactory.getInstance().getDataSource(true).startEquipment(ChargeDetailActivity.this, mEquipmentId, new IHttpRequest.OnResponseListener() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            mPd.dismiss();
+                            isStartCharge = true;
+                            mControlBtn.setText(ChargeDetailActivity.this.getString(R.string.charge_detail_end_charge));
+                            mTimer = new Timer();
+                            mTimerTask = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    loadData(false);
+                                }
+                            };
+                            mTimer.schedule(mTimerTask, 10000,10000);
+                        }
+
+                        @Override
+                        public void onFail(String errorMsg) {
+                            mPd.dismiss();
+                            showSnackbar(errorMsg);
+                            mTimer.purge();
+                        }
+                    });
+                }
             }
         });
         mLayouts = new LinearLayout[]{mTimeLl, mMoneyLl, mCountLl};
@@ -272,4 +369,9 @@ public class ChargeDetailActivity extends ActionBarActivity {
         DaggerActivityComponent.builder().applicationComponent(getApplicationComponent()).activityModule(getActivityModule()).build().inject(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mTimer.cancel();
+    }
 }
